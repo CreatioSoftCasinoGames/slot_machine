@@ -10,7 +10,7 @@ set :whenever_environment, defer { 'production' }
 
 
 # Application configuration
-set :application, 'coinclub'
+set :application, 'slot_machine'
 set :repository,  'git@github.com:creatiosoft/slot_machine.git'
 set :scm, :git
 set :branch, 'master'
