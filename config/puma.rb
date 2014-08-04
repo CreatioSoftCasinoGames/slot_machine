@@ -3,7 +3,7 @@
 # start puma with:
 # RAILS_ENV=production bundle exec puma -C ./config/puma.rb
 
-application_path = '/var/www/slot_machine/current'
+application_path = '/home/w3villa/slot_machine/current'
 railsenv = 'production'
 directory application_path
 environment railsenv
