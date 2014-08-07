@@ -1,0 +1,2 @@
+module PayTablesHelper
+end

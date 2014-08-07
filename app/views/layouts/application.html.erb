@@ -23,7 +23,20 @@
         <a class="navbar-brand" href="/">OET Services</a>
         <div class="navbar-collapse collapse navbar-responsive-collapse pull-right">
         </div>
+        <% if user_signed_in? %>
+          <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to "Games", games_path %></li>
+            <li><%= link_to "Slots", slots_path %></li>
+            <li><%= link_to "Pay Lines", pay_lines_path %></li>
+            <li><%= link_to "Pay Tables", pay_tables_path %></li>
+            <li><%= link_to "Reels", reels_path %></li>
+            <li><%= link_to "Stamps", stamps_path %></li>
+            <li><%= link_to("Logout", destroy_user_session_path, :method => :delete) %></li>
+          </ul>
+        <% end %>
       </div>
+      
+      
     </div>
 
     <div class="container">

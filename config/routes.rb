@@ -1,5 +1,18 @@
 Rails.application.routes.draw do
 
+  resources :pay_lines
+
+  resources :reels
+
+  resources :pay_tables
+
+  resources :stamps
+
+  resources :slots
+
+  resources :games
+
+  devise_for :users
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
