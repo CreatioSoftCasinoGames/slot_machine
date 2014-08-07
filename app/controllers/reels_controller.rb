@@ -69,6 +69,6 @@ class ReelsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def reel_params
-      params.require(:reel).permit(:stamp_id, :position)
+      params.require(:reel).permit(:stamp_id, :position, :slot_id, :label)
     end
 end

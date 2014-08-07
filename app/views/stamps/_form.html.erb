@@ -1,26 +1,34 @@
 <%= form_for @stamp, :html => { :class => 'form-horizontal' } do |f| %>
+
   <div class="form-group">
-    <%= f.label :name, :class => 'control-label' %>
-    <div class="controls">
+    <%= f.label :slot_id, :class => 'col-sm-2 col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.select :slot_id, options_for_select( Slot.all.collect { |s| [ s.name, s.id ] }, @stamp.slot_id), {}, :class => 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :name, :class => 'col-sm-2 col-sm-2 control-label' %>
+    <div class="col-sm-10">
       <%= f.text_field :name, :class => 'form-control' %>
     </div>
   </div>
   <div class="form-group">
-    <%= f.label :description, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :description, :class => 'form-control' %>
+    <%= f.label :description, :class => 'col-sm-2 col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_area :description, :class => 'form-control' %>
     </div>
   </div>
+
   <div class="form-group">
-    <%= f.label :slot_id, :class => 'control-label' %>
-    <div class="controls">
-      <%= f.text_field :slot_id, :class => 'form-control' %>
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            stamps_path, :class => 'btn btn-default' %>
     </div>
   </div>
 
   
-  <%= f.submit nil, :class => 'btn btn-primary' %>
-  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-            stamps_path, :class => 'btn btn-default' %>
+  
  
 <% end %>
