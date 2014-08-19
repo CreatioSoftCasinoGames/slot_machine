@@ -11,6 +11,10 @@ class Api::V1::GamesController < ApplicationController
 						pay_tables: {
 							only: [:count, :points],
 							methods: [:symbol]
+						},
+						images: {
+							only: [:label],
+							methods: [:url]
 						}
 					}
 				}

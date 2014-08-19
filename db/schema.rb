@@ -11,11 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140807124836) do
+ActiveRecord::Schema.define(version: 20140819184259) do
 
   create_table "games", force: true do |t|
     t.string   "name"
     t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "images", force: true do |t|
+    t.integer  "resource_id"
+    t.string   "resource_type"
+    t.string   "label"
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

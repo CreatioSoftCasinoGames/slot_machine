@@ -1,0 +1,48 @@
+<%- model_class = Image -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:id) %></th>
+      <th><%= model_class.human_attribute_name(:resource_id) %></th>
+      <th><%= model_class.human_attribute_name(:resource_type) %></th>
+      <th><%= model_class.human_attribute_name(:label) %></th>
+      <th><%= model_class.human_attribute_name(:file_file_name) %></th>
+      <th><%= model_class.human_attribute_name(:file_content_type) %></th>
+      <th><%= model_class.human_attribute_name(:file_file_size) %></th>
+      <th><%= model_class.human_attribute_name(:file_updated_at) %></th>
+      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @images.each do |image| %>
+      <tr>
+        <td><%= link_to image.id, image_path(image) %></td>
+        <td><%= image.resource_id %></td>
+        <td><%= image.resource_type %></td>
+        <td><%= image.label %></td>
+        <td><%= image.file_file_name %></td>
+        <td><%= image.file_content_type %></td>
+        <td><%= image.file_file_size %></td>
+        <td><%= image.file_updated_at %></td>
+        <td><%=l image.created_at %></td>
+        <td>
+          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+                      edit_image_path(image), :class => 'btn btn-default btn-xs' %>
+          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+                      image_path(image),
+                      :method => :delete,
+                      :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+                      :class => 'btn btn-xs btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_image_path,
+            :class => 'btn btn-primary' %>

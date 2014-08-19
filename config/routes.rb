@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :images
+
   resources :pay_lines
 
   resources :reels

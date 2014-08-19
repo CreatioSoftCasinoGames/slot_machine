@@ -35,4 +35,5 @@
   <%= link_to "New Pay Table", new_pay_table_path(slot_id: @slot.id), class: "btn btn-default" %>
   <%= link_to "New Reel", new_reel_path(slot_id: @slot.id), class: "btn btn-default" %>
   <%= link_to "New Stamps", new_pay_line_path(slot_id: @slot.id), class: "btn btn-default" %>
+  <%= link_to "New Image", new_image_path(resource_id: @slot.id, resource_type: "Slot"), class: "btn btn-default" %>
 </div>
