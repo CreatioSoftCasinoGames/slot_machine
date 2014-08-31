@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :assets
+  resources :assets, path: "capitals", controller: :assets
 
   resources :images
 

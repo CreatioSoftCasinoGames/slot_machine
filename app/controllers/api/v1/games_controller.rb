@@ -3,7 +3,7 @@ class Api::V1::GamesController < Api::V1::ApplicationController
 	def index
 		@games = Game.all
 		render json: @games.as_json({
-				only: [:name]
+				only: [:name, :id]
 			})
 	end
 
