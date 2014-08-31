@@ -8,7 +8,14 @@ class MathModel < ActiveRecord::Base
 
 	def as_json(options={})
     super({
-      only: [:name]
+      only: [:name],
+      methods: [:pay_line_coordinates, :reel_series],
+      include: {
+        pay_tables: {
+          only: [:count, :points],
+          methods: [:symbol]
+        }
+      } 
     }.merge(options))
   end
 

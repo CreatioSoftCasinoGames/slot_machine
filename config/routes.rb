@@ -30,6 +30,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       get "/versions" => "welcome#versions"
       resources :games
+      resources :math_models
+      resources :assets
     end
   end
 
