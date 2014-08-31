@@ -7,8 +7,6 @@
     <tr>
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:version) %></th>
-      <th><%= model_class.human_attribute_name(:resource_id) %></th>
-      <th><%= model_class.human_attribute_name(:resource_type) %></th>
       <th><%= model_class.human_attribute_name(:file_file_name) %></th>
       <th><%= model_class.human_attribute_name(:file_content_type) %></th>
       <th><%= model_class.human_attribute_name(:file_file_size) %></th>
@@ -23,8 +21,6 @@
       <tr>
         <td><%= link_to asset.id, asset_path(asset) %></td>
         <td><%= asset.version %></td>
-        <td><%= asset.resource_id %></td>
-        <td><%= asset.resource_type %></td>
         <td><%= asset.file_file_name %></td>
         <td><%= asset.file_content_type %></td>
         <td><%= asset.file_file_size %></td>

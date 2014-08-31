@@ -1,6 +1,6 @@
 <%= form_for @asset, :html => { :class => 'form-horizontal' } do |f| %>
 
-  <%= f.hidden_field :game_id, value: params[:game_id] %>
+  <%= f.hidden_field :game_id, value: (params[:game_id] || @asset.game_id) %>
 
   <div class="form-group">
     <%= f.label :version, :class => 'col-sm-2 control-label' %>
@@ -23,7 +23,7 @@
   <div class="form-group">
     <%= f.label :bundle_type, :class => 'col-sm-2 control-label' %>
     <div class="col-sm-5">
-      <%= f.text_field :bundle_type, :class => 'form-control' %>
+      <%= f.select :bundle_type, options_for_select(["MINIGAME", "GAMEUI", "SLOTMACHINE", "ALL"], @asset.bundle_type), {}, :class => 'form-control' %>
     </div>
   </div>
   <div class="form-group">
@@ -34,17 +34,13 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :active, :class => 'col-sm-2 control-label' %>
-    <div class="col-sm-5">
-      <%= f.text_field :active, :class => 'form-control' %>
-    </div>
-  </div>
-
-  <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">  
-      <%= f.submit nil, :class => 'btn btn-primary' %>
-      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-            assets_path, :class => 'btn btn-default' %>    
+      <label class="checkbox-inline"><%= f.check_box :active %> Active</lable>
+      <div>
+        <%= f.submit nil, :class => 'btn btn-primary' %>
+        <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+              assets_path, :class => 'btn btn-default' %>    
+      </div>
     </div>
   </div>
  
