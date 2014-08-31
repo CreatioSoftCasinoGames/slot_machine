@@ -4,6 +4,7 @@ common: &default_settings
   :bucket: <%= API_CONFIG['amazon_bucket_name'] %>
 
 production: &production
+
   :images:
     :file:
       :storage: !ruby/symbol s3
@@ -20,6 +21,18 @@ production: &production
       :path: '/images/:resource_type/:id-:style.:extension'
       :convert_options:
         :all: '-strip -auto-orient -colorspace sRGB'
+
+  :assets:
+    :file:
+      :storage: !ruby/symbol s3
+      :s3_protocol: :http
+      :s3_credentials:
+        <<: *default_settings
+      :s3_permissions:
+        :original: :public_read
+      :default_url: '/assets/missing.png'
+      :url: ":s3_domain_url"
+      :path: '/assets/:resource_type/:id-:style.:extension'
 
 development:
   <<: *production

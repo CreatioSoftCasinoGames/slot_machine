@@ -11,7 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140819184259) do
+ActiveRecord::Schema.define(version: 20140831103706) do
+
+  create_table "assets", force: true do |t|
+    t.string   "version"
+    t.integer  "resource_id"
+    t.string   "resource_type"
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "country"
+    t.string   "label"
+    t.boolean  "is_permanent"
+    t.string   "bundle_type"
+  end
 
   create_table "games", force: true do |t|
     t.string   "name"
@@ -32,20 +48,28 @@ ActiveRecord::Schema.define(version: 20140819184259) do
     t.datetime "updated_at"
   end
 
+  create_table "math_models", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "game_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "pay_lines", force: true do |t|
     t.string   "label"
     t.integer  "x"
     t.integer  "y"
-    t.integer  "slot_id"
+    t.integer  "math_model_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "pay_tables", force: true do |t|
-    t.decimal  "count",      precision: 10, scale: 0
+    t.decimal  "count",         precision: 10, scale: 0
     t.integer  "stamp_id"
-    t.integer  "slot_id"
-    t.decimal  "points",     precision: 10, scale: 0
+    t.integer  "math_model_id"
+    t.decimal  "points",        precision: 10, scale: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -55,22 +79,14 @@ ActiveRecord::Schema.define(version: 20140819184259) do
     t.integer  "position"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "slot_id"
+    t.integer  "math_model_id"
     t.string   "label"
-  end
-
-  create_table "slots", force: true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.integer  "game_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "stamps", force: true do |t|
     t.string   "name"
     t.text     "description"
-    t.integer  "slot_id"
+    t.integer  "math_model_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

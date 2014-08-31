@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  version: MyString
+  resource_id: 1
+  resource_type: MyString
+  file: 
+
+two:
+  version: MyString
+  resource_id: 1
+  resource_type: MyString
+  file: 

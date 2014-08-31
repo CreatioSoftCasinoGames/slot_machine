@@ -1,10 +1,9 @@
-class Slot < ActiveRecord::Base
+class MathModel < ActiveRecord::Base
 
 	has_many :pay_lines
 	has_many :pay_tables
 	has_many :reels, -> { order("position ASC") }
 	has_many :stamps
-  has_many :images, as: :resource
 
 	def as_json(options={})
     super({

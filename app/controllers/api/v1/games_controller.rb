@@ -1,4 +1,4 @@
-class Api::V1::GamesController < ApplicationController
+class Api::V1::GamesController < Api::V1::ApplicationController
 
 	def show
 		@game = Game.where(id: params[:id]).first
@@ -12,8 +12,8 @@ class Api::V1::GamesController < ApplicationController
 							only: [:count, :points],
 							methods: [:symbol]
 						},
-						images: {
-							only: [:label],
+						assets: {
+							only: [:label, :version, :is_permanent, :file_file_size, :file_updated_at, :country, :bundle_type],
 							methods: [:url]
 						}
 					}
