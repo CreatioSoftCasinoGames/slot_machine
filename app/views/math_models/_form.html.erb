@@ -1,0 +1,96 @@
+<%= form_for @math_model, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="form-group">
+    <%= f.label :name, :class => 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_field :name, :class => 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :game_id, :class => 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.select :game_id, options_for_select( Game.all.collect { |g| [ g.name, g.id ] }, @math_model.game_id), {}, :class => 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= f.label :description, :class => 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_area :description, :class => 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                math_models_path, :class => 'btn btn-default' %>
+    </div>
+  </div> 
+<% end %>
+
+<hr />
+
+<ul>
+  <li>
+    Pay Lines
+    <ul>
+      <% @math_model.pay_lines.group_by(&:label).collect do |label, lines| %>
+        <li>
+          <b><%= label %></b>
+          <ul>
+            <% lines.each do |pay_line| %>
+              <li>
+                <%= "(#{pay_line.x}, #{pay_line.y})" %>
+                <%= link_to "Edit", edit_pay_line_path(id: pay_line.id) %>
+              </li>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
+      <li><%= link_to "New Pay Line", new_pay_line_path(math_model_id: @math_model.id) %></li>
+    </ul>
+  </li>
+  <li>
+    Pay Tables
+    <ul>
+      <% @math_model.pay_tables.each do |pay_table| %>
+        <li>
+          <%= "#{pay_table.symbol}(#{pay_table.count}) -> #{pay_table.points}" %>
+          <%= link_to "Edit", edit_pay_table_path(id: pay_table.id) %>
+        </li>
+      <% end %>
+      <li><%= link_to "New Pay Table", new_pay_table_path(math_model_id: @math_model.id) %></li>
+    </ul>
+  </li>
+  <li>
+    Reels
+    <ul>
+      <li>
+      <% @math_model.reels.group_by(&:label).collect do |label, reels| %>
+        <b><%= label %></b>
+        <ul>
+          <% reels.each do |reel| %>
+            <li>
+              <%= reel.symbol %>
+              <%= link_to "Edit", edit_reel_path(id: reel.id) %>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+      <li><%= link_to "New Reel", new_reel_path(math_model_id: @math_model.id) %></li>
+    </ul>
+  </li>
+  <li>
+    Stamps
+    <ul>
+      <% @math_model.stamps.each do |stamp| %>
+        <li>
+          <%= "#{stamp.name}" %>
+          <%= link_to "Edit", edit_stamp_path(id: stamp.id) %>
+        </li>
+      <% end %>
+      <li><%= link_to "New Stamp", new_stamp_path(math_model_id: @math_model.id) %></li>
+    </ul>
+  </li>
+</ul>

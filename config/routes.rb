@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
   resources :stamps
 
-  resources :slots
+  resources :math_models
 
   resources :games
 

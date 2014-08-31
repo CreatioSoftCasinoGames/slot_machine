@@ -1,6 +1,7 @@
 class Game < ActiveRecord::Base
 
-	has_many :slots
+	has_many :math_models
+	has_many :assets
 
 	def as_json(options={})
     super({

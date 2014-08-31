@@ -11,12 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140831103706) do
+ActiveRecord::Schema.define(version: 20140831163103) do
 
   create_table "assets", force: true do |t|
     t.string   "version"
-    t.integer  "resource_id"
-    t.string   "resource_type"
     t.string   "file_file_name"
     t.string   "file_content_type"
     t.integer  "file_file_size"
@@ -25,8 +23,9 @@ ActiveRecord::Schema.define(version: 20140831103706) do
     t.datetime "updated_at"
     t.string   "country"
     t.string   "label"
-    t.boolean  "is_permanent"
+    t.boolean  "active"
     t.string   "bundle_type"
+    t.integer  "game_id"
   end
 
   create_table "games", force: true do |t|
@@ -54,6 +53,8 @@ ActiveRecord::Schema.define(version: 20140831103706) do
     t.integer  "game_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "version"
+    t.boolean  "active"
   end
 
   create_table "pay_lines", force: true do |t|

@@ -1,5 +1,7 @@
 class Asset < ActiveRecord::Base
 
+	belongs_to :game
+
 	has_attached_file :file,
   	SlotMachine::Configuration.paperclip_options[:assets][:file]
 
