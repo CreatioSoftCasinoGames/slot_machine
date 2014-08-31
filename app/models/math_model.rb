@@ -4,6 +4,7 @@ class MathModel < ActiveRecord::Base
 	has_many :pay_tables
 	has_many :reels, -> { order("position ASC") }
 	has_many :stamps
+  scope :active, -> { where(active: true) }
 
 	def as_json(options={})
     super({

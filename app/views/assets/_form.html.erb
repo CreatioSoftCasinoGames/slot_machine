@@ -1,7 +1,6 @@
 <%= form_for @asset, :html => { :class => 'form-horizontal' } do |f| %>
 
-  <%= f.hidden_field :resource_id, value: params[:resource_id] %>
-  <%= f.hidden_field :resource_type, value: params[:resource_type] %>
+  <%= f.hidden_field :game_id, value: params[:game_id] %>
 
   <div class="form-group">
     <%= f.label :version, :class => 'col-sm-2 control-label' %>
@@ -35,9 +34,9 @@
   </div>
 
   <div class="form-group">
-    <%= f.label :is_permanent, :class => 'col-sm-2 control-label' %>
+    <%= f.label :active, :class => 'col-sm-2 control-label' %>
     <div class="col-sm-5">
-      <%= f.text_field :is_permanent, :class => 'form-control' %>
+      <%= f.text_field :active, :class => 'form-control' %>
     </div>
   </div>
 

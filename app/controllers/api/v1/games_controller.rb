@@ -4,19 +4,19 @@ class Api::V1::GamesController < Api::V1::ApplicationController
 		@game = Game.where(id: params[:id]).first
 		render json: @game.as_json({
 			include: {
-				slots: {
+				active_math_model: {
 					only: [:name],
 					methods: [:pay_line_coordinates, :reel_series],
 					include: {
 						pay_tables: {
 							only: [:count, :points],
 							methods: [:symbol]
-						},
-						assets: {
-							only: [:label, :version, :is_permanent, :file_file_size, :file_updated_at, :country, :bundle_type],
-							methods: [:url]
 						}
 					}
+				},
+				active_asset: {
+					only: [:label, :version, :is_permanent, :file_file_size, :file_updated_at, :country, :bundle_type],
+					methods: [:url]
 				}
 			}
 		})

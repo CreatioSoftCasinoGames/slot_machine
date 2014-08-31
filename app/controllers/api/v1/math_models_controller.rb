@@ -1,8 +1,8 @@
-class Api::V1::SlotsController < Api::V1::ApplicationController
+class Api::V1::MathModelsController < Api::V1::ApplicationController
 
 	def show
-		@slot = Slot.where(id: params[:id]).first
-		render json: @slot.as_json({
+		@math_model = MathModel.where(id: params[:id]).first
+		render json: @math_model.as_json({
 			only: [:name],
 			methods: [:pay_line_coordinates, :reel_series],
 			include: {
@@ -19,7 +19,7 @@ class Api::V1::SlotsController < Api::V1::ApplicationController
 	end
 
 	def assets
-		@slot = Slot.where(id: params[:id]).first
+		@math_model = MathModel.where(id: params[:id]).first
 	end
 
 end

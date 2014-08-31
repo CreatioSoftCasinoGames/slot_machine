@@ -69,6 +69,6 @@ class PayLinesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pay_line_params
-      params.require(:pay_line).permit(:label, :x, :y, :slot_id)
+      params.require(:pay_line).permit(:label, :x, :y, :math_model_id)
     end
 end

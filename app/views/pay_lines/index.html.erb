@@ -9,7 +9,7 @@
       <th><%= model_class.human_attribute_name(:label) %></th>
       <th><%= model_class.human_attribute_name(:x) %></th>
       <th><%= model_class.human_attribute_name(:y) %></th>
-      <th><%= model_class.human_attribute_name(:slot_id) %></th>
+      <th><%= model_class.human_attribute_name(:math_model_id) %></th>
       <th><%= model_class.human_attribute_name(:created_at) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
@@ -21,7 +21,7 @@
         <td><%= pay_line.label %></td>
         <td><%= pay_line.x %></td>
         <td><%= pay_line.y %></td>
-        <td><%= pay_line.slot_id %></td>
+        <td><%= pay_line.math_model_id %></td>
         <td><%=l pay_line.created_at %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),

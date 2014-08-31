@@ -69,6 +69,6 @@ class PayTablesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def pay_table_params
-      params.require(:pay_table).permit(:count, :stamp_id, :slot_id, :points)
+      params.require(:pay_table).permit(:count, :stamp_id, :math_model_id, :points)
     end
 end
