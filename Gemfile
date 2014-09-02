@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 ruby '2.1.0'
 
 gem "rails-erd"
+gem 'active_model_serializers' 
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'

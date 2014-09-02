@@ -14,7 +14,7 @@
   <div class="form-group">
     <%= f.label :machine_id, :class => 'col-sm-2 control-label' %>
     <div class="col-sm-10">
-      <%= f.text_field :machine_id, :class => 'form-control' %>
+      <%= f.select :machine_id, options_for_select( Machine.all.collect { |m| [ m.name, m.id ] }, (params[:machine_id] || @mini_game.machine_id)), {}, :class => 'form-control' %>
     </div>
   </div>
 
@@ -27,3 +27,14 @@
   </div>
  
 <% end %>
+
+
+<div class="col-md-3">
+  <legend>Assets</legend>
+  <ul>
+    <% @mini_game.assets.each do |asset| %>
+      <li class="<%= "muted" unless asset.active %>"><%= "#{asset.label} -> #{link_to 'Edit', edit_asset_path(asset.id)}".html_safe %></li>
+    <% end %>
+    <li><%= link_to "New Mini Game Asset", new_asset_path(resource_id: @mini_game.id, resource_type: "MiniGame", bundle_type: ASSET_BUNDLE_TYPE[:MINI_GAME_ASSET]) %></li>
+  </ul>
+</div>

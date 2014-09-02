@@ -45,6 +45,6 @@
     <% @theme.assets.each do |asset| %>
       <li class="<%= "muted" unless asset.active %>"><%= "#{asset.label} -> #{link_to 'Edit', edit_asset_path(asset.id)}".html_safe %></li>
     <% end %>
-    <li><%= link_to "New Asset", new_asset_path(resource_id: @theme.id, resource_type: "Theme") %></li>
+    <li><%= link_to "New Asset", new_asset_path(resource_id: @theme.id, resource_type: "Theme", bundle_type: ASSET_BUNDLE_TYPE[:THEME_ASSET]) %></li>
   </ul>
 </div>
