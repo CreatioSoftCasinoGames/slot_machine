@@ -38,6 +38,16 @@ Rails.application.routes.draw do
       resources :games
       resources :math_models
       resources :assets
+      resources :themes do
+        get :asset_versions, on: :member
+      end
+      resources :machines do
+        member do
+          get :math_model_versions
+          get :in_game_asset_versions
+          get :out_game_asset_versions
+        end
+      end
     end
   end
 
