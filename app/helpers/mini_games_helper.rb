@@ -1,0 +1,2 @@
+module MiniGamesHelper
+end

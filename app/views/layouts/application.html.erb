@@ -26,11 +26,6 @@
         <% if user_signed_in? %>
           <ul class="nav navbar-nav navbar-right">
             <li><%= link_to "Games", games_path %></li>
-            <li><%= link_to "Math Models", math_models_path %></li>
-            <li><%= link_to "Pay Lines", pay_lines_path %></li>
-            <li><%= link_to "Pay Tables", pay_tables_path %></li>
-            <li><%= link_to "Reels", reels_path %></li>
-            <li><%= link_to "Stamps", stamps_path %></li>
             <li><%= link_to("Logout", destroy_user_session_path, :method => :delete) %></li>
           </ul>
         <% end %>

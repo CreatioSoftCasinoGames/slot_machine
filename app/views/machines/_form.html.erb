@@ -1,0 +1,72 @@
+<%= form_for @machine, :html => { :class => 'form-horizontal' } do |f| %>
+  <div class="form-group">
+    <%= f.label :name, :class => 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_field :name, :class => 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :description, :class => 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_field :description, :class => 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :theme_id, :class => 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.select :theme_id, options_for_select( Theme.all.collect { |t| [ t.name, t.id ] }, (params[:theme_id] || @machine.theme_id)), {}, :class => 'form-control' %>
+    </div>
+  </div>
+
+  
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">  
+      <%= f.submit nil, :class => 'btn btn-primary' %>
+      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+                machines_path, :class => 'btn btn-default' %>
+    </div>
+  </div>
+ 
+<% end %>
+
+
+<div class="col-md-3">
+  <legend>Math Models</legend>
+  <ul>
+    <% @machine.math_models.each do |math_model| %>
+      <li class="<%= "muted" unless math_model.active %>"><%= "#{math_model.name} -> #{link_to 'Edit', edit_math_model_path(math_model)}".html_safe %></li>
+    <% end %>
+    <li><%= link_to "New Math Model", new_math_model_path(machine_id: @machine.id) %></li>
+  </ul>
+</div>
+
+<div class="col-md-3">
+  <legend>Mini Game</legend>
+  <ul>
+    <% @machine.mini_games.each do |mini_game| %>
+      <li><%= "#{mini_game.name} -> #{link_to 'Edit', edit_mini_game_path(mini_game)}".html_safe %></li>
+    <% end %>
+    <li><%= link_to "New Mini Game", new_mini_game_path(machine_id: @machine.id) %></li>
+  </ul>
+</div>
+
+
+<div class="col-md-3">
+  <legend>In Game Assets</legend>
+  <ul>
+    <% @machine.in_game_assets.each do |asset| %>
+      <li class="<%= "muted" unless asset.active %>"><%= "#{asset.label} -> #{link_to 'Edit', edit_asset_path(asset.id)}".html_safe %></li>
+    <% end %>
+    <li><%= link_to "New In Game Asset", new_asset_path(resource_id: @machine.id, resource_type: "Machine", bundle_type: ASSET_BUNDLE_TYPE[:IN_GAME_ASSET]) %></li>
+  </ul>
+</div>
+
+<div class="col-md-3">
+  <legend>Out Game Assets</legend>
+  <ul>
+    <% @machine.in_game_assets.each do |asset| %>
+      <li class="<%= "muted" unless asset.active %>"><%= "#{asset.label} -> #{link_to 'Edit', edit_asset_path(asset.id)}".html_safe %></li>
+    <% end %>
+    <li><%= link_to "New Out Game Asset", new_asset_path(resource_id: @machine.id, resource_type: "Machine", bundle_type: ASSET_BUNDLE_TYPE[:OUT_GAME_ASSET]) %></li>
+  </ul>
+</div>

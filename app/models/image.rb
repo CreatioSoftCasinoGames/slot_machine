@@ -7,6 +7,8 @@ class Image < ActiveRecord::Base
   	attachment.instance.resource_type.downcase.pluralize
   end
 
+  
+
   def url
   	file.url
   end

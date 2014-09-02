@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  resources :mini_games
+
+  resources :machines
+
+  resources :themes
+
   resources :assets, path: "capitals", controller: :assets
 
   resources :images

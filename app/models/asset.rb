@@ -1,6 +1,9 @@
 class Asset < ActiveRecord::Base
 
-	belongs_to :game
+	belongs_to :theme, polymorphic: true
+  belongs_to :machine, polymorphic: true
+  belongs_to :mini_game, polymorphic: true
+
 	scope :active, -> { where(active: true) }
 
 	has_attached_file :file,

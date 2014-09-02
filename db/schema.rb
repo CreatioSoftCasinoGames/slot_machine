@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140831163103) do
+ActiveRecord::Schema.define(version: 20140902095650) do
 
   create_table "assets", force: true do |t|
     t.string   "version"
@@ -25,7 +25,8 @@ ActiveRecord::Schema.define(version: 20140831163103) do
     t.string   "label"
     t.boolean  "active"
     t.string   "bundle_type"
-    t.integer  "game_id"
+    t.integer  "resource_id"
+    t.string   "resource_type"
   end
 
   create_table "games", force: true do |t|
@@ -47,14 +48,30 @@ ActiveRecord::Schema.define(version: 20140831163103) do
     t.datetime "updated_at"
   end
 
+  create_table "machines", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "theme_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "math_models", force: true do |t|
     t.string   "name"
     t.text     "description"
-    t.integer  "game_id"
+    t.integer  "machine_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "version"
     t.boolean  "active"
+  end
+
+  create_table "mini_games", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "machine_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "pay_lines", force: true do |t|
@@ -88,6 +105,14 @@ ActiveRecord::Schema.define(version: 20140831163103) do
     t.string   "name"
     t.text     "description"
     t.integer  "math_model_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "themes", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "game_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
