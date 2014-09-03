@@ -28,7 +28,7 @@ class StampsController < ApplicationController
 
     respond_to do |format|
       if @stamp.save
-        format.html { redirect_to @stamp, notice: 'Stamp was successfully created.' }
+        format.html { redirect_to edit_stamp_path(@stamp), notice: 'Stamp was successfully created.' }
         format.json { render :show, status: :created, location: @stamp }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class StampsController < ApplicationController
   def update
     respond_to do |format|
       if @stamp.update(stamp_params)
-        format.html { redirect_to @stamp, notice: 'Stamp was successfully updated.' }
+        format.html { redirect_to edit_stamp_path(@stamp), notice: 'Stamp was successfully updated.' }
         format.json { render :show, status: :ok, location: @stamp }
       else
         format.html { render :edit }

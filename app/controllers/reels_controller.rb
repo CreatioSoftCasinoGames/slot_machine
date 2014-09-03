@@ -28,7 +28,7 @@ class ReelsController < ApplicationController
 
     respond_to do |format|
       if @reel.save
-        format.html { redirect_to @reel, notice: 'Reel was successfully created.' }
+        format.html { redirect_to edit_reel_path(@reel), notice: 'Reel was successfully created.' }
         format.json { render :show, status: :created, location: @reel }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class ReelsController < ApplicationController
   def update
     respond_to do |format|
       if @reel.update(reel_params)
-        format.html { redirect_to @reel, notice: 'Reel was successfully updated.' }
+        format.html { redirect_to edit_reel_path(@reel), notice: 'Reel was successfully updated.' }
         format.json { render :show, status: :ok, location: @reel }
       else
         format.html { render :edit }

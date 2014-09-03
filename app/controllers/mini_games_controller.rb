@@ -28,7 +28,7 @@ class MiniGamesController < ApplicationController
 
     respond_to do |format|
       if @mini_game.save
-        format.html { redirect_to @mini_game, notice: 'Mini game was successfully created.' }
+        format.html { redirect_to edit_mini_game_path(@mini_game), notice: 'Mini game was successfully created.' }
         format.json { render :show, status: :created, location: @mini_game }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class MiniGamesController < ApplicationController
   def update
     respond_to do |format|
       if @mini_game.update(mini_game_params)
-        format.html { redirect_to @mini_game, notice: 'Mini game was successfully updated.' }
+        format.html { redirect_to edit_mini_game_path(@mini_game), notice: 'Mini game was successfully updated.' }
         format.json { render :show, status: :ok, location: @mini_game }
       else
         format.html { render :edit }

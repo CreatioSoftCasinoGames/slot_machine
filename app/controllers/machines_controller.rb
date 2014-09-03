@@ -28,7 +28,7 @@ class MachinesController < ApplicationController
 
     respond_to do |format|
       if @machine.save
-        format.html { redirect_to @machine, notice: 'Machine was successfully created.' }
+        format.html { redirect_to edit_machine_path(@machine), notice: 'Machine was successfully created.' }
         format.json { render :show, status: :created, location: @machine }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class MachinesController < ApplicationController
   def update
     respond_to do |format|
       if @machine.update(machine_params)
-        format.html { redirect_to @machine, notice: 'Machine was successfully updated.' }
+        format.html { redirect_to edit_machine_path(@machine), notice: 'Machine was successfully updated.' }
         format.json { render :show, status: :ok, location: @machine }
       else
         format.html { render :edit }

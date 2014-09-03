@@ -28,7 +28,7 @@ class MathModelsController < ApplicationController
 
     respond_to do |format|
       if @math_model.save
-        format.html { redirect_to @math_model, notice: 'MathModel was successfully created.' }
+        format.html { redirect_to edit_math_model_path(@math_model), notice: 'MathModel was successfully created.' }
         format.json { render :show, status: :created, location: @math_model }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class MathModelsController < ApplicationController
   def update
     respond_to do |format|
       if @math_model.update(math_model_params)
-        format.html { redirect_to @math_model, notice: 'MathModel was successfully updated.' }
+        format.html { redirect_to edit_math_model_path(@math_model), notice: 'MathModel was successfully updated.' }
         format.json { render :show, status: :ok, location: @math_model }
       else
         format.html { render :edit }

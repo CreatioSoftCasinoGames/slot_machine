@@ -28,7 +28,7 @@ class PayTablesController < ApplicationController
 
     respond_to do |format|
       if @pay_table.save
-        format.html { redirect_to @pay_table, notice: 'Pay table was successfully created.' }
+        format.html { redirect_to edit_pay_table_path(@pay_table), notice: 'Pay table was successfully created.' }
         format.json { render :show, status: :created, location: @pay_table }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class PayTablesController < ApplicationController
   def update
     respond_to do |format|
       if @pay_table.update(pay_table_params)
-        format.html { redirect_to @pay_table, notice: 'Pay table was successfully updated.' }
+        format.html { redirect_to edit_pay_table_path(@pay_table), notice: 'Pay table was successfully updated.' }
         format.json { render :show, status: :ok, location: @pay_table }
       else
         format.html { render :edit }
