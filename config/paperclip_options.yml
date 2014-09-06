@@ -32,7 +32,7 @@ production: &production
         :original: :public_read
       :default_url: '/assets/missing.png'
       :url: ":s3_domain_url"
-      :path: '/assets/:id-:style.:extension'
+      :path: '/assets/:resource_type/:filename'
 
 development:
   <<: *production

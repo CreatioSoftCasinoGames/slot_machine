@@ -10,4 +10,9 @@ class Api::V1::ThemesController < Api::V1::ApplicationController
 		}
 	end
 
+	def show
+		@theme = Theme.where(id: params[:id]).first
+		render json: @theme
+	end
+
 end
