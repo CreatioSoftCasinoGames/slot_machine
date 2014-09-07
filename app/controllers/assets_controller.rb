@@ -14,7 +14,9 @@ class AssetsController < ApplicationController
 
   # GET /assets/new
   def new
-    @asset = Asset.new
+    @asset = Asset.new(resource_type: params[:resource_type], resource_id: params[:resource_id], bundle_type: params[:bundle_type])
+    @resource = @asset.resource
+    @asset.version = @asset.get_resource_version
   end
 
   # GET /assets/1/edit
@@ -65,6 +67,7 @@ class AssetsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_asset
       @asset = Asset.find(params[:id])
+      @resource = @asset.resource
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

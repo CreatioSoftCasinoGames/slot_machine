@@ -50,7 +50,7 @@ gem 'aws-sdk'
 # gem 'capistrano-rails', group: :development
 
 # Use debugger
-# gem 'debugger', group: [:development, :test]
+gem 'debugger', group: [:development, :test]
 
 group :development do
   gem 'capistrano', '2.15.5'

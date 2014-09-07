@@ -14,7 +14,8 @@ class MathModelsController < ApplicationController
 
   # GET /math_models/new
   def new
-    @math_model = MathModel.new
+    @machine = Machine.where(id: params[:machine_id]).first
+    @math_model = MathModel.new(machine_id: @machine.id, version: (@machine.math_models.count + 1))
   end
 
   # GET /math_models/1/edit
@@ -65,6 +66,7 @@ class MathModelsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_math_model
       @math_model = MathModel.find(params[:id])
+      @machine = @math_model.machine
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
