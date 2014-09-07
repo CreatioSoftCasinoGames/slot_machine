@@ -69,6 +69,6 @@ class MathModelsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def math_model_params
-      params.require(:math_model).permit(:name, :description, :machine_id, :version, :active)
+      params.require(:math_model).permit(:name, :description, :machine_id, :version, :active, :free_spins_multipliers, :num_free_spins, :wild_type, :is_irregular, :size_x, :size_y, :is_special)
     end
 end

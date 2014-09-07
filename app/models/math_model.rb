@@ -3,8 +3,9 @@ class MathModel < ActiveRecord::Base
   belongs_to :machine
 	has_many :pay_lines
 	has_many :pay_tables
-	has_many :reels, -> { order("position ASC") }
-	has_many :stamps
+	has_many :reels
+  has_many :stamps
+	has_many :symbols, class_name: "Stamp"
   scope :active, -> { where(active: true) }
 
 
@@ -29,7 +30,7 @@ class MathModel < ActiveRecord::Base
 
   def reel_series
     reels.group_by(&:label).collect do |label, reels|
-      {label.to_sym => reels.collect {|r| r.symbol }}
+      {label.to_sym => reels.collect {|r| {symbol: r.symbol, size: r.size} }}
     end
   end
 
