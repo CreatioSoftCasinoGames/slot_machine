@@ -14,7 +14,8 @@ class PayLinesController < ApplicationController
 
   # GET /pay_lines/new
   def new
-    @pay_line = PayLine.new
+    @math_model = MathModel.where(id: params[:math_model_id]).first
+    @pay_line = PayLine.new(math_model_id: @math_model.id)
   end
 
   # GET /pay_lines/1/edit
@@ -65,6 +66,7 @@ class PayLinesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_pay_line
       @pay_line = PayLine.find(params[:id])
+      @math_model = @pay_line.math_model
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

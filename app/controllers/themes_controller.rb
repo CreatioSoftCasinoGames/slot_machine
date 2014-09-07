@@ -14,7 +14,8 @@ class ThemesController < ApplicationController
 
   # GET /themes/new
   def new
-    @theme = Theme.new
+    @game = Game.where(id: params[:game_id]).first
+    @theme = Theme.new(game_id: @game.id)
   end
 
   # GET /themes/1/edit
@@ -65,6 +66,7 @@ class ThemesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_theme
       @theme = Theme.find(params[:id])
+      @game = @theme.game
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

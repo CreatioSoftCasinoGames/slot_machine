@@ -24,7 +24,7 @@
   <div class="form-group">
     <%= f.label :bundle_type, :class => 'col-sm-2 control-label' %>
     <div class="col-sm-5">
-      <%= f.select :bundle_type, options_for_select(ASSET_BUNDLE_TYPE, (params[:bundle_type] || @asset.bundle_type)), {}, :class => 'form-control' %>
+      <%= f.select :bundle_type, options_for_select(ASSET_BUNDLE_TYPE, (params[:bundle_type] || @asset.bundle_type)), {}, readonly: true, :class => 'form-control' %>
     </div>
   </div>
   <div class="form-group">

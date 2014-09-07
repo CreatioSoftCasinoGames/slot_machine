@@ -4,6 +4,7 @@ class Asset < ActiveRecord::Base
   belongs_to :machine, polymorphic: true
   belongs_to :mini_game, polymorphic: true
   belongs_to :resource, polymorphic: true
+  before_save :deactivate_others
 
 	scope :active, -> { where(active: true) }
 
@@ -14,12 +15,26 @@ class Asset < ActiveRecord::Base
   	attachment.instance.resource_type.downcase.pluralize
   end
 
+  def siblings
+    self.resource.assets.where(bundle_type: bundle_type)
+  end
+
   def get_resource_version
-    (self.resource.assets.where(bundle_type: bundle_type).count + 1)
+    (siblings.count + 1)
   end 
 
   def url
   	file.url
   end
+
+  private
+
+    def deactivate_others
+      if self.changes.include?(:active) && self.active
+        (siblings - [self]).each do |a|
+          a.update_attributes(active: false)
+        end
+      end
+    end
 
 end

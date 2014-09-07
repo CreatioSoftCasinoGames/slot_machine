@@ -14,7 +14,8 @@ class ReelsController < ApplicationController
 
   # GET /reels/new
   def new
-    @reel = Reel.new
+    @math_model = MathModel.where(id: params[:math_model_id]).first
+    @reel = Reel.new(math_model_id: @math_model.id)
   end
 
   # GET /reels/1/edit
@@ -65,6 +66,7 @@ class ReelsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_reel
       @reel = Reel.find(params[:id])
+      @math_model = @reel.math_model
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

@@ -14,7 +14,8 @@ class StampsController < ApplicationController
 
   # GET /stamps/new
   def new
-    @stamp = Stamp.new
+    @math_model = MathModel.where(id: params[:math_model_id]).first
+    @stamp = Stamp.new(math_model_id: @math_model.id)
   end
 
   # GET /stamps/1/edit
@@ -65,6 +66,7 @@ class StampsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_stamp
       @stamp = Stamp.find(params[:id])
+      @math_model = @stamp.math_model
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
