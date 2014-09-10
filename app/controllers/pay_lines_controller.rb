@@ -57,7 +57,7 @@ class PayLinesController < ApplicationController
   def destroy
     @pay_line.destroy
     respond_to do |format|
-      format.html { redirect_to pay_lines_url, notice: 'Pay line was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Pay line was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

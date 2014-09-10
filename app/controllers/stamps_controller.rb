@@ -57,7 +57,7 @@ class StampsController < ApplicationController
   def destroy
     @stamp.destroy
     respond_to do |format|
-      format.html { redirect_to stamps_url, notice: 'Stamp was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Stamp was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

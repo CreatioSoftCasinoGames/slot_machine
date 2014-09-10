@@ -31,6 +31,7 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
 gem 'rvm-capistrano'
 gem 'whenever'
+gem 'slim-rails'
 gem 'puma'
 gem 'therubyracer'
 gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) supports LESS

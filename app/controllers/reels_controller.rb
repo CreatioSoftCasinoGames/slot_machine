@@ -57,7 +57,7 @@ class ReelsController < ApplicationController
   def destroy
     @reel.destroy
     respond_to do |format|
-      format.html { redirect_to reels_url, notice: 'Reel was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Reel was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
