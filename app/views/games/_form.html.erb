@@ -23,13 +23,20 @@
  
 <% end %>
 
+<% unless @game.new_record? %>
 
 <div class="col-md-6">
   <legend>Themes</legend>
   <ul>
     <% @game.themes.each do |theme| %>
-      <li><%= "#{theme.name} -> #{link_to 'Edit', edit_theme_path(theme.id)}".html_safe %></li>
+      <li>
+        <%= theme.name %>
+        <%= link_to 'Edit', edit_theme_path(theme.id) %>
+        <%= link_to "X", theme_path(theme), method: :delete, :data => { :confirm => 'Are you sure?' }, class: "delete" %>
+      </li>
     <% end %>
     <li><%= link_to "New Theme", new_theme_path(game_id: @game.id) %></li>
   </ul>
 </div>
+
+<% end %>

@@ -57,7 +57,7 @@ class MathModelsController < ApplicationController
   def destroy
     @math_model.destroy
     respond_to do |format|
-      format.html { redirect_to math_models_url, notice: 'MathModel was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'MathModel was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

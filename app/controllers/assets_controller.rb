@@ -58,7 +58,7 @@ class AssetsController < ApplicationController
   def destroy
     @asset.destroy
     respond_to do |format|
-      format.html { redirect_to capitals_url, notice: 'Asset was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Asset was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

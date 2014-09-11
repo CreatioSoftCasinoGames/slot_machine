@@ -29,11 +29,17 @@
  
 <% end %>
 
+<% unless @theme.new_record? %>
+
 <div class="col-md-6">
   <legend>Slot Machines</legend>
   <ul>
     <% @theme.machines.each do |machine| %>
-      <li><%= "#{machine.name} -> #{link_to 'Edit', edit_machine_path(machine)}".html_safe %></li>
+      <li>
+        <%= machine.name %>
+        <%= link_to 'Edit', edit_machine_path(machine) %>
+        <%= link_to "X", machine_path(machine), method: :delete, :data => { :confirm => 'Are you sure?' }, class: "delete" %>
+      </li>
     <% end %>
     <li><%= link_to "New Machine", new_machine_path(theme_id: @theme.id) %></li>
   </ul>
@@ -43,8 +49,14 @@
   <legend>Assets</legend>
   <ul>
     <% @theme.assets.each do |asset| %>
-      <li class="<%= "muted" unless asset.active %>"><%= "#{asset.label} -> #{link_to 'Edit', edit_asset_path(asset.id)}".html_safe %></li>
+      <li class="<%= "muted" unless asset.active %>">
+        <%= asset.label %>
+        <%= link_to 'Edit', edit_asset_path(asset.id) %>
+        <%= link_to "X", asset_path(asset), method: :delete, :data => { :confirm => 'Are you sure?' }, class: "delete" %>
+      </li>
     <% end %>
     <li><%= link_to "New Asset", new_asset_path(resource_id: @theme.id, resource_type: "Theme", bundle_type: ASSET_BUNDLE_TYPE[:THEME_ASSET]) %></li>
   </ul>
 </div>
+
+<% end %>

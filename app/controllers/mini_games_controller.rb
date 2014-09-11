@@ -58,7 +58,7 @@ class MiniGamesController < ApplicationController
   def destroy
     @mini_game.destroy
     respond_to do |format|
-      format.html { redirect_to mini_games_url, notice: 'Mini game was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Mini game was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
