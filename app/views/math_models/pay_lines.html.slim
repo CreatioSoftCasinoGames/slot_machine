@@ -1,0 +1,19 @@
+legend= "Set pay lines for #{@math_model.name}"
+= form_for @math_model do |f|
+  table class="table"
+    tr
+      th X
+      - (0...@math_model.size_x).to_a.each do |c|
+        th
+          = c
+    - (1..@math_model.num_pay_lines).to_a.each do |label|
+      tr
+        td= label
+        - (0...@math_model.size_x).to_a.each do |x|
+          - pay_line = PayLine.where(label: label, math_model_id: @math_model.id, x: x).first
+          td
+            = hidden_field_tag "math_model[pay_lines_attributes][][id]", pay_line.try(:id)
+            = text_field_tag "math_model[pay_lines_attributes][][y]", pay_line.try(:y)
+            = hidden_field_tag "math_model[pay_lines_attributes][][x]", x
+            = hidden_field_tag "math_model[pay_lines_attributes][][label]", label
+  = f.submit "Save"

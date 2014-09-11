@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resources :math_models do
     member do
       get :pay_tables
+      get :pay_lines
     end
   end
 

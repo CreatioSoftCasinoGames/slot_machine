@@ -9,11 +9,12 @@ class MathModel < ActiveRecord::Base
   scope :active, -> { where(active: true) }
 
   accepts_nested_attributes_for :pay_tables, allow_destroy: true, reject_if: lambda { |a| a[:points].empty? }
+  accepts_nested_attributes_for :pay_lines, allow_destroy: true, reject_if: lambda { |a| a[:y].empty? }
 
   before_save :deactivate_others
 
   def pay_line_coordinates
-  	pay_lines.group_by(&:label).collect do |label, lines|
+  	pay_lines.order("label, x asc").group_by(&:label).collect do |label, lines|
   		{label.to_sym => lines.collect {|l| [l.x, l.y] }}
   	end
   end

@@ -107,7 +107,7 @@
     <li>
       Pay Lines
       <ul>
-        <% @math_model.pay_lines.group_by(&:label).collect do |label, lines| %>
+        <% @math_model.pay_lines.order("label, x asc").group_by(&:label).collect do |label, lines| %>
           <li>
             <b><%= label %></b>
             <ul>
@@ -121,7 +121,7 @@
             </ul>
           </li>
         <% end %>
-        <li><%= link_to "New Pay Line", new_pay_line_path(math_model_id: @math_model.id) %></li>
+        <li><%= link_to "Pay Line", pay_lines_math_model_path(id: @math_model.id) %></li>
       </ul>
     </li>
     <li>
