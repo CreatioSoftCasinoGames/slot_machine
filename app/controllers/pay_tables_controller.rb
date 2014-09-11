@@ -57,7 +57,7 @@ class PayTablesController < ApplicationController
   def destroy
     @pay_table.destroy
     respond_to do |format|
-      format.html { redirect_to pay_tables_url, notice: 'Pay table was successfully destroyed.' }
+      format.html { redirect_to :back, notice: 'Pay table was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

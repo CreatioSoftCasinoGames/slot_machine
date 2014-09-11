@@ -18,7 +18,11 @@ Rails.application.routes.draw do
 
   resources :stamps
 
-  resources :math_models
+  resources :math_models do
+    member do
+      get :pay_tables
+    end
+  end
 
   resources :games
 

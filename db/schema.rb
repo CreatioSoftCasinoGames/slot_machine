@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140907190441) do
+ActiveRecord::Schema.define(version: 20140910185447) do
 
   create_table "assets", force: true do |t|
     t.string   "version"
@@ -65,12 +65,13 @@ ActiveRecord::Schema.define(version: 20140907190441) do
     t.string   "version"
     t.boolean  "active"
     t.integer  "free_spins_multipliers", default: 0
-    t.integer  "num_free_spins",         default: 0
+    t.string   "num_free_spins",         default: "0"
     t.string   "wild_type"
     t.boolean  "is_irregular",           default: false
     t.boolean  "is_special",             default: false
     t.integer  "size_x",                 default: 3
     t.integer  "size_y",                 default: 3
+    t.integer  "num_pay_lines"
   end
 
   create_table "mini_games", force: true do |t|

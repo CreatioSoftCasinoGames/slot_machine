@@ -8,6 +8,8 @@ class MathModel < ActiveRecord::Base
 	has_many :symbols, class_name: "Stamp"
   scope :active, -> { where(active: true) }
 
+  accepts_nested_attributes_for :pay_tables, allow_destroy: true, reject_if: lambda { |a| a[:points].empty? }
+
   before_save :deactivate_others
 
   def pay_line_coordinates

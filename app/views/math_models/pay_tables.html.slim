@@ -1,0 +1,19 @@
+legend= "Set pay table for #{@math_model.name}"
+= form_for @math_model do |f|
+  table class="table"
+    tr
+      th Count
+      - (1..@math_model.size_x).to_a.reverse.each do |c|
+        th
+          = c
+    - @math_model.stamps.each do |stamp|
+      tr
+        td= stamp.name
+        - (1..@math_model.size_x).to_a.reverse.each do |c|
+          - pay_table = PayTable.where(stamp_id: stamp.id, count: c, math_model_id: @math_model.id).first
+          td
+            = hidden_field_tag "math_model[pay_tables_attributes][][id]", pay_table.try(:id)
+            = text_field_tag "math_model[pay_tables_attributes][][points]", pay_table.try(:points)
+            = hidden_field_tag "math_model[pay_tables_attributes][][count]", c
+            = hidden_field_tag "math_model[pay_tables_attributes][][stamp_id]", stamp.id
+  = f.submit "Save"
