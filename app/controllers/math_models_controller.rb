@@ -1,5 +1,6 @@
 class MathModelsController < ApplicationController
-  before_action :set_math_model, only: [:show, :edit, :update, :destroy, :pay_tables, :pay_lines]
+
+  before_action :set_math_model, only: [:show, :edit, :update, :destroy, :pay_tables, :pay_lines, :reels]
 
   # GET /math_models
   # GET /math_models.json
@@ -68,6 +69,9 @@ class MathModelsController < ApplicationController
   def pay_lines
   end
 
+  def reels
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_math_model
@@ -77,6 +81,6 @@ class MathModelsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def math_model_params
-      params.require(:math_model).permit(:name, :description, :machine_id, :version, :active, :free_spins_multipliers, :num_free_spins, :wild_type, :is_irregular, :size_x, :size_y, :is_special, :num_pay_lines, pay_tables_attributes: [:points, :count, :_destroy, :id, :stamp_id], pay_lines_attributes: [:x, :y, :_destroy, :id, :label])
+      params.require(:math_model).permit(:name, :description, :machine_id, :version, :active, :free_spins_multipliers, :num_free_spins, :wild_type, :is_irregular, :size_x, :size_y, :is_special, :num_pay_lines, pay_tables_attributes: [:points, :count, :_destroy, :id, :stamp_id], pay_lines_attributes: [:x, :y, :_destroy, :id, :label], reels_attributes: [:id, :size, :label, :stamp_id])
     end
 end

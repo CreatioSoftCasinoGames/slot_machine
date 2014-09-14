@@ -22,6 +22,7 @@ Rails.application.routes.draw do
     member do
       get :pay_tables
       get :pay_lines
+      get :reels
     end
   end
 

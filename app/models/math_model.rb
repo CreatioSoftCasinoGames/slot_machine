@@ -10,6 +10,7 @@ class MathModel < ActiveRecord::Base
 
   accepts_nested_attributes_for :pay_tables, allow_destroy: true, reject_if: lambda { |a| a[:points].empty? }
   accepts_nested_attributes_for :pay_lines, allow_destroy: true, reject_if: lambda { |a| a[:y].empty? }
+  accepts_nested_attributes_for :reels, allow_destroy: true, reject_if: lambda { |a| a[:size].empty? }
 
   before_save :deactivate_others
 
