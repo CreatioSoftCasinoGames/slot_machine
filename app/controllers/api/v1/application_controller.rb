@@ -10,7 +10,7 @@ class Api::V1::ApplicationController < ApplicationController
 	private
 
 	def restrict_access
-	  api_key = ApiKey.where(token: params[:token]).first
+	  api_key = ApiKey.where(token: params[:token], active: true).first
 	  head :unauthorized unless api_key
 	end
 
