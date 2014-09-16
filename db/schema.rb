@@ -11,7 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140910185447) do
+ActiveRecord::Schema.define(version: 20140916190209) do
+
+  create_table "api_keys", force: true do |t|
+    t.string   "token"
+    t.boolean  "active",     default: true
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "assets", force: true do |t|
     t.string   "version"
