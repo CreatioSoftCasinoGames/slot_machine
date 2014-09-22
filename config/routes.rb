@@ -47,6 +47,7 @@ Rails.application.routes.draw do
       resources :games
       resources :math_models
       resources :assets
+      resources :users
       resources :themes do
         get :asset_versions, on: :member
       end
