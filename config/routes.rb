@@ -30,8 +30,8 @@ Rails.application.routes.draw do
   post "utility/generate_api_key", to: "utility#generate_api_key", as: "generate_api_key"
 
   resources :games
-
   devise_for :users
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
@@ -48,6 +48,7 @@ Rails.application.routes.draw do
       resources :math_models
       resources :assets
       resources :users
+      resources :sessions, :only => [:create]
       resources :themes do
         get :asset_versions, on: :member
       end
