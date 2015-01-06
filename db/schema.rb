@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140922164951) do
+ActiveRecord::Schema.define(version: 20150106095903) do
 
   create_table "api_keys", force: true do |t|
     t.string   "token"
@@ -135,12 +135,12 @@ ActiveRecord::Schema.define(version: 20140922164951) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "email",                                           default: "", null: false
-    t.string   "encrypted_password",                              default: "", null: false
+    t.string   "email",                                                   default: "", null: false
+    t.string   "encrypted_password",                                      default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                                   default: 0,  null: false
+    t.integer  "sign_in_count",                                           default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -150,10 +150,27 @@ ActiveRecord::Schema.define(version: 20140922164951) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "country"
-    t.decimal  "stars",                  precision: 10, scale: 0
-    t.decimal  "diamonds",               precision: 10, scale: 0
+    t.decimal  "stars",                          precision: 10, scale: 0
+    t.decimal  "diamonds",                       precision: 10, scale: 0
     t.string   "fb_id"
     t.string   "role"
+    t.decimal  "total_bet",                      precision: 10, scale: 0, default: 0
+    t.decimal  "coins_won",                      precision: 10, scale: 0, default: 0
+    t.decimal  "coins_lost",                     precision: 10, scale: 0, default: 0
+    t.integer  "current_level",                                           default: 0
+    t.integer  "machine_unlocked",                                        default: 0
+    t.integer  "percentage_win",                                          default: 0
+    t.integer  "num_of_tournament_participated",                          default: 0
+    t.decimal  "biggest_tournament_win_amount",  precision: 10, scale: 0, default: 0
+    t.integer  "best_position_in_tournament",                             default: 0
+    t.integer  "total_spin",                                              default: 0
+    t.string   "device_id"
+    t.string   "biggest_win"
+    t.integer  "jackpot_win_percent",                                     default: 0
+    t.decimal  "total_coins",                    precision: 10, scale: 0, default: 0
+    t.string   "gifts"
+    t.integer  "iap",                                                     default: 0
+    t.integer  "bonus_coins",                                             default: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

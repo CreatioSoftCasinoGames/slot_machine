@@ -49,6 +49,11 @@ Rails.application.routes.draw do
       resources :assets
       resources :users
       resources :sessions, :only => [:create]
+      resources :users do
+        member do 
+          put :log_spin
+        end
+      end
       resources :themes do
         get :asset_versions, on: :member
       end

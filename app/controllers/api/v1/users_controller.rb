@@ -17,4 +17,21 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 		end
 	end
 
+	def log_spin
+		@user = User.where(id: params[:id]).first
+		total_bet = @user.total_bet + params[:bet_amount].to_f
+		coins_won = @user.coins_won + params[:won_amount].to_f
+		coins_lost = total_bet - coins_won
+		if @user.update_attributes({ total_bet: total_bet, coins_won: coins_won, coins_lost: coins_lost })
+			render json: {
+				total_bet: @user.total_bet, coins_won: @user.coins_won, coins_lost: @user.coins_lost
+			}
+	  else
+	  	render json: {
+	  		errors: @user.errors.full_messages.join(", ")
+	  	}
+	  end
+
+	end
+
 end
