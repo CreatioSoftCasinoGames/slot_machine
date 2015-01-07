@@ -52,6 +52,7 @@ Rails.application.routes.draw do
       resources :users do
         member do 
           put :log_spin
+          put :profile_update
         end
       end
       resources :themes do

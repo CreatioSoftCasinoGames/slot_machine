@@ -22,7 +22,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 		total_bet = @user.total_bet + params[:bet_amount].to_f
 		coins_won = @user.coins_won + params[:won_amount].to_f
 		coins_lost = total_bet - coins_won
-		if @user.update_attributes({ total_bet: total_bet, coins_won: coins_won, coins_lost: coins_lost })
+		if @user.update_attributes({ total_bet: total_bet, coins_won: coins_won, coins_lost: coins_lost }	)
 			render json: {
 				total_bet: @user.total_bet, coins_won: @user.coins_won, coins_lost: @user.coins_lost
 			}
@@ -33,5 +33,23 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 	  end
 
 	end
+
+	def profile_update
+		@user = User.where(id: params[:id]).first
+    if @user.update_attributes(user_params)
+      render json: {
+      	stars: @user.stars, total_coins: @user.total_coins, num_of_tournament_participated: @user.num_of_tournament_participated, biggest_tournament_win_amount: @user.biggest_tournament_win_amount, country: @user.country, best_position_in_tournament: @user.best_position_in_tournament
+      }
+    else
+      render json: {
+      	errors: @user.errors, status: :unprocessable_entity 
+      }
+    end
+
+  end
+
+  def user_params
+    params.require(:user).permit(:email, :password, :first_name, :last_name, :country, :fb_id, :stars, :diamond, :current_level, :machine_unlocked, :percentage_win, :num_of_tournament_participated, :biggest_tournament_win_amount, :best_position_in_tournament, :total_spin, :device_id, :biggest_win, :jackpot_win_percent, :total_coins, :gifts, :iap, :bonus_coins)
+  end
 
 end
