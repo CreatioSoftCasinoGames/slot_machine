@@ -1,8 +1,10 @@
 class Api::V1::UsersController < Api::V1::ApplicationController
 
 	def create
-		params[:password] = "temp1234" if params[:password].blank?
-		@user = User.new(email: params[:email], password: params[:password], password_confirmation: params[:password], first_name: params[:first_name], last_name: params[:last_name], country: params[:country], fb_id: params[:fb_id])
+		p user_params
+		@user = User.new(user_params)
+		# user_params[:email] = "guest_"+SecureRandom.hex(8)+"@slotapi.com" if params[:is_guest]
+		# user_params[:password] = "temp1234" if params[:password].blank?
 		if @user.save
 			render json: {
 				user: @user,
@@ -37,9 +39,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 	def profile_update
 		@user = User.where(id: params[:id]).first
     if @user.update_attributes(user_params)
-      render json: {
-      	stars: @user.stars, total_coins: @user.total_coins, num_of_tournament_participated: @user.num_of_tournament_participated, biggest_tournament_win_amount: @user.biggest_tournament_win_amount, country: @user.country, best_position_in_tournament: @user.best_position_in_tournament
-      }
+      render json: @user
     else
       render json: {
       	errors: @user.errors, status: :unprocessable_entity 
@@ -49,7 +49,14 @@ class Api::V1::UsersController < Api::V1::ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :password, :first_name, :last_name, :country, :fb_id, :stars, :diamond, :current_level, :machine_unlocked, :percentage_win, :num_of_tournament_participated, :biggest_tournament_win_amount, :best_position_in_tournament, :total_spin, :device_id, :biggest_win, :jackpot_win_percent, :total_coins, :gifts, :iap, :bonus_coins)
+  	p params[:user][:is_guest]
+  	if(params[:user][:is_guest])
+  		params[:user][:email] = "guest_#{SecureRandom.hex(8)}@slotapi.com"
+  		params[:user][:password] = "temp1234"
+  		params[:user][:password_confirmation] = "temp1234"
+  		params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :country, :fb_id, :stars, :diamond, :current_level, :machine_unlocked, :percentage_win, :num_of_tournament_participated, :biggest_tournament_win_amount, :best_position_in_tournament, :total_spin, :device_id, :biggest_win, :jackpot_win_percent, :total_coins, :gifts, :iap, :bonus_coins, :is_guest)
+  	end
+    params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :country, :fb_id, :stars, :diamond, :current_level, :machine_unlocked, :percentage_win, :num_of_tournament_participated, :biggest_tournament_win_amount, :best_position_in_tournament, :total_spin, :device_id, :biggest_win, :jackpot_win_percent, :total_coins, :gifts, :iap, :bonus_coins, :is_guest)
   end
 
 end
