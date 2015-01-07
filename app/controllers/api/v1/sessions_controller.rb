@@ -13,10 +13,9 @@ class Api::V1::SessionsController < Api::V1::ApplicationController
 			if params[:user][:device_id]
 				@user = User.where(device_id: params[:user][:device_id]).first
 				if @user.blank?
-					p params[:user][:device_id]
-					params[:user][:email] = "guest_#{SecureRandom.hex(8)}@slotapi.com"
-					params[:user][:password] = "temp1234"
-					@user=User.new(email: params[:user][:email], password: params[:user][:password], device_id: params[:user][:device_id])
+
+					@user = User.new(device_id: params[:user][:device_id], is_guest: true)
+					p @user
 					if @user.save
 						render json: {
 							user: @user,
@@ -25,9 +24,9 @@ class Api::V1::SessionsController < Api::V1::ApplicationController
 						return
 					else
 						render json: {
-						user: @user,
-						valid: false,
-						errors: @user.errors.full_messages.join(", ")
+							user: @user,
+							valid: false,
+							errors: @user.errors.full_messages.join(", ")
 						}
 						return
 					end
