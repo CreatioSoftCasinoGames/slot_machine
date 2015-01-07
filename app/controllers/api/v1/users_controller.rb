@@ -49,13 +49,6 @@ class Api::V1::UsersController < Api::V1::ApplicationController
   end
 
   def user_params
-  	p params[:user][:is_guest]
-  	if(params[:user][:is_guest])
-  		params[:user][:email] = "guest_#{SecureRandom.hex(8)}@slotapi.com"
-  		params[:user][:password] = "temp1234"
-  		params[:user][:password_confirmation] = "temp1234"
-  		params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :country, :fb_id, :stars, :diamond, :current_level, :machine_unlocked, :percentage_win, :num_of_tournament_participated, :biggest_tournament_win_amount, :best_position_in_tournament, :total_spin, :device_id, :biggest_win, :jackpot_win_percent, :total_coins, :gifts, :iap, :bonus_coins, :is_guest)
-  	end
     params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :country, :fb_id, :stars, :diamond, :current_level, :machine_unlocked, :percentage_win, :num_of_tournament_participated, :biggest_tournament_win_amount, :best_position_in_tournament, :total_spin, :device_id, :biggest_win, :jackpot_win_percent, :total_coins, :gifts, :iap, :bonus_coins, :is_guest)
   end
 
