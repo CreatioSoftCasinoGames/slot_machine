@@ -7,5 +7,6 @@ class AddProfileInUsers < ActiveRecord::Migration
   	add_column :users, :diamonds, :decimal
   	add_column :users, :fb_id, :string
   	add_column :users, :role, :string
+  	
   end
 end
