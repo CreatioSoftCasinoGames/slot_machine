@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150108100901) do
+ActiveRecord::Schema.define(version: 20150108104219) do
 
   create_table "api_keys", force: true do |t|
     t.string   "token"
@@ -85,51 +85,6 @@ ActiveRecord::Schema.define(version: 20150108100901) do
     t.string   "name"
     t.text     "description"
     t.integer  "machine_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "pay_lines", force: true do |t|
-    t.string   "label"
-    t.integer  "x"
-    t.integer  "y"
-    t.integer  "math_model_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "pay_tables", force: true do |t|
-    t.decimal  "count",         precision: 10, scale: 0
-    t.integer  "stamp_id"
-    t.integer  "math_model_id"
-    t.decimal  "points",        precision: 10, scale: 0
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  create_table "reels", force: true do |t|
-    t.integer  "stamp_id"
-    t.integer  "size"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.integer  "math_model_id"
-    t.string   "label"
-  end
-
-  create_table "stamps", force: true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.integer  "math_model_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "symbol_type"
-    t.integer  "size",          default: 1
-  end
-
-  create_table "themes", force: true do |t|
-    t.string   "name"
-    t.text     "description"
-    t.integer  "game_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
