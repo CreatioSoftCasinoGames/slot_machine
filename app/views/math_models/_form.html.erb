@@ -100,74 +100,21 @@
   </div> 
 <% end %>
 
-<hr />
-
 <% unless @math_model.new_record? %>
-  <ul>
-    <li>
-      Pay Lines
-      <ul>
-        <% @math_model.pay_lines.order("label, x asc").group_by(&:label).collect do |label, lines| %>
-          <li>
-            <b><%= label %></b>
-            <ul>
-              <% lines.each do |pay_line| %>
-                <li>
-                  <%= "(#{pay_line.x}, #{pay_line.y})" %>
-                  <%= link_to "Edit", edit_pay_line_path(id: pay_line.id) %>
-                  <%= link_to "X", pay_line_path(pay_line), method: :delete, :data => { :confirm => 'Are you sure?' }, class: "delete" %>
-                </li>
-              <% end %>
-            </ul>
-          </li>
-        <% end %>
-        <li><%= link_to "Pay Line", pay_lines_math_model_path(id: @math_model.id) %></li>
-      </ul>
-    </li>
-    <li>
-      Pay Tables
-      <ul>
-        <% @math_model.pay_tables.each do |pay_table| %>
-          <li>
-            <%= "#{pay_table.symbol}(#{pay_table.count}) -> #{pay_table.points}" %>
-            <%= link_to "Edit", edit_pay_table_path(id: pay_table.id) %>
-            <%= link_to "X", pay_table_path(pay_table), method: :delete, :data => { :confirm => 'Are you sure?' }, class: "delete" %>
-          </li>
-        <% end %>
-        <li><%= link_to "Pay Table", pay_tables_math_model_path(id: @math_model.id) %></li>
-      </ul>
-    </li>
-    <li>
-      Reels
-      <ul>
-        <li>
-        <% @math_model.reels.group_by(&:label).collect do |label, reels| %>
-          <b>Reel <%= label %></b>
-          <ul>
-            <% reels.each do |reel| %>
-              <li>
-                <%= reel.symbol %>
-                <%= link_to "Edit", edit_reel_path(id: reel.id) %>
-                <%= link_to "X", reel_path(reel), method: :delete, :data => { :confirm => 'Are you sure?' }, class: "delete" %>
-              </li>
-            <% end %>
-          </ul>
-        <% end %>
-        <li><%= link_to "Reels", reels_math_model_path(id: @math_model.id) %></li>
-      </ul>
-    </li>
-    <li>
-      Stamps
-      <ul>
-        <% @math_model.stamps.each do |stamp| %>
-          <li>
-            <%= "#{stamp.name}" %>
-            <%= link_to "Edit", edit_stamp_path(id: stamp.id) %>
-            <%= link_to "X", stamp_path(stamp), method: :delete, :data => { :confirm => 'Are you sure?' }, class: "delete" %>
-          </li>
-        <% end %>
-        <li><%= link_to "New Stamp", new_stamp_path(math_model_id: @math_model.id) %></li>
-      </ul>
-    </li>
-  </ul>
+
+  <div class="col-md-3">
+    <legend>Math Assets</legend>
+    <ul>
+      <% @math_model.math_model_assets.each do|asset| %>
+        <li class="<%= "muted" unless asset.active %>">
+          <%= asset.label %>
+          <%= link_to 'Edit', edit_asset_path(asset.id) %>
+          <%= link_to "X", asset_path(asset), method: :delete, :data => { :confirm => 'Are you sure?' }, class: "delete" %>
+        </li>
+      <% end %>
+      <li>
+        <%= link_to "New Math Model Assets", new_asset_path(resource_id: @math_model.id, resource_type: "MathModel", bundle_type: ASSET_BUNDLE_TYPE[:MATH_MODEL_ASSET]) %>
+      </li>
+    </ul>
+  </div>
 <% end %>

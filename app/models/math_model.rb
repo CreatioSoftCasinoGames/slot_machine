@@ -5,9 +5,9 @@ class MathModel < ActiveRecord::Base
 	has_many :pay_tables
 	has_many :reels
   has_many :stamps
-  has_many :assets, as: :m_model
-  has_many :math_model_assets, -> { where(assets: {bundle_type: ASSET_BUNDLE_TYPE[:MATH_MODEL_ASSET]}) }, as: :m_model, class_name: "Asset"
-  has_one :active_math_model_asset, -> { where(assets: {bundle_type: ASSET_BUNDLE_TYPE[:MATH_MODEL_ASSET],  active: true}) }, as: :m_model, class_name: "Asset"
+  has_many :assets, as: :resource
+  has_many :math_model_assets, -> { where(assets: {bundle_type: ASSET_BUNDLE_TYPE[:MATH_MODEL_ASSET]}) }, as: :resource, class_name: "Asset"
+  has_one :active_math_model_asset, -> { where(assets: {bundle_type: ASSET_BUNDLE_TYPE[:MATH_MODEL_ASSET],  active: true}) }, as: :resource, class_name: "Asset"
   has_many :symbols, class_name: "Stamp"
   scope :active, -> { where(active: true) }
 
