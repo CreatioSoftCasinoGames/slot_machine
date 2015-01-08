@@ -61,9 +61,9 @@
 
 
   <div class="col-md-3">
-    <legend>In Game Assets</legend>
+    <legend>Game Assets</legend>
     <ul>
-      <% @machine.in_game_assets.each do |asset| %>
+      <% @machine.game_assets.each do |asset| %>
         <li class="<%= "muted" unless asset.active %>">
           <%= asset.label %>
           <%= link_to 'Edit', edit_asset_path(asset.id) %>
@@ -71,20 +71,6 @@
         </li>
       <% end %>
       <li><%= link_to "New In Game Asset", new_asset_path(resource_id: @machine.id, resource_type: "Machine", bundle_type: ASSET_BUNDLE_TYPE[:IN_GAME_ASSET]) %></li>
-    </ul>
-  </div>
-
-  <div class="col-md-3">
-    <legend>Out Game Assets</legend>
-    <ul>
-      <% @machine.out_game_assets.each do |asset| %>
-        <li class="<%= "muted" unless asset.active %>">
-          <%= asset.label %>
-          <%= link_to 'Edit', edit_asset_path(asset.id) %>
-          <%= link_to "X", asset_path(asset), method: :delete, :data => { :confirm => 'Are you sure?' }, class: "delete" %>
-        </li>
-      <% end %>
-      <li><%= link_to "New Out Game Asset", new_asset_path(resource_id: @machine.id, resource_type: "Machine", bundle_type: ASSET_BUNDLE_TYPE[:OUT_GAME_ASSET]) %></li>
     </ul>
   </div>
 

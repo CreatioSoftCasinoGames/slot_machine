@@ -1,9 +1,9 @@
 class Asset < ActiveRecord::Base
 
-	belongs_to :theme, polymorphic: true
-  belongs_to :machine, polymorphic: true
   belongs_to :mini_game, polymorphic: true
   belongs_to :resource, polymorphic: true
+  belongs_to :m_model, polymorphic: true
+  belongs_to :game, polymorphic: true
   before_save :deactivate_others
 
 	scope :active, -> { where(active: true) }
