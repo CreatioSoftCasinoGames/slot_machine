@@ -14,8 +14,8 @@ class MachinesController < ApplicationController
 
   # GET /machines/new
   def new
-    @theme = Theme.where(id: params[:theme_id]).first
-    @machine = Machine.new(theme_id: @theme.id)
+    @game = Game.where(id: params[:game_id]).first
+    @machine = Machine.new(game_id: @game.id)
   end
 
   # GET /machines/1/edit
@@ -66,11 +66,11 @@ class MachinesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_machine
       @machine = Machine.find(params[:id])
-      @theme = @machine.theme
+      @game = @machine.game
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def machine_params
-      params.require(:machine).permit(:name, :description, :theme_id)
+      params.require(:machine).permit(:name, :description, :game_id)
     end
 end
