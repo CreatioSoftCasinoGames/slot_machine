@@ -11,11 +11,9 @@ class Api::V1::SessionsController < Api::V1::ApplicationController
 		end
 		if params[:user][:is_guest]
 			if params[:user][:device_id]
-				@user = User.where(device_id: params[:user][:device_id]).first
+				@user = User.where(device_id: params[:user][:device_id]).first_or_initialize
 				if @user.blank?
-
 					@user = User.new(device_id: params[:user][:device_id], is_guest: true)
-					p @user
 					if @user.save
 						render json: {
 							user: @user,
