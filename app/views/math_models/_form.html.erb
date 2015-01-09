@@ -105,7 +105,7 @@
   <div class="col-md-3">
     <legend>Math Assets</legend>
     <ul>
-      <% @math_model.math_model_assets.each do|asset| %>
+      <% @math_model.assets.each do|asset| %>
         <li class="<%= "muted" unless asset.active %>">
           <%= asset.label %>
           <%= link_to 'Edit', edit_asset_path(asset.id) %>

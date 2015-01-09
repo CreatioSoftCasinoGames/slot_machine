@@ -42,7 +42,7 @@
 <div class="col-md-3">
     <legend>Game Assets</legend>
     <ul>
-      <% @game.game_assets.each do |asset| %>
+      <% @game.assets.each do |asset| %>
         <li class="<%= "muted" unless asset.active %>">
           <%= asset.label %>
           <%= link_to 'Edit', edit_asset_path(asset.id) %>

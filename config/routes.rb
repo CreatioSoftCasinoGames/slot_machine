@@ -67,17 +67,17 @@ Rails.application.routes.draw do
       end
       resources :games do
         member do
-          get :game_asset_version
+          get :asset_versions
         end
       end
       resources :math_models do
         member do
-          get :math_model_asset_version
+          get :asset_versions
         end
       end
       resources :mini_games do
         member do
-          get :mini_game_asset_version
+          get :asset_versions
         end
       end
     end
