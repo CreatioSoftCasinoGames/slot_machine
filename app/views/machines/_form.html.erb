@@ -12,9 +12,9 @@
     </div>
   </div>
   <div class="form-group">
-    <%= f.label :theme_id, :class => 'col-sm-2 control-label' %>
+    <%= f.label :game_id, :class => 'col-sm-2 control-label' %>
     <div class="col-sm-10">
-      <%= f.select :theme_id, options_for_select( Theme.all.collect { |t| [ t.name, t.id ] }, (params[:theme_id] || @machine.theme_id)), {}, :class => 'form-control' %>
+      <%= f.select :game_id, options_for_select( Game.all.collect { |g| [ g.name, g.id ] }, (params[:game_id] || @machine.game_id)), {}, :class => 'form-control' %>
     </div>
   </div>
 
@@ -23,7 +23,7 @@
     <div class="col-sm-offset-2 col-sm-10">  
       <%= f.submit nil, :class => 'btn btn-primary' %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                edit_theme_path(@theme), :class => 'btn btn-default' %>
+                edit_game_path(@game), :class => 'btn btn-default' %>
     </div>
   </div>
  
@@ -56,35 +56,6 @@
         </li>
       <% end %>
       <li><%= link_to "New Mini Game", new_mini_game_path(machine_id: @machine.id) %></li>
-    </ul>
-  </div>
-
-
-  <div class="col-md-3">
-    <legend>In Game Assets</legend>
-    <ul>
-      <% @machine.in_game_assets.each do |asset| %>
-        <li class="<%= "muted" unless asset.active %>">
-          <%= asset.label %>
-          <%= link_to 'Edit', edit_asset_path(asset.id) %>
-          <%= link_to "X", asset_path(asset), method: :delete, :data => { :confirm => 'Are you sure?' }, class: "delete" %>
-        </li>
-      <% end %>
-      <li><%= link_to "New In Game Asset", new_asset_path(resource_id: @machine.id, resource_type: "Machine", bundle_type: ASSET_BUNDLE_TYPE[:IN_GAME_ASSET]) %></li>
-    </ul>
-  </div>
-
-  <div class="col-md-3">
-    <legend>Out Game Assets</legend>
-    <ul>
-      <% @machine.out_game_assets.each do |asset| %>
-        <li class="<%= "muted" unless asset.active %>">
-          <%= asset.label %>
-          <%= link_to 'Edit', edit_asset_path(asset.id) %>
-          <%= link_to "X", asset_path(asset), method: :delete, :data => { :confirm => 'Are you sure?' }, class: "delete" %>
-        </li>
-      <% end %>
-      <li><%= link_to "New Out Game Asset", new_asset_path(resource_id: @machine.id, resource_type: "Machine", bundle_type: ASSET_BUNDLE_TYPE[:OUT_GAME_ASSET]) %></li>
     </ul>
   </div>
 

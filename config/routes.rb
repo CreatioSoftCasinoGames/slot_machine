@@ -48,6 +48,7 @@ Rails.application.routes.draw do
       resources :math_models
       resources :assets
       resources :users
+      resources :mini_games
       resources :sessions, :only => [:create]
       resources :users do
         member do 
@@ -62,6 +63,21 @@ Rails.application.routes.draw do
           get :math_model_versions
           get :in_game_asset_versions
           get :out_game_asset_versions
+        end
+      end
+      resources :games do
+        member do
+          get :asset_versions
+        end
+      end
+      resources :math_models do
+        member do
+          get :asset_versions
+        end
+      end
+      resources :mini_games do
+        member do
+          get :asset_versions
         end
       end
     end
