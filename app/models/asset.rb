@@ -26,12 +26,12 @@ class Asset < ActiveRecord::Base
 
   private
 
-    def deactivate_others
-      if self.changes.include?(:active) && self.active
-        (siblings - [self]).each do |a|
-          a.update_attributes(active: false)
-        end
+  def deactivate_others
+    if self.changes.include?(:active) && self.active
+      (siblings - [self]).each do |a|
+        a.update_attributes(active: false)
       end
     end
+  end
 
 end

@@ -1,29 +1,22 @@
 <%= form_for @machine, :html => { :class => 'form-horizontal' } do |f| %>
   <div class="form-group">
+    <%= f.label :machine_number, :class => 'col-sm-2 control-label' %>
+    <div class="col-sm-10">
+      <%= f.text_field :machine_number, :class => 'form-control' %>
+    </div>
+  </div>
+  <div class="form-group">
     <%= f.label :name, :class => 'col-sm-2 control-label' %>
     <div class="col-sm-10">
       <%= f.text_field :name, :class => 'form-control' %>
     </div>
   </div>
-  <div class="form-group">
-    <%= f.label :description, :class => 'col-sm-2 control-label' %>
-    <div class="col-sm-10">
-      <%= f.text_field :description, :class => 'form-control' %>
-    </div>
-  </div>
-  <div class="form-group">
-    <%= f.label :game_id, :class => 'col-sm-2 control-label' %>
-    <div class="col-sm-10">
-      <%= f.select :game_id, options_for_select( Game.all.collect { |g| [ g.name, g.id ] }, (params[:game_id] || @machine.game_id)), {}, :class => 'form-control' %>
-    </div>
-  </div>
-
   
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">  
       <%= f.submit nil, :class => 'btn btn-primary' %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                edit_game_path(@game), :class => 'btn btn-default' %>
+                edit_machine_path(@machine), :class => 'btn btn-default' %>
     </div>
   </div>
  
@@ -32,30 +25,50 @@
 <% unless @machine.new_record? %>
 
   <div class="col-md-3">
-    <legend>Math Models</legend>
+    <legend>Main Game Math Models</legend>
     <ul>
-      <% @machine.math_models.each do |math_model| %>
-        <li class="<%= "muted" unless math_model.active %>">
-          <%= math_model.name %>
-          <%= link_to 'Edit', edit_math_model_path(math_model) %>
-          <%= link_to "X", math_model_path(math_model), method: :delete, :data => { :confirm => 'Are you sure?' }, class: "delete" %>
-        </li>
+      <% @machine.assets.each do |math_model| %>
+        <% if math_model.bundle_type == ASSET_BUNDLE_TYPE[:MATH_MODEL_ASSET] && math_model.active %>
+          <li class="<%= "muted" unless math_model.active %>">
+            <%= math_model.version %>
+            <%= link_to 'Edit', edit_asset_path(math_model) %>
+            <%= link_to "X", asset_path(math_model), method: :delete, :data => { :confirm => 'Are you sure?' }, class: "delete" %>
+          </li>
+        <% end %>
       <% end %>
-      <li><%= link_to "New Math Model", new_math_model_path(machine_id: @machine.id) %></li>
+        <li><%= link_to "New Main Game Math Model", new_asset_path(resource_id: @machine.id, resource_type: "Machine", bundle_type: ASSET_BUNDLE_TYPE[:MATH_MODEL_ASSET]) %></li>
     </ul>
   </div>
 
   <div class="col-md-3">
-    <legend>Mini Game</legend>
+    <legend>Mini Game Math Model</legend>
     <ul>
-      <% @machine.mini_games.each do |mini_game| %>
-        <li>
-          <%= mini_game.name %>
-          <%= link_to 'Edit', edit_mini_game_path(mini_game) %>
-          <%= link_to "X", mini_game_path(mini_game), method: :delete, :data => { :confirm => 'Are you sure?' }, class: "delete" %>
-        </li>
+      <% @machine.assets.each do |mini_game| %>
+        <% if mini_game.bundle_type == ASSET_BUNDLE_TYPE[:MINI_GAME_ASSET] && mini_game.active %>
+          <li>
+            <%= mini_game.version %>
+            <%= link_to 'Edit', edit_asset_path(mini_game) %>
+            <%= link_to "X", asset_path(mini_game), method: :delete, :data => { :confirm => 'Are you sure?' }, class: "delete" %>
+          </li>
+        <% end %>
       <% end %>
-      <li><%= link_to "New Mini Game", new_mini_game_path(machine_id: @machine.id) %></li>
+      <li><%= link_to "New Mini Game Math Model", new_asset_path(resource_id: @machine.id, resource_type: "Machine", bundle_type: ASSET_BUNDLE_TYPE[:MINI_GAME_ASSET]) %></li>
+    </ul>
+  </div>
+
+  <div class="col-md-3">
+    <legend>Graphics</legend>
+    <ul>
+      <% @machine.assets.each do |graphics| %>
+        <% if graphics.bundle_type == ASSET_BUNDLE_TYPE[:GRAPHIC_ASSET] %>
+          <li>
+            <%= graphics.version %>
+            <%= link_to 'Edit', edit_asset_path(graphics) %>
+            <%= link_to "X", asset_path(graphics), method: :delete, :data => { :confirm => 'Are you sure?' }, class: "delete" %>
+          </li>
+        <% end %>
+      <% end %>
+      <li><%= link_to "New Graphics", new_asset_path(resource_id: @machine.id, resource_type: "Machine", bundle_type: ASSET_BUNDLE_TYPE[:GRAPHIC_ASSET]) %></li>
     </ul>
   </div>
 
