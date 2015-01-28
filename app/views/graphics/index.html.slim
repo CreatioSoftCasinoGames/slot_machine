@@ -1,0 +1,25 @@
+h1 Listing graphics
+
+table
+  thead
+    tr
+      th Name
+      th Machine
+      th Description
+      th
+      th
+      th
+
+  tbody
+    - @graphics.each do |graphic|
+      tr
+        td = graphic.name
+        td = graphic.machine_id
+        td = graphic.description
+        td = link_to 'Show', graphic
+        td = link_to 'Edit', edit_graphic_path(graphic)
+        td = link_to 'Destroy', graphic, data: {:confirm => 'Are you sure?'}, :method => :delete
+
+br
+
+= link_to 'New Graphic', new_graphic_path

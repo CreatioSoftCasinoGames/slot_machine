@@ -16,7 +16,7 @@
     <div class="col-sm-offset-2 col-sm-10">  
       <%= f.submit nil, :class => 'btn btn-primary' %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                edit_machine_path(@machine), :class => 'btn btn-default' %>
+                machines_path(@machine), :class => 'btn btn-default' %>
     </div>
   </div>
  
@@ -28,7 +28,7 @@
     <legend>Main Game Math Models</legend>
     <ul>
       <% @machine.assets.each do |math_model| %>
-        <% if math_model.bundle_type == ASSET_BUNDLE_TYPE[:MATH_MODEL_ASSET] && math_model.active %>
+        <% if math_model.bundle_type == ASSET_BUNDLE_TYPE[:MATH_MODEL_ASSET] %>
           <li class="<%= "muted" unless math_model.active %>">
             <%= math_model.version %>
             <%= link_to 'Edit', edit_asset_path(math_model) %>
@@ -44,8 +44,8 @@
     <legend>Mini Game Math Model</legend>
     <ul>
       <% @machine.assets.each do |mini_game| %>
-        <% if mini_game.bundle_type == ASSET_BUNDLE_TYPE[:MINI_GAME_ASSET] && mini_game.active %>
-          <li>
+        <% if mini_game.bundle_type == ASSET_BUNDLE_TYPE[:MINI_GAME_ASSET] %>
+          <li class="<%= "muted" unless mini_game.active %>">
             <%= mini_game.version %>
             <%= link_to 'Edit', edit_asset_path(mini_game) %>
             <%= link_to "X", asset_path(mini_game), method: :delete, :data => { :confirm => 'Are you sure?' }, class: "delete" %>
@@ -61,7 +61,7 @@
     <ul>
       <% @machine.assets.each do |graphics| %>
         <% if graphics.bundle_type == ASSET_BUNDLE_TYPE[:GRAPHIC_ASSET] %>
-          <li>
+          <li class="<%= "muted" unless graphics.active %>">
             <%= graphics.version %>
             <%= link_to 'Edit', edit_asset_path(graphics) %>
             <%= link_to "X", asset_path(graphics), method: :delete, :data => { :confirm => 'Are you sure?' }, class: "delete" %>

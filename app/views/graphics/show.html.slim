@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Name:
+  = @graphic.name
+p
+  strong Machine:
+  = @graphic.machine_id
+p
+  strong Description:
+  = @graphic.description
+
+= link_to 'Edit', edit_graphic_path(@graphic)
+'|
+= link_to 'Back', graphics_path

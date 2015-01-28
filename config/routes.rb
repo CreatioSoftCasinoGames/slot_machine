@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :graphics
+
   resources :mini_games
 
   resources :machines
@@ -29,7 +31,7 @@ Rails.application.routes.draw do
   get "utility/show_api_key", to: "utility#show_api_key", as: "show_api_key"
   post "utility/generate_api_key", to: "utility#generate_api_key", as: "generate_api_key"
 
-  resources :games
+  resources :machines
   devise_for :users
 
   # The priority is based upon order of creation: first created -> highest priority.
@@ -44,7 +46,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       get "/versions" => "welcome#versions"
-      resources :games
+      resources :machines
       resources :math_models
       resources :assets
       resources :users
@@ -65,11 +67,6 @@ Rails.application.routes.draw do
           get :out_game_asset_versions
         end
       end
-      resources :games do
-        member do
-          get :asset_versions
-        end
-      end
       resources :math_models do
         member do
           get :asset_versions
@@ -78,6 +75,11 @@ Rails.application.routes.draw do
       resources :mini_games do
         member do
           get :asset_versions
+        end
+      end
+      resources :assets do
+        member do
+          get :machine_assets
         end
       end
     end

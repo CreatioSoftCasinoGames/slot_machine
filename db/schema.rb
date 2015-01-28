@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150127143528) do
+ActiveRecord::Schema.define(version: 20150128085833) do
 
   create_table "api_keys", force: true do |t|
     t.string   "token"
@@ -43,6 +43,14 @@ ActiveRecord::Schema.define(version: 20150127143528) do
     t.datetime "updated_at"
   end
 
+  create_table "graphics", force: true do |t|
+    t.string   "name"
+    t.integer  "machine_id"
+    t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "images", force: true do |t|
     t.integer  "resource_id"
     t.string   "resource_type"
@@ -63,6 +71,8 @@ ActiveRecord::Schema.define(version: 20150127143528) do
     t.integer  "game_id"
     t.integer  "machine_number"
   end
+
+  add_index "machines", ["machine_number"], name: "index_machines_on_machine_number", unique: true, using: :btree
 
   create_table "math_models", force: true do |t|
     t.string   "name"
