@@ -1,7 +1,7 @@
 class Asset < ActiveRecord::Base
 
   belongs_to :resource, polymorphic: true
-  before_save :deactivate_others
+  #before_save :deactivate_others
 
 	scope :active, -> { where(active: true) }
 
@@ -26,12 +26,12 @@ class Asset < ActiveRecord::Base
 
   private
 
-  def deactivate_others
-    if self.changes.include?(:active) && self.active
-      (siblings - [self]).each do |a|
-        a.update_attributes(active: false)
-      end
-    end
-  end
+  #def deactivate_others
+  #  if self.changes.include?(:active) && self.active
+  #    (siblings - [self]).each do |a|
+  #      a.update_attributes(active: false)
+  #    end
+  #  end
+  #end
 
 end
