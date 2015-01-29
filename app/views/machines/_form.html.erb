@@ -23,11 +23,24 @@
 <% end %>
 
 <% unless @machine.new_record? %>
-
+    <select id="country" onchange="changeUrl();">
+      <option selected value="">Choose Your Country</option>
+      <option value="india">India</option>
+      <option value="united states">United States</option>
+      <option value="united kingdom">United Kingdom</option>
+      <option value="canada">Canada</option>
+      <option value="france">France</option>
+      <option value="germany">Germany</option>
+      <option value="china">China</option>
+      <option value="japan">Japan</option>
+      <option value="korea">Korea</option>
+      <option value="uae">UAE</option>
+    </select>
+  
   <div class="col-md-3">
     <legend>Main Game Math Models</legend>
     <ul>
-      <% @machine.assets.each do |math_model| %>
+      <% @machine.assets.where(country: params[:country]).each do |math_model| %>
         <% if math_model.bundle_type == ASSET_BUNDLE_TYPE[:MATH_MODEL_ASSET] %>
           <li class="<%= "muted" unless math_model.active %>">
             <%= math_model.version %>
@@ -43,7 +56,7 @@
   <div class="col-md-3">
     <legend>Mini Game Math Model</legend>
     <ul>
-      <% @machine.assets.each do |mini_game| %>
+      <% @machine.assets.where(country: params[:country]).each do |mini_game| %>
         <% if mini_game.bundle_type == ASSET_BUNDLE_TYPE[:MINI_GAME_ASSET] %>
           <li class="<%= "muted" unless mini_game.active %>">
             <%= mini_game.version %>
@@ -52,14 +65,14 @@
           </li>
         <% end %>
       <% end %>
-      <li><%= link_to "New Mini Game Math Model", new_asset_path(resource_id: @machine.id, resource_type: "Machine", bundle_type: ASSET_BUNDLE_TYPE[:MINI_GAME_ASSET]) %></li>
+      <li><%= link_to "New Mini Game Math Model", new_asset_path(resource_id: @machine.id, country: params[:country], resource_type: "Machine", bundle_type: ASSET_BUNDLE_TYPE[:MINI_GAME_ASSET]) %></li>
     </ul>
   </div>
 
   <div class="col-md-3">
     <legend>Graphics</legend>
     <ul>
-      <% @machine.assets.each do |graphics| %>
+      <% @machine.assets.where(country: params[:country]).each do |graphics| %>
         <% if graphics.bundle_type == ASSET_BUNDLE_TYPE[:GRAPHIC_ASSET] %>
           <li class="<%= "muted" unless graphics.active %>">
             <%= graphics.version %>
