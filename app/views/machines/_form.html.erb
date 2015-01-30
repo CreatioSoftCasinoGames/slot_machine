@@ -67,7 +67,7 @@
     <ul>
       <% @machine.assets.where(country: params[:country]).each do |graphics| %>
         <% if graphics.bundle_type == ASSET_BUNDLE_TYPE[:GRAPHIC_ASSET] %>
-          <li class="<%= "muted" unless graphics.active %>">
+          <li class="<%= "muted" unless graphics.active %>" >
             <%= graphics.version %>
             <%= link_to 'Edit', edit_asset_path(graphics) %>
             <%= link_to "X", asset_path(graphics), method: :delete, :data => { :confirm => 'Are you sure?' }, class: "delete" %>
