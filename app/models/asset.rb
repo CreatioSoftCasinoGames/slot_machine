@@ -16,6 +16,10 @@ class Asset < ActiveRecord::Base
     self.resource.assets.where(bundle_type: bundle_type)
   end
 
+  def file_updated_at
+    updated_at.strftime("%B,%Y")
+  end
+
   def get_resource_version
     (siblings.count + 1)
   end 

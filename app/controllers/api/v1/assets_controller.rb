@@ -25,12 +25,20 @@ class Api::V1::AssetsController < Api::V1::ApplicationController
             only: [:version, :bundle_type, :file_file_size, :file_updated_at],
             methods: [:url]
         }),
-        world_wide_assets: ({
-            math_model: @imp_math_model,
-            mini_game_model: @imp_mini_model,
-            grahic_model: @imp_graphic_model
+        world_wide_math_assets: @imp_math_model.as_json({
+            only: [:version, :bundle_type, :file_file_size, :file_updated_at],
+            methods: [:url]
+        }),
+        world_wide_mini_game_assets: @imp_mini_model.as_json({
+            only: [:version, :bundle_type, :file_file_size, :file_updated_at],
+            methods: [:url]
+        }),
+        world_wide_graphic_assets: @imp_graphic_model.as_json({
+            only: [:version, :bundle_type, :file_file_size, :file_updated_at],
+            methods: [:url]
         })
     }
+
   end
 
 end
