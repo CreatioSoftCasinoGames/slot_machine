@@ -1,3 +1,3 @@
 ASSET_BUNDLE_TYPE = {MATH_MODEL_ASSET: "MATH_MODEL_ASSET", MINI_GAME_ASSET: "MINI_GAME_ASSET", GRAPHIC_ASSET: "GRAPHIC_ASSET" }
 SYMBOL_TYPE = {NORMAL: "NORMAL", WILD: "WILD", SCATTERED_MINI_GAMES: "SCATTERED_MINI_GAMES", SCATTERED_FREE_SPINS: "SCATTERED_FREE_SPINS", OVERSIZED: "OVERSIZED"}
-COUNTRIES = {India: 'India', United_State: 'United_States', United_Kingdom: 'United_Kingdom', Canada: 'Canada', France: 'France', Germany: 'Germany', China: 'China', Japan: 'Japan', Korea: 'Korea', UAE: 'UAE', World_Wide: 'World_Wide'}
+COUNTRIES = {Select_Country: 'Select_Country', India: 'India', United_State: 'United_States', United_Kingdom: 'United_Kingdom', Canada: 'Canada', France: 'France', Germany: 'Germany', China: 'China', Japan: 'Japan', Korea: 'Korea', UAE: 'UAE', World_Wide: 'World_Wide'}

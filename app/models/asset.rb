@@ -17,7 +17,7 @@ class Asset < ActiveRecord::Base
   end
 
   def file_updated_at
-    updated_at.strftime("%B,%Y")
+    updated_at.strftime("%D")
   end
 
   def get_resource_version
