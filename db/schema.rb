@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150130075138) do
+ActiveRecord::Schema.define(version: 20150131071332) do
 
   create_table "api_keys", force: true do |t|
     t.string   "token"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20150130075138) do
     t.string   "version"
     t.string   "file_file_name"
     t.string   "file_content_type"
-    t.integer  "file_file_size"
+    t.integer  "file_file_size",    default: 0
     t.datetime "file_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"

@@ -35,7 +35,7 @@
     <ul>
       <% @machine.assets.where(country: params[:country]).each do |math_model| %>
         <% if math_model.bundle_type == ASSET_BUNDLE_TYPE[:MATH_MODEL_ASSET] %>
-          <li class="<%= "muted" unless math_model.active %>">
+          <li class="<%= "active" if math_model.active %>">
             <%= math_model.version %>
             <%= link_to 'Edit', edit_asset_path(math_model) %>
             <%= link_to "X", asset_path(math_model), method: :delete, :data => { :confirm => 'Are you sure?' }, class: "delete" %>
@@ -51,7 +51,7 @@
     <ul>
       <% @machine.assets.where(country: params[:country]).each do |mini_game| %>
         <% if mini_game.bundle_type == ASSET_BUNDLE_TYPE[:MINI_GAME_ASSET] %>
-          <li class="<%= "muted" unless mini_game.active %>">
+          <li class="<%= "active" if mini_game.active %>">
             <%= mini_game.version %>
             <%= link_to 'Edit', edit_asset_path(mini_game) %>
             <%= link_to "X", asset_path(mini_game), method: :delete, :data => { :confirm => 'Are you sure?' }, class: "delete" %>
@@ -67,7 +67,7 @@
     <ul>
       <% @machine.assets.where(country: params[:country]).each do |graphics| %>
         <% if graphics.bundle_type == ASSET_BUNDLE_TYPE[:GRAPHIC_ASSET] %>
-          <li class="<%= "muted" unless graphics.active %>">
+          <li class="<%= "active" if graphics.active %>">
             <%= graphics.version %>
             <%= link_to 'Edit', edit_asset_path(graphics) %>
             <%= link_to "X", asset_path(graphics), method: :delete, :data => { :confirm => 'Are you sure?' }, class: "delete" %>
