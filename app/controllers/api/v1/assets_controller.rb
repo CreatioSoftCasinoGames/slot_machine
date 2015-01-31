@@ -26,18 +26,16 @@ class Api::V1::AssetsController < Api::V1::ApplicationController
         end
     end
     if @check_graphic.blank?
-        if @imp_math_model.present?
+        if @active_assets.present?
             @active_assets = @active_assets + @machine.active_asset.where(bundle_type: "GRAPHIC_ASSET", country: "World_Wide")
         else
             @active_assets = @machine.active_asset.where(bundle_type: "GRAPHIC_ASSET", country: "World_Wide")
         end
     end
-     respond_to do |format|
-        if @active_assets.present?
-            format.json{render json: @active_assets }
-        end
-    end
-
+    render json: @active_assets.as_json({
+        only: [:version, :bundle_type, :file_file_size],
+        methods: [:file_updated_at, :url]
+    })
   end
 
 end
