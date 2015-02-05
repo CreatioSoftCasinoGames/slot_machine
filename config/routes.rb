@@ -62,9 +62,7 @@ Rails.application.routes.draw do
       end
       resources :machines do
         member do
-          get :math_model_versions
-          get :in_game_asset_versions
-          get :out_game_asset_versions
+          get :assets
         end
       end
       resources :math_models do
@@ -75,11 +73,6 @@ Rails.application.routes.draw do
       resources :mini_games do
         member do
           get :asset_versions
-        end
-      end
-      resources :assets do
-        member do
-          get :machine_assets
         end
       end
     end
