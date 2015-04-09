@@ -1,0 +1,8 @@
+.jumbotron
+  = form_tag '/utility/sync_data', :method => 'get' do
+    .form-group
+      - if user_signed_in?
+        button type="submit" Sync Database
+  h1 Hello, world!
+  p Welcome to OET Services
+  p= link_to "Learn more", "#", class: "btn btn-primary btn-lg"
