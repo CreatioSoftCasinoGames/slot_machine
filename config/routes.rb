@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :tournaments
+
   resources :graphics
 
   resources :mini_games

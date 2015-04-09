@@ -1,0 +1,31 @@
+= form_for @tournament, html: { class: "form form-horizontal tournament" } do |f|
+  .form-group
+    = f.label :machine, :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.select :machine_id, Machine.all.collect{ |machine| [machine.id] }, {include_blank: "Select Machine" }, :class => 'form-control'
+    = error_span(@tournament[:machine_id])
+  .form-group
+    = f.label :min_entry_level, :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.text_field :min_entry_level, :class => 'form-control'
+    = error_span(@tournament[:min_entry_level])
+  .form-group
+    = f.label :max_entry_level, :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.text_field :max_entry_level, :class => 'form-control'
+    = error_span(@tournament[:max_entry_level])
+  .form-group
+    = f.label :seed_money, :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.text_field :seed_money, :class => 'form-control'
+    = error_span(@tournament[:seed_money])
+  .form-group
+    = f.label :time_out, :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.text_field :time_out, :class => 'form-control'
+    = error_span(@tournament[:time_out])
+  .form-group
+    .col-lg-offset-2.col-lg-10
+      = f.submit nil, :class => 'btn btn-primary'
+      '
+      = link_to t('.cancel', :default => t("helpers.links.cancel")), tournaments_path, :class => 'btn'

@@ -1,0 +1,26 @@
+- model_class = Tournament
+div class="page-header"
+  h1=t '.title', :default => model_class.model_name.human.titleize
+
+p
+  strong= model_class.human_attribute_name(:min_entry_level) + ':'
+  br
+  = @tournament.min_entry_level
+p
+  strong= model_class.human_attribute_name(:max_entry_level) + ':'
+  br
+  = @tournament.max_entry_level
+p
+  strong= model_class.human_attribute_name(:seed_money) + ':'
+  br
+  = @tournament.seed_money
+p
+  strong= model_class.human_attribute_name(:time_out) + ':'
+  br
+  = @tournament.time_out
+
+= link_to t('.back', :default => t("helpers.links.back")), tournaments_path, :class => 'btn btn-default'
+'
+= link_to t('.edit', :default => t("helpers.links.edit")), edit_tournament_path(@tournament), :class => 'btn btn-default'
+'
+= link_to t('.destroy', :default => t("helpers.links.destroy")), tournament_path(@tournament), :method => "delete", :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) }, :class => 'btn btn-danger'

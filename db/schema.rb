@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150409085639) do
+ActiveRecord::Schema.define(version: 20150409113301) do
 
   create_table "api_keys", force: true do |t|
     t.string   "token"
@@ -73,8 +73,6 @@ ActiveRecord::Schema.define(version: 20150409085639) do
     t.string   "machine_type"
     t.integer  "min_players"
     t.integer  "max_players"
-    t.decimal  "timeout",        precision: 10, scale: 0, default: 1000000
-    t.decimal  "seed_money",     precision: 10, scale: 0
   end
 
   add_index "machines", ["machine_number"], name: "index_machines_on_machine_number", unique: true, using: :btree
@@ -101,6 +99,18 @@ ActiveRecord::Schema.define(version: 20150409085639) do
     t.string   "name"
     t.text     "description"
     t.integer  "machine_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "tournaments", force: true do |t|
+    t.integer  "machine_id"
+    t.integer  "min_player"
+    t.integer  "max_player"
+    t.integer  "min_entry_level"
+    t.integer  "max_entry_level"
+    t.decimal  "seed_money",      precision: 10, scale: 0
+    t.decimal  "time_out",        precision: 10, scale: 0, default: 1000000
     t.datetime "created_at"
     t.datetime "updated_at"
   end
