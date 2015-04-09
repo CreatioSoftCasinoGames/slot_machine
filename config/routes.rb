@@ -51,7 +51,7 @@ Rails.application.routes.draw do
       resources :assets
       resources :users
       resources :mini_games
-      resources :sessions, :only => [:create]
+      resources :sessions, :only => [:create, :destroy]
       resources :users do
         member do 
           put :log_spin
