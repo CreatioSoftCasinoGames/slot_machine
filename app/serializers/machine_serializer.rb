@@ -1,9 +1,5 @@
 class MachineSerializer < ActiveModel::Serializer
 
-  attributes :id, :machine_number, :name
-  has_one :active_math_model
-  has_one :active_in_game_asset
-  has_one :active_out_game_asset
-  has_many :mini_games
+  attributes :id, :machine_number, :name, :machine_type, :min_players, :max_players
 
 end
