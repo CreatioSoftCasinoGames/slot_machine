@@ -20,7 +20,6 @@ class Api::V1::SessionsController < Api::V1::ApplicationController
 					@messages = "Guest user not present!"
 				end
 			else
-				# @messages = "Allready connected with facebook!"
 				@user = User.where(fb_id: params[:fb_id]).first
 				@user.attributes = {fb_friends_list: params[:fb_friends_list]}
 			end

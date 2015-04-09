@@ -8,7 +8,11 @@
       <th><%= model_class.human_attribute_name(:id) %></th>
       <th><%= model_class.human_attribute_name(:machine_number) %></th>
       <th><%= model_class.human_attribute_name(:name) %></th>
-      <th><%= model_class.human_attribute_name(:created_at) %></th>
+      <th><%= model_class.human_attribute_name(:machine_type) %></th>
+      <th><%= model_class.human_attribute_name(:min_players) %></th>
+      <th><%= model_class.human_attribute_name(:max_players) %></th>
+      <th><%= model_class.human_attribute_name(:timeout) %></th>
+      <th><%= model_class.human_attribute_name(:seed_money) %></th>
       <th><%=t '.actions', :default => t("helpers.actions") %></th>
     </tr>
   </thead>
@@ -18,7 +22,11 @@
         <td><%= link_to machine.id, machine_path(machine) %></td>
         <td><%= machine.machine_number %></td>
         <td><%= machine.name %></td>
-        <td><%=l machine.created_at %></td>
+        <td><%= machine.machine_type %></td>
+        <td><%= machine.min_players %></td>
+        <td><%= machine.max_players %></td>
+        <td><%= machine.timeout %></td>
+        <td><%= machine.seed_money %></td>
         <td>
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
                       edit_machine_path(machine), :class => 'btn btn-default btn-xs' %>

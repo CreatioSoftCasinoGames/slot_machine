@@ -8,6 +8,16 @@
   <dd><%= @machine.machine_number %></dd>
   <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
   <dd><%= @machine.name %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:machine_type) %>:</strong></dt>
+  <dd><%= @machine.machine_type %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:min_players) %>:</strong></dt>
+  <dd><%= @machine.min_players %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:max_players) %>:</strong></dt>
+  <dd><%= @machine.max_players %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:timeout) %>:</strong></dt>
+  <dd><%= @machine.timeout %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:seed_money) %>:</strong></dt>
+  <dd><%= @machine.seed_money %></dd>
 </dl>
 
 <%= link_to t('.back', :default => t("helpers.links.back")),

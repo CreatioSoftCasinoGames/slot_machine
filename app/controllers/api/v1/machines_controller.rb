@@ -1,6 +1,10 @@
 class Api::V1::MachinesController < Api::V1::ApplicationController
 	
-	def assets
+	def index
+    render json: Machine.all
+  end
+
+  def assets
     @machine = Machine.where(machine_number: params[:id]).first
     @active_assets = @machine.active_asset.where(country: params[:country])
     @check_math = @machine.active_asset.where(bundle_type: "MATH_MODEL_ASSET", country: params[:country])
