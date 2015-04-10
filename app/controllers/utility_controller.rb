@@ -15,8 +15,8 @@ class UtilityController < ApplicationController
 			REDIS_CLIENT.HMSET("machine:#{machine.id}", "name", machine.name, "machine_type", machine.machine_type, "min_players", machine.min_players, "max_players", machine
 				.max_players, "machine_number", machine.machine_number)
 			machine.tournaments.each do |tournament|
-				REDIS_CLIENT.ZADD("tournament_sorted_set", tournament.max_entry_level, "players_tournamnet:#{tournamnet.max_entry_level}")
-				REDIS_CLIENT.set("players_tournamnet:#{tournament.max_entry_level}", tournament.id)
+				REDIS_CLIENT.ZADD("tournament_sorted_set", tournament.max_entry_level, "players_tournamnet:#{tournament.id}")
+				REDIS_CLIENT.HMSET("players_tournamnet:#{tournament.id}", "min_entry_level", tournament.min_entry_level, "max_entry_level", tournament.max_entry_level, "seed_money", tournament.seed_money)
 			end
 		end
 		redirect_to root_path, flash: {success: "Data successfully synced !"}
