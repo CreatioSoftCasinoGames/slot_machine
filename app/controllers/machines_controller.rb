@@ -69,6 +69,6 @@ class MachinesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def machine_params
-      params.require(:machine).permit(:name, :machine_number, :machine_type, :min_players, :max_players, :timeout, :seed_money)
+      params.require(:machine).permit(:name, :machine_number, :machine_type, :min_players, :max_players)
     end
 end
