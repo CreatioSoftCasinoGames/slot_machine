@@ -9,6 +9,14 @@ class User < ActiveRecord::Base
   validates :fb_id, uniqueness: true, allow_blank: true
   
   has_many :login_histories, :dependent => :destroy
+  has_many :friend_requests, :dependent => :destroy, foreign_key: "requested_to_id"
+  has_many :friend_requests_sent, :dependent => :destroy, foreign_key: "user_id", class_name: "FriendRequest"
+  has_many :unconfirmed_friend_requests, -> {where(confirmed: false)}, class_name: "FriendRequest", foreign_key: "requested_to_id"
+  has_many :friendships, :dependent => :destroy
+  has_many :friends, through: :friendships
+  has_many :gift_requests, :dependent => :destroy, foreign_key: "send_to_id"
+  has_many :gift_requests_sent, :dependent => :destroy, class_name: "GiftRequest", foreign_key: "user_id"
+  has_many :unconfirmed_gift_requests, -> { where(confirmed: false) }, class_name: "GiftRequest", foreign_key: "send_to_id"
 
   attr_accessor :bet_amount, :won_amount, :previous_login_token, :fb_friends_list
 
@@ -20,6 +28,10 @@ class User < ActiveRecord::Base
 
   def self.fetch_by_login_token(login_token)
     self.where(login_token: login_token).first || LoginHistory.where(login_token: login_token).first.user
+  end
+
+  def full_name
+    [first_name, last_name].join(" ")
   end
 
   def image_url 

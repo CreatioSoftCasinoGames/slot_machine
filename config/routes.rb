@@ -55,6 +55,8 @@ Rails.application.routes.draw do
       get "/versions" => "welcome#versions"
       resources :machines
       resources :math_models
+      resources :friend_requests
+      resources :gift_requests
       resources :assets
       resources :users
       resources :mini_games
@@ -62,6 +64,12 @@ Rails.application.routes.draw do
       resources :users do
         member do 
           put :log_spin
+          get :friend_request_sent
+          get :my_friend_requests
+          get :my_friends
+          delete :delete_friend
+          get :sent_gift
+          get :received_gift
         end
       end
       resources :themes do
