@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :jackpots
+
   resources :tournaments
 
   resources :graphics
@@ -57,6 +59,7 @@ Rails.application.routes.draw do
       resources :math_models
       resources :friend_requests
       resources :gift_requests
+      resources :distributable_jackpots
       resources :assets
       resources :users
       resources :mini_games

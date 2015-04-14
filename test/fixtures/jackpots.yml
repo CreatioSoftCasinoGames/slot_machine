@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  jackpot_type: MyString
+  seed_amount: 9.99
+  player_percent: 9.99
+
+two:
+  jackpot_type: MyString
+  seed_amount: 9.99
+  player_percent: 9.99

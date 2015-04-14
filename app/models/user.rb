@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   before_validation :set_login_details, :set_fb_password
   before_update :set_coins
   validates :fb_id, uniqueness: true, allow_blank: true
+  validate :set_fb_friends
+  after_create :set_chips_for_synced_user
   
   has_many :login_histories, :dependent => :destroy
   has_many :friend_requests, :dependent => :destroy, foreign_key: "requested_to_id"
@@ -64,6 +66,30 @@ class User < ActiveRecord::Base
       generated_password = SecureRandom.hex(9)
       self.password = generated_password
       self.password_confirmation = generated_password    
+    end
+  end
+
+  def set_fb_friends
+    if fb_friends_list
+      user_ids = User.where(fb_id: fb_friends_list).collect(&:id)
+      friend_ids = self.friends.collect(&:id)
+      new_friend_ids = user_ids - friend_ids
+      deleted_friends_ids = friend_ids - user_ids
+      new_friend_ids.each do |friend_id|
+        Friendship.create(user_id: self.id, friend_id: friend_id)
+        Friendship.create(user_id: friend_id, friend_id: self.id)
+      end
+      deleted_friends_ids.each do |deleted_friend_id|
+        Friendship.where(user_id: self.id, friend_id: deleted_friend_id).first.delete
+        Friendship.where(user_id: deleted_friend_id, friend_id: self.id).first.delete
+      end
+    end
+  end
+
+  def set_chips_for_synced_user
+    if self.parent_id.present?
+      chips = User.where(id: parent_id).first.chips + 10000
+      self.update_attributes(chips: chips)
     end
   end
 

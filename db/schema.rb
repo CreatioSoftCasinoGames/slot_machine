@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150414050229) do
+ActiveRecord::Schema.define(version: 20150414101102) do
 
   create_table "api_keys", force: true do |t|
     t.string   "token"
@@ -34,6 +34,17 @@ ActiveRecord::Schema.define(version: 20150414050229) do
     t.string   "bundle_type"
     t.integer  "resource_id"
     t.string   "resource_type"
+  end
+
+  create_table "distributable_jackpots", force: true do |t|
+    t.integer  "jackpot_id"
+    t.decimal  "seed_amount",       precision: 10, scale: 0
+    t.decimal  "player_percentage", precision: 10, scale: 0
+    t.decimal  "amount",            precision: 10, scale: 0
+    t.boolean  "active",                                     default: true
+    t.integer  "winner_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "friend_requests", force: true do |t|
@@ -76,6 +87,14 @@ ActiveRecord::Schema.define(version: 20150414050229) do
     t.string   "file_content_type"
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "jackpots", force: true do |t|
+    t.string   "jackpot_type"
+    t.decimal  "seed_amount",    precision: 10, scale: 0
+    t.decimal  "player_percent", precision: 10, scale: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -180,6 +199,7 @@ ActiveRecord::Schema.define(version: 20150414050229) do
     t.boolean  "is_guest",                                                default: false
     t.string   "login_token"
     t.boolean  "online",                                                  default: false
+    t.integer  "parent_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
