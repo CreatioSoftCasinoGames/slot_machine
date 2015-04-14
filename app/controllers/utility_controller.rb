@@ -12,10 +12,10 @@ class UtilityController < ApplicationController
 	def sync_data
 		Machine.includes(:tournaments).all.each do |machine|
 			REDIS_CLIENT.SADD("machines", "machine:#{machine.id}")
-			REDIS_CLIENT.HMSET("machine:#{machine.id}", "name", machine.name, "machine_type", machine.machine_type, "min_players", machine.min_players, "max_players", machine
-				.max_players, "machine_number", machine.machine_number)
+			REDIS_CLIENT.HMSET("machine:#{machine.id}", "name", machine.name, "machine_type", machine.machine_type, "min_players", machine.min_players, "max_players", machine.max_players, "machine_number", machine.machine_number)
+			REDIS_CLIENT.SADD("machines_occupancy", "machine_id:#{machine.id}")
 			machine.tournaments.each do |tournament|
-				REDIS_CLIENT.ZADD("tournament_sorted_set", tournament.max_entry_level, "players_tournamnet:#{tournament.id}")
+				REDIS_CLIENT.ZADD("tournament_sorted_set", tournament.min_entry_level, "players_tournamnet:#{tournament.id}")
 				REDIS_CLIENT.HMSET("players_tournamnet:#{tournament.id}", "min_entry_level", tournament.min_entry_level, "max_entry_level", tournament.max_entry_level, "seed_money", tournament.seed_money)
 			end
 		end
