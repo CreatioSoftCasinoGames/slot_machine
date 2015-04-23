@@ -24,8 +24,25 @@
     .col-lg-10
       = f.text_field :time_out, :class => 'form-control'
     = error_span(@tournament[:time_out])
+
+  .form-group
+    = f.label :interval, :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.text_field :interval, :class => 'form-control'
+    = error_span(@tournament[:interval])
+
+  .form-group
+    = f.label :points_required, :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.text_field :points_required, :class => 'form-control'
+    = error_span(@tournament[:points_required])
+
+    
   .form-group
     .col-lg-offset-2.col-lg-10
       = f.submit nil, :class => 'btn btn-primary'
       '
       = link_to t('.cancel', :default => t("helpers.links.cancel")), tournaments_path, :class => 'btn'
+
+
+

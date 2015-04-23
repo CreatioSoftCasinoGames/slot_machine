@@ -78,6 +78,7 @@ class TournamentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tournament_params
-      params.require(:tournament).permit(:machine_id, :min_player, :max_player, :min_entry_level, :max_entry_level, :seed_money, :time_out)
+      params.require(:tournament).permit(:machine_id, :min_player, :max_player, :min_entry_level, :max_entry_level, :seed_money, :time_out, :interval, :points_required)
     end
 end
+

@@ -8,7 +8,6 @@ class User < ActiveRecord::Base
   before_update :set_coins
   validates :fb_id, uniqueness: true, allow_blank: true
   validate :set_fb_friends
-  after_create :set_chips_for_synced_user
   
   has_many :login_histories, :dependent => :destroy
   has_many :friend_requests, :dependent => :destroy, foreign_key: "requested_to_id"
@@ -83,13 +82,6 @@ class User < ActiveRecord::Base
         Friendship.where(user_id: self.id, friend_id: deleted_friend_id).first.delete
         Friendship.where(user_id: deleted_friend_id, friend_id: self.id).first.delete
       end
-    end
-  end
-
-  def set_chips_for_synced_user
-    if self.parent_id.present?
-      chips = User.where(id: parent_id).first.chips + 10000
-      self.update_attributes(chips: chips)
     end
   end
 
