@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150414101102) do
+ActiveRecord::Schema.define(version: 20150423125750) do
 
   create_table "api_keys", force: true do |t|
     t.string   "token"
@@ -157,6 +157,8 @@ ActiveRecord::Schema.define(version: 20150414101102) do
     t.decimal  "time_out",        precision: 10, scale: 0, default: 1000000
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "interval"
+    t.integer  "points_required"
   end
 
   create_table "users", force: true do |t|
