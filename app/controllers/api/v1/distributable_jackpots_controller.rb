@@ -1,7 +1,21 @@
 class Api::V1::DistributableJackpotsController < Api::V1::ApplicationController
 
 	def index
-		render json: DistributableJackpot.where(active: true)
+		render json: DistributableJackpot.where(is_distributed: false)
+	end
+
+	def update
+		@distributable_jackpot = DistributableJackpot.where(id: params[:id]).first
+		if @distributable_jackpot.update_attributes(is_distributed: true)
+			render json:{
+				success: true
+			}
+		else
+			render json:{
+				success: false,
+				error: @distributable_jackpot.errors.full_messages.join(", ")
+			}
+		end
 	end
 
 	def jackpot_amount

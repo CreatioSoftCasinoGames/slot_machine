@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150429074542) do
+ActiveRecord::Schema.define(version: 20150429101244) do
 
   create_table "api_keys", force: true do |t|
     t.string   "token"
@@ -45,6 +45,7 @@ ActiveRecord::Schema.define(version: 20150429074542) do
     t.integer  "winner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "is_distributed",                             default: false
   end
 
   create_table "friend_requests", force: true do |t|
