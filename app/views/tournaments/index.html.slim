@@ -5,20 +5,20 @@ table class="table table-striped"
   thead
     tr
       th= model_class.human_attribute_name(:id)
-      th= model_class.human_attribute_name(:machine_id)
-      th= model_class.human_attribute_name(:min_entry_level)
-      th= model_class.human_attribute_name(:max_entry_level)
+      th= model_class.human_attribute_name(:machine_name)
+      th= model_class.human_attribute_name(:player_entry_level)
+      th= model_class.human_attribute_name(:player_max_entry_level)
       th= model_class.human_attribute_name(:seed_money)
       th= model_class.human_attribute_name(:time_out)
       th= model_class.human_attribute_name(:interval)
-      th= model_class.human_attribute_name(:points_required)
+      th= model_class.human_attribute_name(:entry_points_required)
       th= model_class.human_attribute_name(:created_at)
       th=t '.actions', :default => t("helpers.actions")
   tbody
     - @tournaments.each do |tournament|
       tr
         td= link_to tournament.id, tournament_path(tournament)
-        td= tournament.machine_id
+        td= tournament.machine.name
         td= tournament.min_entry_level
         td= tournament.max_entry_level
         td= tournament.seed_money

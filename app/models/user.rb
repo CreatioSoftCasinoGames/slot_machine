@@ -70,6 +70,7 @@ class User < ActiveRecord::Base
 
   def set_fb_friends
     if fb_friends_list
+      p "-----------------I am called-----------------------------------------"
       user_ids = User.where(fb_id: fb_friends_list).collect(&:id)
       friend_ids = self.friends.collect(&:id)
       new_friend_ids = user_ids - friend_ids

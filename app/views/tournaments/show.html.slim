@@ -1,7 +1,11 @@
 - model_class = Tournament
 div class="page-header"
   h1=t '.title', :default => model_class.model_name.human.titleize
-
+p
+  strong= model_class.human_attribute_name(:machine_id) + ':'
+  br
+  = @tournament.machine_id
+  
 p
   strong= model_class.human_attribute_name(:min_entry_level) + ':'
   br
