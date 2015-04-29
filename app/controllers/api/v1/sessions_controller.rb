@@ -8,7 +8,7 @@ class Api::V1::SessionsController < Api::V1::ApplicationController
 					@user = @guest_user.dup
 					@user.attributes = {parent_id: @guest_user.id, device_id: nil, is_guest: false, fb_id: params[:fb_id], email: params[:fb_id]+"@facebook.com"}
 					if @user.save
-						# @guest_user.update_attributes(is_fb_connected: true)
+						@guest_user.update_attributes(is_fb_connected: true)
 						@success = true
 						@new_user = true
 					else
