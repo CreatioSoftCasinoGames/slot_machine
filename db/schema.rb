@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150429101244) do
+ActiveRecord::Schema.define(version: 20150429131548) do
 
   create_table "api_keys", force: true do |t|
     t.string   "token"
@@ -204,6 +204,8 @@ ActiveRecord::Schema.define(version: 20150429101244) do
     t.boolean  "online",                                                  default: false
     t.integer  "parent_id"
     t.boolean  "is_fb_connected",                                         default: false
+    t.boolean  "mini_jackpot_status",                                     default: false
+    t.boolean  "major_jackpot_status",                                    default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

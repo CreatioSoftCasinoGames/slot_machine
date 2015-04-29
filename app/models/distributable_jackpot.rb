@@ -2,6 +2,7 @@ class DistributableJackpot < ActiveRecord::Base
 	belongs_to :jackpot
 	before_create :set_default_fields
 	before_update :increase_jackpot_amount
+	before_update :update_users
 	attr_accessor :jackpot_amount
 
 	def jackpot_type
@@ -38,6 +39,21 @@ class DistributableJackpot < ActiveRecord::Base
 	def increase_jackpot_amount
 		if jackpot_amount
 			self.amount = amount + jackpot_amount.to_f
+		end
+	end
+
+	def update_users
+		if self.changes.include?(:is_distributed)
+			user_ids = User.pluck(:id) - [self.winner_id]
+			if self.jackpot.jackpot_type == "Mini"
+				user_ids.each do |user_id|
+					User.where(id: user_id).first.update_attributes(mini_jackpot_status: true)
+				end
+			else
+				user_ids.each do |user_id|
+					User.where(id: user_id).first.update_attributes(major_jackpot_status: true)
+				end
+			end
 		end
 	end
 

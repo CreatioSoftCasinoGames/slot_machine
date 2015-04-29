@@ -89,7 +89,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :country, :fb_id, :stars, :diamond, :current_level, :machine_unlocked, :percentage_win, :num_of_tournament_participated, :biggest_tournament_win_amount, :best_position_in_tournament, :total_spin, :device_id, :biggest_win, :jackpot_win_percent, :total_coins, :gifts, :iap, :bonus_coins, :is_guest)
+    params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :country, :fb_id, :stars, :diamond, :current_level, :machine_unlocked, :percentage_win, :num_of_tournament_participated, :biggest_tournament_win_amount, :best_position_in_tournament, :total_spin, :device_id, :biggest_win, :jackpot_win_percent, :total_coins, :gifts, :iap, :bonus_coins, :is_guest, :mini_jackpot_status, :major_jackpot_status)
   end
 
   def find_user
