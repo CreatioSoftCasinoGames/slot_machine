@@ -59,7 +59,11 @@ Rails.application.routes.draw do
       resources :math_models
       resources :friend_requests
       resources :gift_requests
-      resources :distributable_jackpots
+      resources :distributable_jackpots do
+        member do
+          put :jackpot_amount
+        end
+      end
       resources :assets
       resources :users
       resources :mini_games
