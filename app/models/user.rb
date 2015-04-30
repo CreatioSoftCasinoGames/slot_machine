@@ -18,10 +18,12 @@ class User < ActiveRecord::Base
   has_many :gift_requests, :dependent => :destroy, foreign_key: "send_to_id"
   has_many :gift_requests_sent, :dependent => :destroy, class_name: "GiftRequest", foreign_key: "user_id"
   has_many :unconfirmed_gift_requests, -> { where(confirmed: false) }, class_name: "GiftRequest", foreign_key: "send_to_id"
+  has_one :celebration, :dependent => :destroy
 
   attr_accessor :bet_amount, :won_amount, :previous_login_token, :fb_friends_list
 
   accepts_nested_attributes_for :login_histories
+  accepts_nested_attributes_for :celebration
 
   def player_since
     created_at.strftime("%B,%Y")

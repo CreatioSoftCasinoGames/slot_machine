@@ -22,6 +22,10 @@ class UserSerializer < ActiveModel::Serializer
   					 :machine_unlocked, 
   					 :current_level, 
   					 :image_url,
-  					 :player_since
+  					 :player_since,
+             :is_fb_connected,
+             :mini_jackpot_status,
+             :major_jackpot_status
+      has_one :celebration
   
 end

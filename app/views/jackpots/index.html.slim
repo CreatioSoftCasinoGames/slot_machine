@@ -8,6 +8,7 @@ table class="table table-striped"
       th= model_class.human_attribute_name(:jackpot_type)
       th= model_class.human_attribute_name(:seed_amount)
       th= model_class.human_attribute_name(:player_percent)
+      th= model_class.human_attribute_name(:duration)
       th=t '.actions', :default => t("helpers.actions")
   tbody
     - @jackpots.each do |jackpot|
@@ -16,6 +17,7 @@ table class="table table-striped"
         td= jackpot.jackpot_type
         td= jackpot.seed_amount
         td= jackpot.player_percent
+        td= jackpot.duration
         td
           = link_to t('.edit', :default => t("helpers.links.edit")), edit_jackpot_path(jackpot), :class => 'btn btn-default btn-xs'
           '

@@ -15,6 +15,11 @@
       = f.text_field :player_percent, :class => 'form-control'
     = error_span(@jackpot[:player_percent])
   .form-group
+    = f.label :duration, :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.text_field :duration, :class => 'form-control', :placeholder => "In hours"
+    = error_span(@jackpot[:duration])
+  .form-group
     .col-lg-offset-2.col-lg-10
       = f.submit nil, :class => 'btn btn-primary'
       '

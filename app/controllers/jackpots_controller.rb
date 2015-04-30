@@ -78,6 +78,6 @@ class JackpotsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def jackpot_params
-      params.require(:jackpot).permit(:jackpot_type, :seed_amount, :player_percent)
+      params.require(:jackpot).permit(:jackpot_type, :seed_amount, :player_percent, :duration)
     end
 end

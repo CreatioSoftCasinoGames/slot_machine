@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150429131548) do
+ActiveRecord::Schema.define(version: 20150430153515) do
 
   create_table "api_keys", force: true do |t|
     t.string   "token"
@@ -34,6 +34,17 @@ ActiveRecord::Schema.define(version: 20150429131548) do
     t.string   "bundle_type"
     t.integer  "resource_id"
     t.string   "resource_type"
+  end
+
+  create_table "celebrations", force: true do |t|
+    t.integer  "four_of_a_kind", default: 0
+    t.integer  "five_of_a_kind", default: 0
+    t.integer  "big_win",        default: 0
+    t.integer  "mega_win",       default: 0
+    t.integer  "ultimate_win",   default: 0
+    t.integer  "user_id",        default: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "distributable_jackpots", force: true do |t|
@@ -98,6 +109,7 @@ ActiveRecord::Schema.define(version: 20150429131548) do
     t.decimal  "player_percent", precision: 10, scale: 0
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "duration",       precision: 10, scale: 0
   end
 
   create_table "login_histories", force: true do |t|
@@ -206,6 +218,10 @@ ActiveRecord::Schema.define(version: 20150429131548) do
     t.boolean  "is_fb_connected",                                         default: false
     t.boolean  "mini_jackpot_status",                                     default: false
     t.boolean  "major_jackpot_status",                                    default: false
+    t.decimal  "client_total_spin",              precision: 10, scale: 0
+    t.decimal  "client_coins_won",               precision: 10, scale: 0
+    t.decimal  "client_coins_lost",              precision: 10, scale: 0
+    t.decimal  "client_total_bets",              precision: 10, scale: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

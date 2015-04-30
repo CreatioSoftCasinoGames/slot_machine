@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  four_of_a_kind: 1
+  five_of_a_kind: 1
+  big_win: 1
+  mega_win: 1
+  ultimate_win: 1
+  user_id: 1
+
+two:
+  four_of_a_kind: 1
+  five_of_a_kind: 1
+  big_win: 1
+  mega_win: 1
+  ultimate_win: 1
+  user_id: 1

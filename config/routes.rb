@@ -62,6 +62,7 @@ Rails.application.routes.draw do
       resources :distributable_jackpots do
         member do
           put :jackpot_amount
+          get :winner_jackpot
         end
       end
       resources :assets
