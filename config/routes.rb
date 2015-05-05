@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :jackpots
+
+  resources :tournaments
+
   resources :graphics
 
   resources :mini_games
@@ -30,6 +34,11 @@ Rails.application.routes.draw do
 
   get "utility/show_api_key", to: "utility#show_api_key", as: "show_api_key"
   post "utility/generate_api_key", to: "utility#generate_api_key", as: "generate_api_key"
+  resources :utility do
+    collection do
+      get :sync_data
+    end
+  end
 
   resources :machines
   devise_for :users
@@ -48,13 +57,27 @@ Rails.application.routes.draw do
       get "/versions" => "welcome#versions"
       resources :machines
       resources :math_models
+      resources :friend_requests
+      resources :gift_requests
+      resources :distributable_jackpots do
+        member do
+          put :jackpot_amount
+          get :winner_jackpot
+        end
+      end
       resources :assets
       resources :users
       resources :mini_games
-      resources :sessions, :only => [:create]
+      resources :sessions, :only => [:create, :destroy]
       resources :users do
         member do 
           put :log_spin
+          get :friend_request_sent
+          get :my_friend_requests
+          get :my_friends
+          delete :delete_friend
+          get :sent_gift
+          get :received_gift
         end
       end
       resources :themes do

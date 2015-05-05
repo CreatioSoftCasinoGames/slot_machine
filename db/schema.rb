@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150131071332) do
+ActiveRecord::Schema.define(version: 20150430153515) do
 
   create_table "api_keys", force: true do |t|
     t.string   "token"
@@ -36,9 +36,54 @@ ActiveRecord::Schema.define(version: 20150131071332) do
     t.string   "resource_type"
   end
 
+  create_table "celebrations", force: true do |t|
+    t.string   "celebrations"
+    t.string   "reward"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "distributable_jackpots", force: true do |t|
+    t.integer  "jackpot_id"
+    t.decimal  "seed_amount",       precision: 10, scale: 0
+    t.decimal  "player_percentage", precision: 10, scale: 0
+    t.decimal  "amount",            precision: 10, scale: 0
+    t.boolean  "active",                                     default: true
+    t.integer  "winner_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.boolean  "is_distributed",                             default: false
+  end
+
+  create_table "friend_requests", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "requested_to_id"
+    t.boolean  "confirmed",       default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "friendships", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "friend_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "games", force: true do |t|
     t.string   "name"
     t.text     "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "gift_requests", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "send_to_id"
+    t.boolean  "confirmed",                           default: false
+    t.string   "gift_type"
+    t.decimal  "gift_value", precision: 10, scale: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -55,6 +100,23 @@ ActiveRecord::Schema.define(version: 20150131071332) do
     t.datetime "updated_at"
   end
 
+  create_table "jackpots", force: true do |t|
+    t.string   "jackpot_type"
+    t.decimal  "seed_amount",    precision: 10, scale: 0
+    t.decimal  "player_percent", precision: 10, scale: 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.decimal  "duration",       precision: 10, scale: 0
+  end
+
+  create_table "login_histories", force: true do |t|
+    t.boolean  "active"
+    t.integer  "user_id"
+    t.string   "login_token"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "machines", force: true do |t|
     t.string   "name"
     t.text     "description"
@@ -62,6 +124,9 @@ ActiveRecord::Schema.define(version: 20150131071332) do
     t.datetime "updated_at"
     t.integer  "game_id"
     t.integer  "machine_number"
+    t.string   "machine_type"
+    t.integer  "min_players"
+    t.integer  "max_players"
   end
 
   add_index "machines", ["machine_number"], name: "index_machines_on_machine_number", unique: true, using: :btree
@@ -90,6 +155,20 @@ ActiveRecord::Schema.define(version: 20150131071332) do
     t.integer  "machine_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "tournaments", force: true do |t|
+    t.integer  "machine_id"
+    t.integer  "min_player"
+    t.integer  "max_player"
+    t.integer  "min_entry_level"
+    t.integer  "max_entry_level"
+    t.decimal  "seed_money",      precision: 10, scale: 0
+    t.decimal  "time_out",        precision: 10, scale: 0, default: 1000000
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "interval"
+    t.integer  "points_required"
   end
 
   create_table "users", force: true do |t|
@@ -130,6 +209,16 @@ ActiveRecord::Schema.define(version: 20150131071332) do
     t.integer  "iap",                                                     default: 0
     t.integer  "bonus_coins",                                             default: 0
     t.boolean  "is_guest",                                                default: false
+    t.string   "login_token"
+    t.boolean  "online",                                                  default: false
+    t.integer  "parent_id"
+    t.boolean  "is_fb_connected",                                         default: false
+    t.boolean  "mini_jackpot_status",                                     default: false
+    t.boolean  "major_jackpot_status",                                    default: false
+    t.decimal  "client_total_spin",              precision: 10, scale: 0
+    t.decimal  "client_coins_won",               precision: 10, scale: 0
+    t.decimal  "client_coins_lost",              precision: 10, scale: 0
+    t.decimal  "client_total_bets",              precision: 10, scale: 0
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

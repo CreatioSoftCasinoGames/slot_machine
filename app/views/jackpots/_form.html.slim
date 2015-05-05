@@ -1,0 +1,26 @@
+= form_for @jackpot, html: { class: "form form-horizontal jackpot" } do |f|
+  .form-group
+    = f.label :jackpot_type, :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.text_field :jackpot_type, :class => 'form-control'
+    = error_span(@jackpot[:jackpot_type])
+  .form-group
+    = f.label :seed_amount, :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.text_field :seed_amount, :class => 'form-control'
+    = error_span(@jackpot[:seed_amount])
+  .form-group
+    = f.label :player_percent, :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.text_field :player_percent, :class => 'form-control'
+    = error_span(@jackpot[:player_percent])
+  .form-group
+    = f.label :duration, :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.text_field :duration, :class => 'form-control', :placeholder => "In hours"
+    = error_span(@jackpot[:duration])
+  .form-group
+    .col-lg-offset-2.col-lg-10
+      = f.submit nil, :class => 'btn btn-primary'
+      '
+      = link_to t('.cancel', :default => t("helpers.links.cancel")), jackpots_path, :class => 'btn'
