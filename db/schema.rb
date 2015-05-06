@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150506105545) do
+ActiveRecord::Schema.define(version: 20150506133952) do
 
   create_table "api_keys", force: true do |t|
     t.string   "token"
@@ -37,12 +37,9 @@ ActiveRecord::Schema.define(version: 20150506105545) do
   end
 
   create_table "celebrations", force: true do |t|
-    t.integer  "four_of_a_kind", default: 0
-    t.integer  "five_of_a_kind", default: 0
-    t.integer  "big_win",        default: 0
-    t.integer  "mega_win",       default: 0
-    t.integer  "ultimate_win",   default: 0
-    t.integer  "user_id",        default: 0
+    t.string   "celebrations"
+    t.string   "reward"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -233,6 +230,7 @@ ActiveRecord::Schema.define(version: 20150506105545) do
     t.decimal  "client_coins_won",               precision: 10, scale: 0
     t.decimal  "client_coins_lost",              precision: 10, scale: 0
     t.decimal  "client_total_bets",              precision: 10, scale: 0
+    t.integer  "version"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
