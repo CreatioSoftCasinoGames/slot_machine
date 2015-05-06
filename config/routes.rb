@@ -59,6 +59,7 @@ Rails.application.routes.draw do
       resources :math_models
       resources :friend_requests
       resources :gift_requests
+      resources :tournament_users
       resources :distributable_jackpots do
         member do
           put :jackpot_amount
@@ -78,6 +79,7 @@ Rails.application.routes.draw do
           delete :delete_friend
           get :sent_gift
           get :received_gift
+          get :get_reward
         end
       end
       resources :themes do

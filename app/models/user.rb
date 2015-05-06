@@ -19,6 +19,8 @@ class User < ActiveRecord::Base
   has_many :gift_requests_sent, :dependent => :destroy, class_name: "GiftRequest", foreign_key: "user_id"
   has_many :unconfirmed_gift_requests, -> { where(confirmed: false) }, class_name: "GiftRequest", foreign_key: "send_to_id"
   has_one :celebration, :dependent => :destroy
+  has_many :tournament_users, :dependent => :destroy
+  has_many :tournament, through: :tournament_users
 
   attr_accessor :bet_amount, :won_amount, :previous_login_token, :fb_friends_list
 
