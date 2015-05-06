@@ -31,9 +31,12 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 	def update
 		
     if @user.update_attributes(user_params)
-      render json: @user
+      render json: {
+      	success: true
+      }
     else
       render json: {
+      	success: false,
       	errors: @user.errors, status: :unprocessable_entity 
       }
     end
