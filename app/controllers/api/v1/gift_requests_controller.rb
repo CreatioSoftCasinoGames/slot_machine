@@ -5,7 +5,9 @@ class Api::V1::GiftRequestsController < Api::V1::ApplicationController
 	def create
 		@gift_request = current_user.gift_requests_sent.build(send_token: params[:send_to_token], gift_type: params[:gift_type])
 		if @gift_request.save
-			render json: @gift_request
+			render json: {
+				success: true
+			}
 		else
 			render json: {
 				errors: @gift_request.errors.full_messages.join(", "),
@@ -16,7 +18,9 @@ class Api::V1::GiftRequestsController < Api::V1::ApplicationController
 
 	def update
 		if @gift_request.update_attributes(gift_request_params)
-			render json: @gift_request
+			render json: {
+				success: true
+			}
 		else
 			render json: {
 				errors: @gift_request.errors.full_messages.join(", "),
