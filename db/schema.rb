@@ -37,9 +37,12 @@ ActiveRecord::Schema.define(version: 20150506105545) do
   end
 
   create_table "celebrations", force: true do |t|
-    t.string   "celebrations"
-    t.string   "reward"
-    t.integer  "user_id"
+    t.integer  "four_of_a_kind", default: 0
+    t.integer  "five_of_a_kind", default: 0
+    t.integer  "big_win",        default: 0
+    t.integer  "mega_win",       default: 0
+    t.integer  "ultimate_win",   default: 0
+    t.integer  "user_id",        default: 0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
