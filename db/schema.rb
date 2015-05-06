@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20150506132709) do
+=======
+ActiveRecord::Schema.define(version: 20150506133952) do
+>>>>>>> 11b77193431d8fc4d5cda4803ce1baa75fe83fca
 
   create_table "api_keys", force: true do |t|
     t.string   "token"
@@ -230,6 +234,7 @@ ActiveRecord::Schema.define(version: 20150506132709) do
     t.decimal  "client_coins_won",               precision: 10, scale: 0
     t.decimal  "client_coins_lost",              precision: 10, scale: 0
     t.decimal  "client_total_bets",              precision: 10, scale: 0
+    t.integer  "version"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
