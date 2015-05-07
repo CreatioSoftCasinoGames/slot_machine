@@ -90,6 +90,13 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 		})
 	end
 
+	def winner_jackpot
+		@distributable_jackpot = Jackpot.where(jackpot_type: params[:type]).first.distributable_jackpots.where(winner_id: @user.id)
+		render json: @distributable_jackpot.as_json({
+			only: [:amount]
+		})
+	end
+
 	# def ask_for_gift_to
 	# 	render json: @user.gift_requests_sent.where(is_asked: true)
 	# end

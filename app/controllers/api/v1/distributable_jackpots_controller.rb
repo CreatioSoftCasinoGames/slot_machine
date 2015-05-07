@@ -29,11 +29,4 @@ class Api::V1::DistributableJackpotsController < Api::V1::ApplicationController
 		end
 	end
 
-	def winner_jackpot
-		@user = User.fetch_by_login_token(params[:login_token])
-		render json: Jackpot.where(jackpot_type: params[:type]).first.distributable_jackpots.where(winner_id: @user.id).as_json({
-			only: [:amount]
-		})
-	end
-
 end

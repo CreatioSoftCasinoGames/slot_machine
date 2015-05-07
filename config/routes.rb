@@ -63,7 +63,6 @@ Rails.application.routes.draw do
       resources :distributable_jackpots do
         member do
           put :jackpot_amount
-          get :winner_jackpot
         end
       end
       resources :assets
@@ -80,6 +79,7 @@ Rails.application.routes.draw do
           get :sent_gift
           get :received_gift
           get :get_reward
+          get :winner_jackpot
         end
       end
       resources :themes do

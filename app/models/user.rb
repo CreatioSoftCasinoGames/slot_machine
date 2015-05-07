@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   has_one :celebration, :dependent => :destroy
   has_many :tournament_users, :dependent => :destroy
   has_many :tournament, through: :tournament_users
+  has_many :distributable_jackpots, foreign_key: "winner_id", class_name: "DistributableJackpot"
 
   attr_accessor :bet_amount, :won_amount, :previous_login_token, :fb_friends_list
 

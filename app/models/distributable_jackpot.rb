@@ -1,5 +1,6 @@
 class DistributableJackpot < ActiveRecord::Base
 	belongs_to :jackpot
+	belongs_to :user
 	before_create :set_default_fields
 	before_update :increase_jackpot_amount
 	before_update :update_users

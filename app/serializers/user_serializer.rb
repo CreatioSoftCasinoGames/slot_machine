@@ -8,7 +8,7 @@ class UserSerializer < ActiveModel::Serializer
   					 :email, 
   					 :country, 
   					 :stars,
-             :total_coins 
+             :total_coins,
   					 :best_position_in_tournament, 
   					 :num_of_tournament_participated, 
   					 :biggest_tournament_win_amount, 

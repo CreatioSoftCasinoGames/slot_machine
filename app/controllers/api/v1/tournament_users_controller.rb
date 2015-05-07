@@ -1,8 +1,8 @@
 class Api::V1::TournamentUsersController < Api::V1::ApplicationController
 	before_action :find_tournament_user, only: [:update]
 	def create
-		@tournament_user.attributes = {user_id: User.fetch_by_login_token(params[:login_token])}
 		@tournament_user = TournamentUser.new(tournament_user_params)
+		@tournament_user.attributes = {user_id: User.fetch_by_login_token(params[:login_token])}
 		if @tournament_user.save
 			render json: {
 				success: true
