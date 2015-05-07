@@ -11,11 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-<<<<<<< HEAD
-ActiveRecord::Schema.define(version: 20150506132709) do
-=======
 ActiveRecord::Schema.define(version: 20150506133952) do
->>>>>>> 11b77193431d8fc4d5cda4803ce1baa75fe83fca
 
   create_table "api_keys", force: true do |t|
     t.string   "token"
