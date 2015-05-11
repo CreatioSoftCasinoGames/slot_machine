@@ -1,5 +1,5 @@
 class Api::V1::UsersController < Api::V1::ApplicationController
-	before_action :find_user, only: [:log_spin, :update, :show, :my_friends, :friend_request_sent, :my_friend_requests, :sent_gift, :received_gift, :delete_friend, :get_reward]
+	before_action :find_user, only: [:log_spin, :update, :show, :my_friends, :winner_jackpot, :friend_request_sent, :my_friend_requests, :sent_gift, :received_gift, :delete_friend, :get_reward]
 
 	def create
 		@user = User.new(user_params)
@@ -83,7 +83,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 	end
 
 	def get_reward
-		@tournament_user = @user.tournament_users.where(status: false)
+		@tournament_user = User.fetch_by_login_token(params[:id]).tournament_users.where(status: false)
 		render json: @tournament_user.as_json({
 			only: [:id, :rank, :point, :prize],
 			methods: [:machine_id]
@@ -91,7 +91,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 	end
 
 	def winner_jackpot
-		@distributable_jackpot = Jackpot.where(jackpot_type: params[:type]).first.distributable_jackpots.where(winner_id: @user.id)
+		@distributable_jackpot = Jackpot.where(jackpot_type: params[:type]).first.distributable_jackpots.where(winner_id: User.fetch_by_login_token(params[:id]).id)
 		render json: @distributable_jackpot.as_json({
 			only: [:amount]
 		})
