@@ -23,8 +23,9 @@ class User < ActiveRecord::Base
   has_many :tournament, through: :tournament_users
   has_many :distributable_jackpots, foreign_key: "winner_id", class_name: "DistributableJackpot"
   before_update :check_device_changed
+  before_create :update_first_fb_sync
 
-  attr_accessor :bet_amount, :won_amount, :previous_login_token, :fb_friends_list, :device_changed
+  attr_accessor :bet_amount, :won_amount, :previous_login_token, :fb_friends_list, :device_changed, :first_fb_sync
 
   accepts_nested_attributes_for :login_histories
   accepts_nested_attributes_for :celebration
@@ -95,5 +96,9 @@ class User < ActiveRecord::Base
     self.device_changed = true if self.changes.include?(:device_id)
     true
   end 
+
+  def update_first_fb_sync
+    self.first_fb_sync = true if self.changes.include?(:fb_id)
+  end
 
 end

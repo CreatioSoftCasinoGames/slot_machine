@@ -19,7 +19,8 @@ class UserSerializer < ActiveModel::Serializer
              :is_fb_connected,
              :mini_jackpot_status,
              :major_jackpot_status,
-             :device_changed
+             :device_changed,
+             :first_fb_sync,
              :version
       has_one :celebration
   

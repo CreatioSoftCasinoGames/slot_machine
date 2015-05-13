@@ -70,7 +70,7 @@ Rails.application.routes.draw do
       resources :mini_games
       resources :sessions, :only => [:create, :destroy]
       resources :users do
-        member do 
+        member do
           put :log_spin
           get :friend_request_sent
           get :my_friend_requests
