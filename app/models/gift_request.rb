@@ -45,8 +45,8 @@ class GiftRequest < ActiveRecord::Base
 	def send_once
 		gift_sent = GiftRequest.where(user_id: user_id, send_to_id: send_to_id).last
 		if gift_sent.present?
-			if gift_sent.created_at.to_date == Time.now.to_date
-				self.errors.add(:base, "Request already sent, please send after 24 hours!")
+			if gift_sent.created_at.min == Time.now.min
+				self.errors.add(:base, "Request already sent, please send after 1 minutes!")
 			end
 		end
 	end

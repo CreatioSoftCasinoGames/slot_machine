@@ -19,8 +19,13 @@ class User < ActiveRecord::Base
   has_many :gift_requests_sent, :dependent => :destroy, class_name: "GiftRequest", foreign_key: "user_id"
   has_many :unconfirmed_gift_requests, -> { where(confirmed: false) }, class_name: "GiftRequest", foreign_key: "send_to_id"
   has_one :celebration, :dependent => :destroy
+  has_many :tournament_users, :dependent => :destroy
+  has_many :tournament, through: :tournament_users
+  has_many :distributable_jackpots, foreign_key: "winner_id", class_name: "DistributableJackpot"
+  before_update :check_device_changed
+  before_create :update_first_fb_sync
 
-  attr_accessor :bet_amount, :won_amount, :previous_login_token, :fb_friends_list
+  attr_accessor :bet_amount, :won_amount, :previous_login_token, :fb_friends_list, :device_changed, :first_fb_sync
 
   accepts_nested_attributes_for :login_histories
   accepts_nested_attributes_for :celebration
@@ -85,6 +90,15 @@ class User < ActiveRecord::Base
         Friendship.where(user_id: deleted_friend_id, friend_id: self.id).first.delete
       end
     end
+  end
+
+  def check_device_changed
+    self.device_changed = true if self.changes.include?(:device_id)
+    true
+  end 
+
+  def update_first_fb_sync
+    self.first_fb_sync = true if self.changes.include?(:fb_id)
   end
 
 end

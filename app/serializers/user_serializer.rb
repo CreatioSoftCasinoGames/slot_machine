@@ -6,16 +6,9 @@ class UserSerializer < ActiveModel::Serializer
   					 :first_name, 
   					 :last_name, 
   					 :email, 
-  					 :fb_id, 
   					 :country, 
-  					 :stars, 
-  					 :diamonds, 
-  					 :fb_id, 
-  					 :total_bet, 
-  					 :coins_won, 
-  					 :coins_lost, 
-  					 :device_id, 
-  					 :total_spin, 
+  					 :stars,
+             :total_coins,
   					 :best_position_in_tournament, 
   					 :num_of_tournament_participated, 
   					 :biggest_tournament_win_amount, 
@@ -25,7 +18,10 @@ class UserSerializer < ActiveModel::Serializer
   					 :player_since,
              :is_fb_connected,
              :mini_jackpot_status,
-             :major_jackpot_status
+             :major_jackpot_status,
+             :device_changed,
+             :first_fb_sync,
+             :version
       has_one :celebration
   
 end

@@ -1,5 +1,5 @@
 class Api::V1::UsersController < Api::V1::ApplicationController
-	before_action :find_user, only: [:log_spin, :update, :show, :my_friends, :friend_request_sent, :my_friend_requests, :sent_gift, :received_gift, :delete_friend]
+	before_action :find_user, only: [:log_spin, :update, :show, :my_friends, :winner_jackpot, :friend_request_sent, :my_friend_requests, :sent_gift, :received_gift, :delete_friend, :get_reward]
 
 	def create
 		@user = User.new(user_params)
@@ -31,9 +31,12 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 	def update
 		
     if @user.update_attributes(user_params)
-      render json: @user
+      render json: {
+      	success: true
+      }
     else
       render json: {
+      	success: false,
       	errors: @user.errors, status: :unprocessable_entity 
       }
     end
@@ -79,6 +82,21 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 		render json: @user.unconfirmed_gift_requests
 	end
 
+	def get_reward
+		@tournament_user = User.fetch_by_login_token(params[:id]).tournament_users.where(status: false)
+		render json: @tournament_user.as_json({
+			only: [:id, :rank, :point, :prize],
+			methods: [:machine_id]
+		})
+	end
+
+	def winner_jackpot
+		@distributable_jackpot = Jackpot.where(jackpot_type: params[:type]).first.distributable_jackpots.where(winner_id: User.fetch_by_login_token(params[:id]).id)
+		render json: @distributable_jackpot.as_json({
+			only: [:amount]
+		})
+	end
+
 	# def ask_for_gift_to
 	# 	render json: @user.gift_requests_sent.where(is_asked: true)
 	# end
@@ -92,12 +110,13 @@ class Api::V1::UsersController < Api::V1::ApplicationController
   def user_params
   	celebration_id = @user.celebration.try(:id)
   	params[:user][:celebration_attributes][:id] = celebration_id if params[:user] && params[:user][:celebration_attributes]
-    params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :country, :fb_id, :stars, :diamond, :current_level, :machine_unlocked, :percentage_win, :num_of_tournament_participated, :biggest_tournament_win_amount, :best_position_in_tournament, :total_spin, :device_id, :biggest_win, :jackpot_win_percent, :total_coins, :gifts, :iap, :bonus_coins, :is_guest, :mini_jackpot_status, :major_jackpot_status,
+    params.require(:user).permit(:email, :password, :password_confirmation, :first_name, :last_name, :country, :fb_id, :stars, :diamonds, :current_level, :machine_unlocked, :percentage_win, :num_of_tournament_participated, :version, :biggest_tournament_win_amount, :best_position_in_tournament, :total_spin, :device_id, :biggest_win, :jackpot_win_percent, :total_coins, :gifts, :iap, :bonus_coins, :is_guest, :mini_jackpot_status, :major_jackpot_status,
     	celebration_attributes: [:celebrations, :reward, :id])
   end
 
   def find_user
   	@user = User.where(login_token: params[:id]).first
+  	(render json: {message: "User not found", success: false}) if @user.blank?
   end
 
 end
