@@ -70,7 +70,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.1)
-    columnize (0.8.9)
     commonjs (0.2.7)
     connection_pool (2.1.2)
     debugger (1.6.8)
@@ -231,7 +230,6 @@ DEPENDENCIES
   capistrano (= 2.15.5)
   capistrano-unicorn
   coffee-rails (~> 4.0.0)
-  debugger
   devise
   font-awesome-rails
   jbuilder (~> 2.0)
