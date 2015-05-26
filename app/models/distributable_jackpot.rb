@@ -63,7 +63,7 @@ class DistributableJackpot < ActiveRecord::Base
 		else
 			mini_jackpot = Jackpot.where(jackpot_type: "Min").first
 			major_jackpot = Jackpot.where(jackpot_type: "Major").first
-			DistributableJackpot.create(jackpot_id: mini_jackpot.id, amount: mini_jackpot.seed_amount)
+			DistributableJackpot.create(jackpot_id: mini_jackpot.id, amount: mini_jackpot.seed_amount, )
 			DistributableJackpot.create(jackpot_id: major_jackpot.id, amount: major_jackpot.seed_amount)
 		end
 	end
