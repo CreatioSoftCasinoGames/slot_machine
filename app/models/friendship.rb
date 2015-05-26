@@ -4,7 +4,12 @@ class Friendship < ActiveRecord::Base
 	belongs_to :friend, class_name: "User", foreign_key: :friend_id
 
 	def full_name
-		[user.first_name, user.last_name].join(" ")
+		p user.first_name
+		if user.first_name
+			[user.first_name, user.last_name].join(" ")
+		else 
+			"Guest User"
+		end
 	end
 
 	def device_avtar_id

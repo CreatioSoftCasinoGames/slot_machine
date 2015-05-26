@@ -39,7 +39,11 @@ class User < ActiveRecord::Base
   end
 
   def full_name
-    [first_name, last_name].join(" ")
+    if first_name
+      [first_name, last_name].join(" ")
+    else
+      "Guest User"
+    end
   end
 
   def image_url 
