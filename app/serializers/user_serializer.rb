@@ -21,7 +21,8 @@ class UserSerializer < ActiveModel::Serializer
              :major_jackpot_status,
              :device_changed,
              :first_fb_sync,
-             :version
+             :version,
+             :total_iap_made
       has_one :celebration
   
 end

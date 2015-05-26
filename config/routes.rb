@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   resources :utility do
     collection do
       get :sync_data
+      get :delete_data
     end
   end
 
@@ -80,6 +81,7 @@ Rails.application.routes.draw do
           get :received_gift
           get :get_reward
           get :winner_jackpot
+          get :view_jackpot_winner
         end
       end
       resources :themes do
