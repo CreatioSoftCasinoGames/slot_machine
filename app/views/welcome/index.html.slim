@@ -1,4 +1,8 @@
 .jumbotron
+  = form_tag '/utility/delete_data', :method => 'get' do
+      .form-group
+        - if user_signed_in?
+          button type="submit" Delete Database
   = form_tag '/utility/sync_data', :method => 'get' do
     .form-group
       - if user_signed_in?
