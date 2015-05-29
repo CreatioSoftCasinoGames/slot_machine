@@ -61,7 +61,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 
 	def my_friends
 		render json: @user.friends.as_json({
-			only: [:login_token, :online],
+			only: [:login_token, :online, :current_level],
 			methods: [:full_name, :image_url]
 		})
 	end
