@@ -4,7 +4,6 @@ class Friendship < ActiveRecord::Base
 	belongs_to :friend, class_name: "User", foreign_key: :friend_id
 
 	def full_name
-		p user.first_name
 		if user.first_name
 			[user.first_name, user.last_name].join(" ")
 		else 
