@@ -79,7 +79,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 	end
 
 	def received_gift
-		render json: @user.unconfirmed_gift_requests
+		render json: @user.unconfirmed_gift_requests.where("created_at >= ?", Time.now-1.day)
 	end
 
 	def get_reward
@@ -90,16 +90,16 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 		})
 	end
 
-	def winner_jackpot
-		@distributable_jackpot = Jackpot.where(jackpot_type: params[:type]).first.distributable_jackpots.where(winner_id: @user.id)
-		render json: @distributable_jackpot.as_json({
-			only: [:amount]
-		})
-	end
+	# def winner_jackpot
+	# 	@distributable_jackpot = Jackpot.where(jackpot_type: params[:type]).first.distributable_jackpots.where(winner_id: @user.id)
+	# 	render json: @distributable_jackpot.as_json({
+	# 		only: [:amount],
+	# 		methods: [:winner_name, :image_url]
+	# 	})
+	# end
 
-	def view_jackpot_winner
+	def winner_jackpot
 		@distributable_jackpots = Jackpot.where(jackpot_type: params[:type]).first.distributable_jackpots.where("created_at >= ? and active = ?", Date.today - 2.day, false)
-		p @distributable_jackpots
 		@presentable_jackpots = @distributable_jackpots.where("created_at >= ? and created_at <= ?", @user.last_logout_time, @user.current_sign_in_at)
 		p @presentable_jackpots
 		render json: @presentable_jackpots
