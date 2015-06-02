@@ -60,10 +60,18 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 	# end
 
 	def my_friends
-		render json: @user.friends.as_json({
-			only: [:login_token, :online, :current_level],
-			methods: [:full_name, :image_url]
-		})
+		gift_requests_sent_witnin_24_hours = @user.gift_requests_sent_witnin_24_hours
+		friends = @user.friends.collect do |friend|
+			{
+				login_token: friend.login_token,
+				online: friend.online,
+				current_level: friend.current_level,
+				full_name: friend.full_name,
+				image_url: friend.image_url,
+				gift_sent: gift_requests_sent_witnin_24_hours.include?(friend.id)
+			}
+		end
+		render json: friends
 	end
 
 	def delete_friend
@@ -79,7 +87,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 	end
 
 	def received_gift
-		render json: @user.unconfirmed_gift_requests.where("created_at >= ?", Time.now-1.day)
+		render json: @user.unconfirmed_gift_requests.where("created_at > ?", Time.now - 24.hour)
 	end
 
 	def get_reward

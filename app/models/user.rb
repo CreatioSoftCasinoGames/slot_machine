@@ -38,6 +38,10 @@ class User < ActiveRecord::Base
     self.where(login_token: login_token).first || LoginHistory.where(login_token: login_token).first.user
   end
 
+  def gift_requests_sent_witnin_24_hours
+    gift_requests_sent.where(gift_requests: {send_to_id: friends.collect(&:id)}).where("gift_requests.created_at > ?", (Time.now - 24.hours)).collect(&:send_to_id).uniq
+  end
+
   def full_name
     if first_name
       [first_name, last_name].join(" ")
