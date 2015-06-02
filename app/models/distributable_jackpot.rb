@@ -45,19 +45,11 @@ class DistributableJackpot < ActiveRecord::Base
 					id = fb_user_ids[rand(fb_user_ids.length)]
 				end
 				if distributable_jackpot.jackpot.jackpot_type == "Min"
-					p "Update users!"
 					User.update_all(mini_jackpot_status: false)
 					distributable_jackpot.update_attributes(winner_id: id, active: false)
 					DistributableJackpot.create(jackpot_id: distributable_jackpot.jackpot.id, seed_amount: distributable_jackpot.seed_amount, amount: distributable_jackpot.seed_amount)
-					winner_user = User.where(id: id).first
-					coins = winner_user.total_coins + distributable_jackpot.amount
-					winner_user.update_attributes(total_coins: coins)
 				elsif distributable_jackpot.created_at.to_date == (Time.now - 1.days).to_date
-					p "Update users major!"
 					User.update_all(major_jackpot_status: false)
-					winner_user = User.where(id: id).first
-					coins = winner_user.total_coins + distributable_jackpot.amountamount
-					winner_user.update_attributes(total_coins: coins)
 					distributable_jackpot.update_attributes(winner_id: id, active: false)
 					DistributableJackpot.create(jackpot_id: distributable_jackpot.jackpot.id, seed_amount: distributable_jackpot.seed_amount, amount: distributable_jackpot.seed_amount)
 				end
