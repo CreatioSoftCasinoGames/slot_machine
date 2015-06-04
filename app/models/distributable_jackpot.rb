@@ -15,8 +15,12 @@ class DistributableJackpot < ActiveRecord::Base
 		if winner_user.try(:first_name)
     	[winner_user.try(:first_name), winner_user.try(:last_name)].join(" ")
     else
-    	"No Name"
+    	"Guest User"
     end
+  end
+
+  def winner_token
+  	winner_user = User.where(id: winner_id).first.login_token
   end
 
   def image_url
@@ -45,20 +49,19 @@ class DistributableJackpot < ActiveRecord::Base
 					id = fb_user_ids[rand(fb_user_ids.length)]
 				end
 				if distributable_jackpot.jackpot.jackpot_type == "Min"
-					User.update_all(mini_jackpot_status: false)
 					distributable_jackpot.update_attributes(winner_id: id, active: false)
 					DistributableJackpot.create(jackpot_id: distributable_jackpot.jackpot.id, seed_amount: distributable_jackpot.seed_amount, amount: distributable_jackpot.seed_amount)
+					REDIS_CLIENT.PUBLISH("jackpotWinner", {winner_token: distributable_jackpot.winner_token, winner_name: distributable_jackpot.winner_name, jackpot_type: distributable_jackpot.jackpot.jackpot_type , amount: distributable_jackpot.amount, image_url: distributable_jackpot.image_url}.to_json)
 				elsif distributable_jackpot.created_at.to_date == (Time.now - 1.days).to_date
-					User.update_all(major_jackpot_status: false)
 					distributable_jackpot.update_attributes(winner_id: id, active: false)
 					DistributableJackpot.create(jackpot_id: distributable_jackpot.jackpot.id, seed_amount: distributable_jackpot.seed_amount, amount: distributable_jackpot.seed_amount)
-				end
+					REDIS_CLIENT.PUBLISH("jackpotWinner", {winner_token: distributable_jackpot.winner_token, winner_name: distributable_jackpot.winner_name, jackpot_type: distributable_jackpot.jackpot.jackpot_type , amount: distributable_jackpot.amount, image_url: distributable_jackpot.image_url}.to_json)
+				end	
 			end
 		else
 			mini_jackpot = Jackpot.where(jackpot_type: "Min").first
 			major_jackpot = Jackpot.where(jackpot_type: "Major").first
 
-			User.update_all(major_jackpot_status: false, mini_jackpot_status: false)
 			DistributableJackpot.create(jackpot_id: mini_jackpot.id, amount: mini_jackpot.seed_amount, )
 			DistributableJackpot.create(jackpot_id: major_jackpot.id, amount: major_jackpot.seed_amount)
 		end

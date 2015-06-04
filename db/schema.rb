@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150526093210) do
+ActiveRecord::Schema.define(version: 20150603140353) do
 
   create_table "api_keys", force: true do |t|
     t.string   "token"
@@ -224,8 +224,6 @@ ActiveRecord::Schema.define(version: 20150526093210) do
     t.boolean  "online",                                                  default: false
     t.integer  "parent_id"
     t.boolean  "is_fb_connected",                                         default: false
-    t.boolean  "mini_jackpot_status",                                     default: true
-    t.boolean  "major_jackpot_status",                                    default: true
     t.decimal  "client_total_spin",              precision: 10, scale: 0
     t.decimal  "client_coins_won",               precision: 10, scale: 0
     t.decimal  "client_coins_lost",              precision: 10, scale: 0

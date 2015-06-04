@@ -29,8 +29,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 	end
 
 	def update
-		
-    if @user.update_attributes(user_params)
+		if @user.update_attributes(user_params)
       render json: {
       	success: true
       }
@@ -106,11 +105,13 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 	# 	})
 	# end
 
-	def winner_jackpot
-		@distributable_jackpots = Jackpot.where(jackpot_type: params[:type]).first.distributable_jackpots.where("created_at >= ? and active = ?", Date.today - 2.day, false)
-		@presentable_jackpots = @distributable_jackpots.where("created_at >= ? and created_at <= ?", @user.last_logout_time, @user.current_sign_in_at)
-		p @presentable_jackpots
-		render json: @presentable_jackpots
+	def winner_jackpot	
+		@presentable_jackpots = Jackpot.where(jackpot_type: params[:type]).first.distributable_jackpots.where("updated_at >= ? and active = ?", Time.now - 2.day, false)
+		@distributable_jackpots = @presentable_jackpots.where("updated_at >= ? and updated_at <= ?", @user.last_logout_time, @user.current_sign_in_at)
+		render json: @distributable_jackpots.as_json({
+			only:[:id, :amount],
+			methods: [:winner_name, :winner_token, :image_url, :jackpot_type]
+			})
 		
 	end
 

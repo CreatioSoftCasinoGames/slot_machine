@@ -1,7 +1,14 @@
 class Api::V1::DistributableJackpotsController < Api::V1::ApplicationController
 
 	def index
-		render json: DistributableJackpot.where(is_distributed: false)
+		@min_jackpot = Jackpot.where(jackpot_type: "Min").first.distributable_jackpots.where(is_distributed: false).last
+		@major_jackpot = Jackpot.where(jackpot_type: "Major").first.distributable_jackpots.where(is_distributed: false).last
+		render json: {
+			min_id: @min_jackpot.id,
+			major_id: @major_jackpot.id,
+			min: @min_jackpot.amount,
+			major: @major_jackpot.amount
+		}
 	end
 
 	def update
