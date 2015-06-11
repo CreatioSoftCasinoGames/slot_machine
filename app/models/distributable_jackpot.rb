@@ -41,13 +41,11 @@ class DistributableJackpot < ActiveRecord::Base
 				if distributable_jackpot.jackpot.jackpot_type == "Min"
 					id = find_winner_id(Time.now)
 					distributable_jackpot.update_attributes(winner_id: id, active: false)
-					DistributableJackpot.create(jackpot_id: distributable_jackpot.jackpot.id, seed_amount: distributable_jackpot.seed_amount, amount: distributable_jackpot.seed_amount)
-					REDIS_CLIENT.PUBLISH("jackpotWinner", {winner_token: distributable_jackpot.winner_token, winner_name: distributable_jackpot.winner_name, jackpot_type: distributable_jackpot.jackpot.jackpot_type , amount: distributable_jackpot.amount, image_url: distributable_jackpot.image_url}.to_json)
+					create_and_publish_jackpot(distributable_jackpot)
 				elsif distributable_jackpot.created_at.to_date == (Time.now - 1.days).to_date
 					id = find_winner_id(distributable_jackpot.created_at.to_time)
 					distributable_jackpot.update_attributes(winner_id: id, active: false)
-					DistributableJackpot.create(jackpot_id: distributable_jackpot.jackpot.id, seed_amount: distributable_jackpot.seed_amount, amount: distributable_jackpot.seed_amount)
-					REDIS_CLIENT.PUBLISH("jackpotWinner", {winner_token: distributable_jackpot.winner_token, winner_name: distributable_jackpot.winner_name, jackpot_type: distributable_jackpot.jackpot.jackpot_type , amount: distributable_jackpot.amount, image_url: distributable_jackpot.image_url}.to_json)
+					create_and_publish_jackpot(distributable_jackpot)
 				end	
 			end
 		else
@@ -57,6 +55,11 @@ class DistributableJackpot < ActiveRecord::Base
 			DistributableJackpot.create(jackpot_id: mini_jackpot.id, amount: mini_jackpot.seed_amount, )
 			DistributableJackpot.create(jackpot_id: major_jackpot.id, amount: major_jackpot.seed_amount)
 		end
+	end
+
+	def self.create_and_publish_jackpot(distributable_jackpot)
+		DistributableJackpot.create(jackpot_id: distributable_jackpot.jackpot.id, seed_amount: distributable_jackpot.seed_amount, amount: distributable_jackpot.seed_amount)
+		REDIS_CLIENT.PUBLISH("jackpotWinner", {winner_token: distributable_jackpot.winner_token, winner_name: distributable_jackpot.winner_name, jackpot_type: distributable_jackpot.jackpot.jackpot_type , amount: distributable_jackpot.amount, image_url: distributable_jackpot.image_url}.to_json)
 	end
 
 	def self.find_winner_id(jackpot_distribution_time)
