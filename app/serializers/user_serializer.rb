@@ -20,7 +20,8 @@ class UserSerializer < ActiveModel::Serializer
              :device_changed,
              :first_fb_sync,
              :version,
-             :total_iap_made
+             :total_iap_made,
+             :gift_count
       has_one :celebration
   
 end

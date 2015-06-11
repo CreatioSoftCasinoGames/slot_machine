@@ -38,21 +38,13 @@ class DistributableJackpot < ActiveRecord::Base
 		distributable_jackpots = DistributableJackpot.where(active: true)
 		if distributable_jackpots.present?
 			distributable_jackpots.each do |distributable_jackpot|
-				percent = rand(100)
-				id = ""
-				
-				if percent > 70
-					user_ids = User.where(is_fb_connected: false).collect(&:id)
-					id = user_ids[rand(user_ids.length)]
-				else
-					fb_user_ids = User.where(is_fb_connected: true).collect(&:id)
-					id = fb_user_ids[rand(fb_user_ids.length)]
-				end
 				if distributable_jackpot.jackpot.jackpot_type == "Min"
+					id = find_winner_id(Time.now)
 					distributable_jackpot.update_attributes(winner_id: id, active: false)
 					DistributableJackpot.create(jackpot_id: distributable_jackpot.jackpot.id, seed_amount: distributable_jackpot.seed_amount, amount: distributable_jackpot.seed_amount)
 					REDIS_CLIENT.PUBLISH("jackpotWinner", {winner_token: distributable_jackpot.winner_token, winner_name: distributable_jackpot.winner_name, jackpot_type: distributable_jackpot.jackpot.jackpot_type , amount: distributable_jackpot.amount, image_url: distributable_jackpot.image_url}.to_json)
 				elsif distributable_jackpot.created_at.to_date == (Time.now - 1.days).to_date
+					id = find_winner_id(distributable_jackpot.created_at.to_time)
 					distributable_jackpot.update_attributes(winner_id: id, active: false)
 					DistributableJackpot.create(jackpot_id: distributable_jackpot.jackpot.id, seed_amount: distributable_jackpot.seed_amount, amount: distributable_jackpot.seed_amount)
 					REDIS_CLIENT.PUBLISH("jackpotWinner", {winner_token: distributable_jackpot.winner_token, winner_name: distributable_jackpot.winner_name, jackpot_type: distributable_jackpot.jackpot.jackpot_type , amount: distributable_jackpot.amount, image_url: distributable_jackpot.image_url}.to_json)
@@ -64,6 +56,18 @@ class DistributableJackpot < ActiveRecord::Base
 
 			DistributableJackpot.create(jackpot_id: mini_jackpot.id, amount: mini_jackpot.seed_amount, )
 			DistributableJackpot.create(jackpot_id: major_jackpot.id, amount: major_jackpot.seed_amount)
+		end
+	end
+
+	def self.find_winner_id(jackpot_distribution_time)
+		percent = rand(100)
+		id = ""
+		if percent > 70
+			user_ids = User.where("is_fb_connected = ? AND current_sign_in_at < ? AND current_sign_in_at > last_logout_time", false, jackpot_distribution_time).collect(&:id)
+			id = user_ids[rand(user_ids.length)]
+		else
+			fb_user_ids = User.where("is_fb_connected = ? AND current_sign_in_at < ? AND current_sign_in_at > last_logout_time", true, jackpot_distribution_time).collect(&:id)
+			id = fb_user_ids[rand(fb_user_ids.length)]
 		end
 	end
 

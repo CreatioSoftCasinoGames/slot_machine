@@ -34,6 +34,10 @@ class User < ActiveRecord::Base
     created_at.strftime("%B,%Y")
   end
 
+  def gift_count
+    unconfirmed_gift_requests.count();
+  end
+
   def self.fetch_by_login_token(login_token)
     self.where(login_token: login_token).first || LoginHistory.where(login_token: login_token).first.user
   end
