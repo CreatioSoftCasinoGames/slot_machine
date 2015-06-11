@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   resources :mini_games
 
+  resources :client_bugs
+
   resources :machines
 
   resources :themes
@@ -61,6 +63,7 @@ Rails.application.routes.draw do
       resources :friend_requests
       resources :gift_requests
       resources :tournament_users
+      resources :client_bugs
       resources :distributable_jackpots do
         member do
           put :jackpot_amount

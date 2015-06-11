@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150603140353) do
+ActiveRecord::Schema.define(version: 20150611075300) do
 
   create_table "api_keys", force: true do |t|
     t.string   "token"
@@ -40,6 +40,13 @@ ActiveRecord::Schema.define(version: 20150603140353) do
     t.string   "celebrations"
     t.string   "reward"
     t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "client_bugs", force: true do |t|
+    t.text     "exception"
+    t.string   "bug_type"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
