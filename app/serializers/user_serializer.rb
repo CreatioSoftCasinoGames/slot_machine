@@ -21,7 +21,8 @@ class UserSerializer < ActiveModel::Serializer
              :first_fb_sync,
              :version,
              :total_iap_made,
-             :gift_count
+             :gift_count,
+             :device_id
       has_one :celebration
   
 end
