@@ -64,6 +64,11 @@ Rails.application.routes.draw do
       resources :gift_requests
       resources :tournament_users
       resources :client_bugs
+      resources :schedule_maintenances do 
+        collection do
+          post :sm
+        end
+      end
       resources :distributable_jackpots do
         member do
           put :jackpot_amount
