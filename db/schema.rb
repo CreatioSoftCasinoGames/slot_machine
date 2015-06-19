@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150611075300) do
+ActiveRecord::Schema.define(version: 20150619064811) do
 
   create_table "api_keys", force: true do |t|
     t.string   "token"
@@ -53,14 +53,14 @@ ActiveRecord::Schema.define(version: 20150611075300) do
 
   create_table "distributable_jackpots", force: true do |t|
     t.integer  "jackpot_id"
-    t.decimal  "seed_amount",       precision: 10, scale: 0
-    t.decimal  "player_percentage", precision: 10, scale: 0
-    t.decimal  "amount",            precision: 10, scale: 0
-    t.boolean  "active",                                     default: true
+    t.decimal  "seed_amount",                 precision: 10, scale: 0
+    t.decimal  "player_percentage",           precision: 10, scale: 0
+    t.integer  "amount",            limit: 8
+    t.boolean  "active",                                               default: true
     t.integer  "winner_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "is_distributed",                             default: false
+    t.boolean  "is_distributed",                                       default: false
   end
 
   create_table "friend_requests", force: true do |t|
@@ -190,12 +190,12 @@ ActiveRecord::Schema.define(version: 20150611075300) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "email",                                                   default: "",    null: false
-    t.string   "encrypted_password",                                      default: "",    null: false
+    t.string   "email",                                                             default: "",    null: false
+    t.string   "encrypted_password",                                                default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                                           default: 0,     null: false
+    t.integer  "sign_in_count",                                                     default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -205,38 +205,38 @@ ActiveRecord::Schema.define(version: 20150611075300) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "country"
-    t.decimal  "stars",                          precision: 10, scale: 0
-    t.decimal  "diamonds",                       precision: 10, scale: 0
+    t.decimal  "stars",                                    precision: 10, scale: 0
+    t.decimal  "diamonds",                                 precision: 10, scale: 0
     t.string   "fb_id"
     t.string   "role"
-    t.decimal  "total_bet",                      precision: 10, scale: 0, default: 0
-    t.decimal  "coins_won",                      precision: 10, scale: 0, default: 0
-    t.decimal  "coins_lost",                     precision: 10, scale: 0, default: 0
-    t.integer  "current_level",                                           default: 0
-    t.integer  "machine_unlocked",                                        default: 0
-    t.integer  "percentage_win",                                          default: 0
-    t.integer  "num_of_tournament_participated",                          default: 0
-    t.decimal  "biggest_tournament_win_amount",  precision: 10, scale: 0, default: 0
-    t.integer  "best_position_in_tournament",                             default: 0
-    t.integer  "total_spin",                                              default: 0
+    t.integer  "total_bet",                      limit: 8,                          default: 0
+    t.integer  "coins_won",                      limit: 8,                          default: 0
+    t.integer  "coins_lost",                     limit: 8,                          default: 0
+    t.integer  "current_level",                                                     default: 0
+    t.integer  "machine_unlocked",                                                  default: 0
+    t.integer  "percentage_win",                                                    default: 0
+    t.integer  "num_of_tournament_participated",                                    default: 0
+    t.integer  "biggest_tournament_win_amount",  limit: 8,                          default: 0
+    t.integer  "best_position_in_tournament",                                       default: 0
+    t.integer  "total_spin",                                                        default: 0
     t.string   "device_id"
-    t.string   "biggest_win"
-    t.integer  "jackpot_win_percent",                                     default: 0
-    t.decimal  "total_coins",                    precision: 10, scale: 0, default: 0
+    t.integer  "biggest_win",                    limit: 8
+    t.integer  "jackpot_win_percent",                                               default: 0
+    t.integer  "total_coins",                    limit: 8,                          default: 0
     t.string   "gifts"
-    t.integer  "iap",                                                     default: 0
-    t.integer  "bonus_coins",                                             default: 0
-    t.boolean  "is_guest",                                                default: false
+    t.integer  "iap",                                                               default: 0
+    t.integer  "bonus_coins",                                                       default: 0
+    t.boolean  "is_guest",                                                          default: false
     t.string   "login_token"
-    t.boolean  "online",                                                  default: false
+    t.boolean  "online",                                                            default: false
     t.integer  "parent_id"
-    t.boolean  "is_fb_connected",                                         default: false
-    t.decimal  "client_total_spin",              precision: 10, scale: 0
-    t.decimal  "client_coins_won",               precision: 10, scale: 0
-    t.decimal  "client_coins_lost",              precision: 10, scale: 0
-    t.decimal  "client_total_bets",              precision: 10, scale: 0
+    t.boolean  "is_fb_connected",                                                   default: false
+    t.decimal  "client_total_spin",                        precision: 10, scale: 0
+    t.integer  "client_coins_won",               limit: 8
+    t.integer  "client_coins_lost",              limit: 8
+    t.integer  "client_total_bets",              limit: 8
     t.integer  "version"
-    t.decimal  "total_iap_made",                 precision: 10, scale: 0
+    t.integer  "total_iap_made",                 limit: 8
     t.datetime "last_logout_time"
   end
 
