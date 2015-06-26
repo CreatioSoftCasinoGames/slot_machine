@@ -11,8 +11,8 @@ class UtilityController < ApplicationController
 
 	def sync_data
 		Machine.includes(:tournaments).all.each do |machine|
-			REDIS_CLIENT.SADD("machines", "machine:#{machine.id}")
-			REDIS_CLIENT.HMSET("machine:#{machine.id}", "name", machine.name, "machine_type", machine.machine_type, "min_players", machine.min_players, "max_players", machine.max_players, "machine_number", machine.machine_number)
+			REDIS_CLIENT.SADD("machines", "machine:#{machine.machine_number}")
+			REDIS_CLIENT.HMSET("machine:#{machine.machine_number}", "id", machine.id,"name", machine.name, "machine_type", machine.machine_type, "min_players", machine.min_players, "max_players", machine.max_players, "machine_number", machine.machine_number)
 			REDIS_CLIENT.SADD("machines_occupancy", "machine_id:#{machine.id}")
 			machine.tournaments.each do |tournament|
 				REDIS_CLIENT.ZADD("tournament_sorted_set", tournament.min_entry_level, "players_tournament:#{tournament.id}")

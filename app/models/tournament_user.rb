@@ -6,4 +6,8 @@ class TournamentUser < ActiveRecord::Base
 		self.tournament.machine.id
 	end
 
+	def machine_name
+		self.tournament.machine.name
+	end
+
 end
