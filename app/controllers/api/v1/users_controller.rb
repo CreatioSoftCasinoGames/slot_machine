@@ -116,7 +116,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
   def user_params
   	celebration_id = @user.celebration.try(:id)
   	params[:user][:celebration_attributes][:id] = celebration_id if params[:user] && params[:user][:celebration_attributes]
-    params.require(:user).permit(:email, :last_logout_time, :password, :password_confirmation, :first_name, :last_name, :country, :fb_id, :stars, :diamonds, :current_level, :machine_unlocked, :percentage_win, :num_of_tournament_participated, :version, :biggest_tournament_win_amount, :best_position_in_tournament, :total_spin, :device_id, :biggest_win, :jackpot_win_percent, :total_coins, :gifts, :iap, :bonus_coins, :is_guest, :mini_jackpot_status, :major_jackpot_status, :total_iap_made,
+    params.require(:user).permit(:email, :bet_index, :bet_per_line, :last_logout_time, :password, :password_confirmation, :first_name, :last_name, :country, :fb_id, :stars, :diamonds, :current_level, :machine_unlocked, :percentage_win, :num_of_tournament_participated, :version, :biggest_tournament_win_amount, :best_position_in_tournament, :total_spin, :device_id, :biggest_win, :jackpot_win_percent, :total_coins, :gifts, :iap, :bonus_coins, :is_guest, :mini_jackpot_status, :major_jackpot_status, :total_iap_made,
     	celebration_attributes: [:celebrations, :reward, :id])
   end
 
