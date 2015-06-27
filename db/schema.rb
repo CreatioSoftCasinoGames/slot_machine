@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150619064811) do
+ActiveRecord::Schema.define(version: 20150627063341) do
 
   create_table "api_keys", force: true do |t|
     t.string   "token"
@@ -238,6 +238,9 @@ ActiveRecord::Schema.define(version: 20150619064811) do
     t.integer  "version"
     t.integer  "total_iap_made",                 limit: 8
     t.datetime "last_logout_time"
+    t.string   "device",                                                            default: ""
+    t.boolean  "update_required",                                                   default: false
+    t.string   "game_version",                                                      default: ""
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  resources :versions do
+    collection do
+      put :update_users
+    end
+  end
+
   resources :jackpots
 
   resources :tournaments
