@@ -1,12 +1,25 @@
 class Api::V1::SessionsController < Api::V1::ApplicationController
 
 	def create
+
+		#Check previous versions update status
+		@user_version = User.where(device: params[:device], game_version: params[:game_version]).first
+		@greater_version = User.where("game_version > ?", params[:game_version].to_s)
+		update_required = false
+		if @greater_version.count > 0
+			update_required = true
+		elsif @user_version.present?
+			update_required = @user_version.update_required
+		else
+			update_required = false
+		end
+
 		if params[:fb_id] && params[:device_id]
 			if User.where(fb_id: params[:fb_id]).first.blank?
 				@guest_user = User.where(device_id: params[:device_id], is_fb_connected: false, fb_id: nil).first
 				if @guest_user.present?
 					@user = @guest_user.dup
-					@user.attributes = {parent_id: @guest_user.id, device_id: params[:device_id], is_guest: false, fb_id: params[:fb_id], email: params[:fb_id]+"@facebook.com", is_fb_connected: true, device: params[:device], game_version: params[:game_version] }
+					@user.attributes = {parent_id: @guest_user.id, device_id: params[:device_id], is_guest: false, fb_id: params[:fb_id], email: params[:fb_id]+"@facebook.com", is_fb_connected: true, device: params[:device], game_version: params[:game_version], update_required: update_required}
 					if @user.save
 						@guest_user.update_attributes(is_fb_connected: true)
 						@success = true
@@ -16,18 +29,14 @@ class Api::V1::SessionsController < Api::V1::ApplicationController
 						@messages = @user.errors.full_messages.join(", ")
 					end
 				else
-					facebook_sync(params)
+					facebook_sync(params, update_required)
 				end
 			else
-				facebook_sync(params)
-			end
-		elsif params[:email] && params[:password]
-			@user = User.where(email: params[:email]).first
-			(@user = nil) unless @user.valid_password?(params[:password])
-			@success = !@user.blank? 
+				facebook_sync(params, update_required)
+			end 
 		elsif params[:is_guest] && params[:device_id]
 			@user = User.where(device_id: params[:device_id], is_guest: true).first_or_initialize
-			@user.attributes = {device: params[:device], game_version: params[:game_version]}
+			@user.attributes = {device: params[:device], game_version: params[:game_version], update_required: update_required}
 			if @user.new_record?
 				if @user.save
 					@success = true
@@ -91,9 +100,9 @@ class Api::V1::SessionsController < Api::V1::ApplicationController
 
 	private 
 
-	def facebook_sync(params)
+	def facebook_sync(params, update_required)
 		@user = User.where(fb_id: params[:fb_id]).first_or_initialize
-		@user.attributes = {fb_friends_list: params[:fb_friends_list], device_id: params[:device_id], device: params[:device], game_version: params[:game_version]}
+		@user.attributes = {fb_friends_list: params[:fb_friends_list], device_id: params[:device_id], device: params[:device], game_version: params[:game_version], update_required: update_required}
 		if @user.new_record?
 			email = params[:email].present? ? params[:email] : params[:fb_id]+"@facebook.com"
 			@user.attributes = {email: email, first_name: params[:first_name], last_name: params[:last_name], fb_friends_list: params[:fb_friends_list]}

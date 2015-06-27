@@ -22,7 +22,10 @@ class UserSerializer < ActiveModel::Serializer
              :version,
              :total_iap_made,
              :gift_count,
-             :device_id
+             :device_id,
+             :update_required,
+             :bet_index,
+             :bet_per_line
       has_one :celebration
   
 end
