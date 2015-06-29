@@ -8,6 +8,7 @@ table class="table table-striped"
   thead
     tr
       th= model_class.human_attribute_name(:id)
+      th= model_class.human_attribute_name(:device_type)
       th= model_class.human_attribute_name(:version)
       th= model_class.human_attribute_name(:require_update)
       th=t '.actions', :default => t("helpers.actions")
@@ -15,6 +16,7 @@ table class="table table-striped"
     - @game_versions.each do |game_version|
       tr
         td= link_to game_version.id, game_version_path(game_version)
+        td= game_version.device_type
         td= game_version.version
         td= game_version.require_update
         td

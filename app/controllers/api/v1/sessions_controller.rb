@@ -16,7 +16,7 @@ class Api::V1::SessionsController < Api::V1::ApplicationController
 		# else
 		# 	update_required = false
 		# end
-		game_version = GameVersion.where(device: params[:device], version: params[:version]).first
+		game_version = GameVersion.where(device_type: params[:device], version: params[:game_version]).first
 		update_required = game_version.present? ? game_version.require_update : true
 
 		if params[:fb_id] && params[:device_id]
