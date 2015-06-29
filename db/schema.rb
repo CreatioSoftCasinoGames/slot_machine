@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150627131243) do
+ActiveRecord::Schema.define(version: 20150629092459) do
 
   create_table "api_keys", force: true do |t|
     t.string   "token"
@@ -74,6 +74,14 @@ ActiveRecord::Schema.define(version: 20150627131243) do
   create_table "friendships", force: true do |t|
     t.integer  "user_id"
     t.integer  "friend_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "game_versions", force: true do |t|
+    t.string   "version"
+    t.string   "device_type"
+    t.boolean  "require_update"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

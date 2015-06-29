@@ -4,7 +4,7 @@ class TournamentsController < ApplicationController
   # GET /tournaments
   # GET /tournaments.json
   def index
-    @tournaments = Tournament.all
+    @tournaments = Tournament.order(:machine_id, :min_entry_level).all
 
     respond_to do |format|
       format.html # index.html.erb

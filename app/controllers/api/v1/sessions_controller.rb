@@ -2,20 +2,22 @@ class Api::V1::SessionsController < Api::V1::ApplicationController
 
 	def create
 
-		#Check previous versions update status
-		@user_versions = User.where(device: params[:device], game_version: params[:game_version])
-		@greater_version = User.where("game_version > ?", params[:game_version])
-		update_required = false
+		# #Check previous versions update status
+		# @user_versions = User.where(device: params[:device], game_version: params[:game_version])
+		# @greater_version = User.where("game_version > ?", params[:game_version])
+		# update_required = false
 		
-		if @greater_version.count > 0
-			if @user_versions.count == 0 || @user_versions.where(update_required: true).count > 0
-				update_required = true
-			end
-		elsif @user_versions.first.present?
-			update_required = @user_versions.first.update_required
-		else
-			update_required = false
-		end
+		# if @greater_version.count > 0
+		# 	if @user_versions.count == 0 || @user_versions.where(update_required: true).count > 0
+		# 		update_required = true
+		# 	end
+		# elsif @user_versions.first.present?
+		# 	update_required = @user_versions.first.update_required
+		# else
+		# 	update_required = false
+		# end
+		game_version = GameVersion.where(device: params[:device], version: params[:version]).first
+		update_required = game_version.present? ? game_version.require_update : true
 
 		if params[:fb_id] && params[:device_id]
 			if User.where(fb_id: params[:fb_id]).first.blank?

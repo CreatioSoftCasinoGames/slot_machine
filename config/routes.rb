@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :game_versions
+
   resources :versions do
     collection do
       put :update_users
