@@ -25,7 +25,8 @@ class UserSerializer < ActiveModel::Serializer
              :device_id,
              :update_required,
              :bet_index,
-             :bet_per_line
+             :bet_per_line,
+             :unique_id
       has_one :celebration
   
 end

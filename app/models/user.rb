@@ -24,6 +24,7 @@ class User < ActiveRecord::Base
   has_many :distributable_jackpots, foreign_key: "winner_id", class_name: "DistributableJackpot"
   before_update :check_device_changed
   before_create :update_first_fb_sync
+  before_create :add_unique_id
 
   attr_accessor :bet_amount, :won_amount, :previous_login_token, :fb_friends_list, :device_changed, :first_fb_sync
 
@@ -109,7 +110,12 @@ class User < ActiveRecord::Base
   def check_device_changed
     self.device_changed = true if self.changes.include?(:device_id)
     true
-  end 
+  end
+   
+  def add_unique_id
+    unique_value = SecureRandom.hex(4)
+    self.unique_id = unique_value
+  end
 
   def update_first_fb_sync
     self.first_fb_sync = true if self.changes.include?(:fb_id)

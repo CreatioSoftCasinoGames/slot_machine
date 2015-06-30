@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150629092459) do
+ActiveRecord::Schema.define(version: 20150630142717) do
 
   create_table "api_keys", force: true do |t|
     t.string   "token"
@@ -49,6 +49,7 @@ ActiveRecord::Schema.define(version: 20150629092459) do
     t.string   "bug_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "test_mode",  default: false
   end
 
   create_table "distributable_jackpots", force: true do |t|
@@ -251,6 +252,7 @@ ActiveRecord::Schema.define(version: 20150629092459) do
     t.string   "game_version",                                                      default: ""
     t.string   "bet_index",                                                         default: "0"
     t.string   "bet_per_line",                                                      default: "1"
+    t.string   "unique_id",                                                         default: ""
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
