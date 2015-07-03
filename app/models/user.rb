@@ -36,7 +36,7 @@ class User < ActiveRecord::Base
   end
 
   def gift_count
-    unconfirmed_gift_requests.count();
+    unconfirmed_gift_requests.where("created_at > ?", Time.now - 24.hour).count
   end
 
   def self.fetch_by_login_token(login_token)
