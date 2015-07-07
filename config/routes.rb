@@ -47,6 +47,7 @@ Rails.application.routes.draw do
   resources :utility do
     collection do
       get :sync_data
+      get :sync_tournament
       get :delete_data
     end
   end

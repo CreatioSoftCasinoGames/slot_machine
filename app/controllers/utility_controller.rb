@@ -19,7 +19,25 @@ class UtilityController < ApplicationController
 				REDIS_CLIENT.HMSET("players_tournament:#{tournament.id}", "machine_name", machine.name, "machine_id", machine.machine_number, "machine_number", machine.id, "min_entry_level", tournament.min_entry_level, "max_entry_level", tournament.max_entry_level, "seed_money", tournament.seed_money, "timeout", tournament.time_out, "interval", tournament.interval, "points_required", tournament.points_required)
 			end
 		end
-		redirect_to root_path, flash: {success: "Data successfully synced !"}
+		redirect_to root_path, flash: {success: "Complete database has been successfully synced !"}
+	end
+
+	def sync_tournament
+
+		REDIS_CLIENT.DEL("tournament_sorted_set")
+		Machine.includes(:tournaments).all.each do |machine|
+			machine.tournaments.each do |tournament|
+				REDIS_CLIENT.DEL("players_tournament:#{tournament.id}")
+			end
+		end
+
+		Machine.includes(:tournaments).all.each do |machine|
+			machine.tournaments.each do |tournament|
+				REDIS_CLIENT.ZADD("tournament_sorted_set", tournament.min_entry_level, "players_tournament:#{tournament.id}")
+				REDIS_CLIENT.HMSET("players_tournament:#{tournament.id}", "machine_name", machine.name, "machine_id", machine.machine_number, "machine_number", machine.id, "min_entry_level", tournament.min_entry_level, "max_entry_level", tournament.max_entry_level, "seed_money", tournament.seed_money, "timeout", tournament.time_out, "interval", tournament.interval, "points_required", tournament.points_required)
+			end
+		end
+		redirect_to root_path, flash: {success: "Tournament data has been successfully synced !"}
 	end
 
 	def delete_data
