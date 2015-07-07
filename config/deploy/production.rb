@@ -1,6 +1,6 @@
 # Settings for production server
 set :user, 'w3villa'
-server '54.191.117.248', :app, :web, :db, :primary => true
+server 'slotapi.com', :app, :web, :db, :primary => true
 set :rvm_type, :user
 set :use_sudo, false
 set :deploy_via, :remote_cache
