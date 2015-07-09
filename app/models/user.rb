@@ -123,8 +123,10 @@ class User < ActiveRecord::Base
   end
 
   def check_previous_xp_and_level
-    level_changes = self.changes["current_level"]
-    self.errors.add(:current_level, "Current level cant be smaller than previous level") if (level_changes && (level_changes.first > level_changes.last))
+    if self.fb_id
+      level_changes = self.changes["current_level"]
+      self.errors.add(:current_level, "Current level cant be smaller than previous level") if (level_changes && (level_changes.first > level_changes.last))
+    end
   end
 
 end
