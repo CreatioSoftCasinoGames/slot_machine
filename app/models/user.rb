@@ -25,7 +25,8 @@ class User < ActiveRecord::Base
   before_update :check_device_changed
   before_create :update_first_fb_sync
   before_create :add_unique_id
-  validate :check_previous_xp_and_level
+  validate :check_previous_level
+  validate :check_previous_stars
 
   attr_accessor :bet_amount, :won_amount, :previous_login_token, :fb_friends_list, :device_changed, :first_fb_sync
 
@@ -122,10 +123,18 @@ class User < ActiveRecord::Base
     self.first_fb_sync = true if self.changes.include?(:fb_id)
   end
 
-  def check_previous_xp_and_level
+  def check_previous_level
     if self.fb_id
       level_changes = self.changes["current_level"]
-      self.errors.add(:current_level, "Current level cant be smaller than previous level") if (level_changes && (level_changes.first > level_changes.last))
+      self.errors.add(:current_level, "Current level cant be smaller than previous level") if (level_changes && (level_changes.first.to_f > level_changes.last.to_f))
+      
+    end
+  end
+
+  def check_previous_stars
+    if self.fb_id
+      stars_changes = self.changes["stars"]
+      self.errors.add(:stars, "Current stars cant be smaller than previous starts") if (stars_changes && (stars_changes.first.to_f > stars_changes.last.to_f))
     end
   end
 
