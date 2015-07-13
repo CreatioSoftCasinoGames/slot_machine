@@ -28,6 +28,8 @@ class User < ActiveRecord::Base
   validate :check_previous_level
   validate :check_previous_stars
 
+  has_paper_trail
+
   attr_accessor :bet_amount, :won_amount, :previous_login_token, :fb_friends_list, :device_changed, :first_fb_sync
 
   accepts_nested_attributes_for :login_histories

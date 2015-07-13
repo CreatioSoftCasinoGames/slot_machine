@@ -87,10 +87,14 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 
 	def get_reward
 		@tournament_user = User.fetch_by_login_token(params[:id]).tournament_users.where(status: false)
-		render json: @tournament_user.as_json({
-			only: [:id, :rank, :point, :prize],
-			methods: [:machine_id, :machine_name]
-		})
+		if @tournament_user.blank?
+			render json: []
+		else
+			render json: @tournament_user.as_json({
+				only: [:id, :rank, :point, :prize],
+				methods: [:machine_id, :machine_name]
+			})
+		end
 	end
 
 	def winner_jackpot	

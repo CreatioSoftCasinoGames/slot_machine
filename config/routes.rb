@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   resources :tournaments
 
+  resources :user_progresses
+
   resources :graphics
 
   resources :mini_games

@@ -14,3 +14,19 @@
 //= require jquery_ujs
 //= require twitter/bootstrap
 //= require_tree .
+
+// bindFilterClick: function(){
+// 	$(".filters").click(function(){
+// 		$("#filter").submit();
+// 	});
+// }
+
+// $(document).ready(function (){
+// 	$('.search').click(function (e) {
+// 		var uniqueId = $('.unique_id').val();
+// 		alert(uniqueId);
+// 		var url = "/user_progresses?unique_id="+uniqueId;
+// 		// alert(document.window.location);
+// 		window.location.href = url;
+// 	})
+// })

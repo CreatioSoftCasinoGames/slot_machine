@@ -44,6 +44,8 @@ gem "font-awesome-rails"
 gem 'paperclip'
 gem 'aws-sdk'
 
+gem 'paper_trail', '~> 4.0.0.rc'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

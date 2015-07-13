@@ -1,0 +1,41 @@
+.container
+  .col-md-12
+    = form_tag("", :method => :get, :id => "filter") do |f|
+      .row
+        = label_tag "Search User Progress By Unique Id"
+        = text_field_tag "unique_id", "", class: "form-control unique_id"
+        br
+      = submit_tag "Submit", class: "btn btn-primary"
+.container
+  .col-md-12
+    table class="table table-striped"
+      thead
+        tr
+          th First Name
+          th Level
+          th Xp
+          th FB id
+          th Total Bet
+          th Coins Won
+          th Total Coins
+          th Total Iap
+          th unique Id
+          th Last Update Time
+      tbody
+        - if @versions.present?
+          - @versions.each do |version|
+            tr
+              td= version.reify.first_name || "-"
+              td= version.reify.current_level || "-"
+              td= version.reify.stars || "-"
+              td= version.reify.fb_id || "-"
+              td= version.reify.total_bet || "-"
+              td= version.reify.coins_won || "-"
+              td= version.reify.total_coins || "-"
+              td= version.reify.total_iap_made || "-"
+              td= version.reify.unique_id || "-"
+              td= version.reify.updated_at || "-"
+        - else
+          tr
+            td colspan=4
+              |No progress found for this user. 
