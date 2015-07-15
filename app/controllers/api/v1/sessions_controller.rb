@@ -2,20 +2,6 @@ class Api::V1::SessionsController < Api::V1::ApplicationController
 
 	def create
 
-		# #Check previous versions update status
-		# @user_versions = User.where(device: params[:device], game_version: params[:game_version])
-		# @greater_version = User.where("game_version > ?", params[:game_version])
-		# update_required = false
-		
-		# if @greater_version.count > 0
-		# 	if @user_versions.count == 0 || @user_versions.where(update_required: true).count > 0
-		# 		update_required = true
-		# 	end
-		# elsif @user_versions.first.present?
-		# 	update_required = @user_versions.first.update_required
-		# else
-		# 	update_required = false
-		# end
 		game_version = GameVersion.where(device_type: params[:device], version: params[:game_version]).first
 		update_required = game_version.present? ? game_version.require_update : true
 
@@ -62,7 +48,7 @@ class Api::V1::SessionsController < Api::V1::ApplicationController
 
 		if @user.present?
 			login_token = SecureRandom.hex(5)
-			if @user.update_attributes(login_token: login_token, current_sign_in_at: Time.now, online: true, login_histories_attributes: {id: nil, active: true, login_token: login_token })
+			if @user.update_attributes(login_token: login_token, country: params[:country], current_sign_in_at: Time.now, online: true, login_histories_attributes: {id: nil, active: true, login_token: login_token })
 				@user.previous_login_token = @user.login_histories.order("created_at desc").limit(2).last.try(:login_token)
 				render json: @user
 			else
