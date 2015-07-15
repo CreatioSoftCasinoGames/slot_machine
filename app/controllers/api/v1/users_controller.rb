@@ -28,6 +28,11 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 
 	end
 
+	def fetch_country
+		data = GeoIP.new('GeoIP.dat').country(request.ip)
+		render json: data
+	end
+
 	def update
 		if @user.update_attributes(user_params)
       render json: {
