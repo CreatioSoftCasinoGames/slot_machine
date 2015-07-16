@@ -40,7 +40,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
       }
     else
       render json: {
-      	success: false,
+      	success: true,
       	errors: @user.errors, status: :unprocessable_entity 
       }
     end
