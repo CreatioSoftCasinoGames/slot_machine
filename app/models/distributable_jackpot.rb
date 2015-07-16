@@ -41,14 +41,10 @@ class DistributableJackpot < ActiveRecord::Base
 			distributable_jackpots.each do |distributable_jackpot|
 				if distributable_jackpot.jackpot.jackpot_type == "Min"
 					id = find_winner_id(distributable_jackpot.created_at.to_time)
-					p "=============================="
-					p id
 					distributable_jackpot.update_attributes(winner_id: id, active: false)
 					create_and_publish_jackpot(distributable_jackpot)
 				elsif distributable_jackpot.created_at.to_date == (Time.now - 1.days).to_date
 					id = find_winner_id(distributable_jackpot.created_at.to_time)
-					p "++++++++++++++++++++++++++++++"
-					p id
 					distributable_jackpot.update_attributes(winner_id: id, active: false)
 					create_and_publish_jackpot(distributable_jackpot)
 				end	

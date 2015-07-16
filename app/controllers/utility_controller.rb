@@ -10,6 +10,7 @@ class UtilityController < ApplicationController
 	end
 
 	def sync_data
+		REDIS_CLIENT.SET("tournament_start", true)
 		Machine.includes(:tournaments).all.each do |machine|
 			REDIS_CLIENT.SADD("machines", "machine:#{machine.machine_number}")
 			REDIS_CLIENT.HMSET("machine:#{machine.machine_number}", "id", machine.id,"name", machine.name, "machine_type", machine.machine_type, "min_players", machine.min_players, "max_players", machine.max_players, "machine_number", machine.machine_number)
@@ -38,6 +39,16 @@ class UtilityController < ApplicationController
 			end
 		end
 		redirect_to root_path, flash: {success: "Tournament data has been successfully synced !"}
+	end
+
+	def stop_tournament
+		REDIS_CLIENT.SET("tournament_start", false)
+		redirect_to root_path, flash: {success: "No new tournament will start!"}
+	end
+
+	def start_tournament
+		REDIS_CLIENT.SET("tournament_start", true)
+		redirect_to root_path, flash: {success: "Tournament will start normally!"}
 	end
 
 	def delete_data

@@ -11,6 +11,14 @@
     .form-group
       - if user_signed_in?
         button type="submit" Sync Tournament Only
+  = form_tag '/utility/stop_tournament', :method => 'get' do
+    .form-group
+      - if user_signed_in?
+        button type="submit" Stop new tournament
+  = form_tag '/utility/start_tournament', :method => 'get' do
+    .form-group
+      - if user_signed_in?
+        button type="submit" Start tournament
   h1 Hello, Slot team!
   p Welcome to Slot
   p= link_to "Learn more", "#", class: "btn btn-primary btn-lg"
