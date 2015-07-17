@@ -1,6 +1,8 @@
 require 'sidekiq/web'
 Rails.application.routes.draw do
 
+  resources :players_prizes
+
   resources :game_versions
   mount Sidekiq::Web => '/sidekiq'
 

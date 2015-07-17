@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  prize_pool_percent: 1.5
+  next_winner_difference: 1.5
+  user_score_percent: 1.5
+  player_one_percent: 1.5
+  player_two_percent: 1.5
+  player_three_percent: 1.5
+
+two:
+  prize_pool_percent: 1.5
+  next_winner_difference: 1.5
+  user_score_percent: 1.5
+  player_one_percent: 1.5
+  player_two_percent: 1.5
+  player_three_percent: 1.5

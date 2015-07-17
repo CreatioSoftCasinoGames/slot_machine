@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150713095505) do
+ActiveRecord::Schema.define(version: 20150717110137) do
 
   create_table "api_keys", force: true do |t|
     t.string   "token"
@@ -119,7 +119,7 @@ ActiveRecord::Schema.define(version: 20150713095505) do
   create_table "jackpots", force: true do |t|
     t.string   "jackpot_type"
     t.decimal  "seed_amount",    precision: 10, scale: 0
-    t.decimal  "player_percent", precision: 10, scale: 0
+    t.float    "player_percent"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.decimal  "duration",       precision: 10, scale: 0
@@ -169,6 +169,17 @@ ActiveRecord::Schema.define(version: 20150713095505) do
     t.string   "name"
     t.text     "description"
     t.integer  "machine_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "players_prizes", force: true do |t|
+    t.float    "prize_pool_percent"
+    t.float    "next_winner_difference"
+    t.float    "user_score_percent"
+    t.float    "player_one_percent"
+    t.float    "player_two_percent"
+    t.float    "player_three_percent"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

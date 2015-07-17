@@ -1,0 +1,36 @@
+= form_for @players_prize, html: { class: "form form-horizontal players_prize" } do |f|
+  .form-group
+    = f.label :prize_pool_percent, :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.text_field :prize_pool_percent, :class => 'form-control'
+    = error_span(@players_prize[:prize_pool_percent])
+  .form-group
+    = f.label :next_winner_difference, :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.text_field :next_winner_difference, :class => 'form-control'
+    = error_span(@players_prize[:next_winner_difference])
+  .form-group
+    = f.label :user_score_percent, :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.text_field :user_score_percent, :class => 'form-control'
+    = error_span(@players_prize[:user_score_percent])
+  .form-group
+    = f.label :player_one_percent, :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.text_field :player_one_percent, :class => 'form-control'
+    = error_span(@players_prize[:player_one_percent])
+  .form-group
+    = f.label :player_two_percent, :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.text_field :player_two_percent, :class => 'form-control'
+    = error_span(@players_prize[:player_two_percent])
+  .form-group
+    = f.label :player_three_percent, :class => 'control-label col-lg-2'
+    .col-lg-10
+      = f.text_field :player_three_percent, :class => 'form-control'
+    = error_span(@players_prize[:player_three_percent])
+  .form-group
+    .col-lg-offset-2.col-lg-10
+      = f.submit nil, :class => 'btn btn-primary'
+      '
+      = link_to t('.cancel', :default => t("helpers.links.cancel")), players_prizes_path, :class => 'btn'
