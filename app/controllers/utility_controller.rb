@@ -20,6 +20,16 @@ class UtilityController < ApplicationController
 				REDIS_CLIENT.HMSET("players_tournament:#{tournament.id}", "machine_name", machine.name, "machine_id", machine.machine_number, "machine_number", machine.id, "min_entry_level", tournament.min_entry_level, "max_entry_level", tournament.max_entry_level, "seed_money", tournament.seed_money, "timeout", tournament.time_out, "interval", tournament.interval, "points_required", tournament.points_required)
 			end
 		end
+
+		PlayersPrize.all.each do |player_prize|
+			REDIS_CLIENT.SET("prize_pool_percent", player_prize.prize_pool_percent)
+			REDIS_CLIENT.SET("next_winner_difference", player_prize.next_winner_difference)
+			REDIS_CLIENT.SET("user_score_percent", player_prize.user_score_percent)
+			REDIS_CLIENT.SET("player_one_percent", player_prize.player_one_percent)
+			REDIS_CLIENT.SET("player_two_percent", player_prize.player_two_percent)
+			REDIS_CLIENT.SET("player_three_percent", player_prize.player_three_percent)
+		end
+
 		redirect_to root_path, flash: {success: "Complete database has been successfully synced !"}
 	end
 
