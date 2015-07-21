@@ -19,8 +19,8 @@ default_run_options[:pty] = true
 ssh_options[:forward_agent] = true
 
 # Application stages configuration
-set :stages, %w(production)
-set :default_stage, 'production'
+set :stages, %w(production beta)
+set :default_stage, 'beta'
 
 
 # Deploy configuration (Unicorn, nginx)
