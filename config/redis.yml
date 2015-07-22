@@ -12,6 +12,6 @@ production:
     port: '6379'
 
 # production environment
-production:
+beta:
     host: 'localhost'
     port: '6379'
