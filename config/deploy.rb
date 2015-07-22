@@ -72,7 +72,7 @@ namespace :deploy do
 
   desc "Restart the application"
   task :restart, :roles => :app, :except => { :no_release => true } do
-    run "cd #{current_path} && RAILS_ENV=#{stage} bundle exec pumactl -S #{current_path}/tmp/pids/puma-production.state restart"
+    run "cd #{current_path} && RAILS_ENV=#{stage} bundle exec pumactl -S #{current_path}/tmp/pids/puma-#{stage}.state restart"
   end
 
 end
