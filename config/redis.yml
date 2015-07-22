@@ -10,3 +10,8 @@ development:
 production:
     host: 'slot-redis.slotapi.com'
     port: '6379'
+
+# production environment
+production:
+    host: 'localhost'
+    port: '6379'

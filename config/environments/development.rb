@@ -16,6 +16,13 @@ Rails.application.configure do
   authentication:       'plain',
   enable_starttls_auto: true  }
 
+  Rails.application.config.middleware.use ExceptionNotification::Rack,
+  email: {
+    :email_prefix => "[Error 500] ",
+    :sender_address => %{"Notifier" <bugs@creatiosoft.com>},
+    :exception_recipients => %w{amrendra@creatiosoft.com}
+  }
+
   # Do not eager load code on boot.
   config.eager_load = false
 
@@ -27,7 +34,7 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
 
-  # Print deprecation notices to the Rails logger.
+  # Pr0int deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
   # Raise an error on page load if there are pending migrations.

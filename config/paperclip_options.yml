@@ -4,7 +4,6 @@ common: &default_settings
   :bucket: <%= API_CONFIG['amazon_bucket_name'] %>
 
 production: &production
-
   :images:
     :file:
       :storage: !ruby/symbol s3
@@ -38,4 +37,7 @@ development:
   <<: *production
 
 test:
+  <<: *production
+
+beta:
   <<: *production

@@ -3,6 +3,7 @@ class DistributableJackpot < ActiveRecord::Base
 	belongs_to :user, foreign_key: :winner_id, class_name: "User"
 	before_create :set_default_fields
 	before_update :increase_jackpot_amount
+	before_update :publish_jackpot
 	before_update :update_users
 	attr_accessor :jackpot_amount
 
@@ -41,8 +42,10 @@ class DistributableJackpot < ActiveRecord::Base
 			distributable_jackpots.each do |distributable_jackpot|
 				if distributable_jackpot.jackpot.jackpot_type == "Min"
 					id = find_winner_id(distributable_jackpot.created_at.to_time)
-					distributable_jackpot.update_attributes(winner_id: id, active: false)
-					create_and_publish_jackpot(distributable_jackpot)
+					if (Time.zone.now - distributable_jackpot.updated_at) > 100.seconds
+						distributable_jackpot.update_attributes(winner_id: id, active: false)
+						create_and_publish_jackpot(distributable_jackpot)
+					end
 				elsif distributable_jackpot.created_at.to_date == (Time.now - 1.days).to_date
 					id = find_winner_id(distributable_jackpot.created_at.to_time)
 					distributable_jackpot.update_attributes(winner_id: id, active: false)
@@ -115,6 +118,13 @@ class DistributableJackpot < ActiveRecord::Base
 					User.where(id: user_id).first.update_attributes(major_jackpot_status: true)
 				end
 			end
+		end
+	end
+
+	def publish_jackpot
+		if self.changes.include?(:amount)
+			REDIS_CLIENT.SET("min_jackpot", Jackpot.where(jackpot_type: "Min").first.distributable_jackpots.where(active: true).last.try(:amount))
+			REDIS_CLIENT.SET("major_jackpot", Jackpot.where(jackpot_type: "Major").first.distributable_jackpots.where(active: true).last.try(:amount))
 		end
 	end
 

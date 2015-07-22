@@ -46,6 +46,7 @@ gem 'paperclip'
 gem 'aws-sdk'
 
 gem 'paper_trail', '~> 4.0.0.rc'
+gem 'exception_notification'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
