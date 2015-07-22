@@ -1,5 +1,5 @@
 class JackpotsWorker
-	require Sidekiq::Worker
+	include Sidekiq::Worker
 
 	sidekiq_options retry: false
 
