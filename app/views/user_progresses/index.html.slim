@@ -25,16 +25,16 @@
         - if @versions.present?
           - @versions.each do |version|
             tr
-              td= version.reify.first_name || "-"
-              td= version.reify.current_level || "-"
-              td= version.reify.stars || "-"
-              td= version.reify.fb_id || "-"
-              td= version.reify.total_bet || "-"
-              td= version.reify.coins_won || "-"
-              td= version.reify.total_coins || "-"
-              td= version.reify.total_iap_made || "-"
-              td= version.reify.unique_id || "-"
-              td= version.reify.updated_at || "-"
+              td= version.reify.try(:first_name) || "-"
+              td= version.reify.try(:current_level) || "-"
+              td= version.reify.try(:stars) || "-"
+              td= version.reify.try(:fb_id) || "-"
+              td= version.reify.try(:total_bet) || "-"
+              td= version.reify.try(:coins_won) || "-"
+              td= version.reify.try(:total_coins) || "-"
+              td= version.reify.try(:total_iap_made) || "-"
+              td= version.reify.try(:unique_id) || "-"
+              td= version.reify.try(:updated_at) || "-"
         - else
           tr
             td colspan=4

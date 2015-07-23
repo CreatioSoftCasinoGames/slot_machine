@@ -18,7 +18,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 	end
 
 	def log_spin
-		if @user.update_attributes({bet_amount: params[:total_bet], won_amount: params[:coins_won]})
+		if @user.update_attributes(total_bet: params[:total_bet], coins_won: params[:coins_won], coins_lost: params[:coins_lost])
 			render json: @user
 	  else
 	  	render json: {

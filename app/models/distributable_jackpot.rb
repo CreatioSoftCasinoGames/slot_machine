@@ -3,7 +3,7 @@ class DistributableJackpot < ActiveRecord::Base
 	belongs_to :user, foreign_key: :winner_id, class_name: "User"
 	before_create :set_default_fields
 	before_update :increase_jackpot_amount
-	before_update :publish_jackpot
+	after_update :publish_min_jackpot, :publish_major_jackpot
 	before_update :update_users
 	attr_accessor :jackpot_amount
 
@@ -121,9 +121,13 @@ class DistributableJackpot < ActiveRecord::Base
 		end
 	end
 
-	def publish_jackpot
-		if self.changes.include?(:amount)
+	def publish_min_jackpot
+		if self.jackpot.jackpot_type == "Min" && self.changes.include?(:amount)
 			REDIS_CLIENT.SET("min_jackpot", Jackpot.where(jackpot_type: "Min").first.distributable_jackpots.where(active: true).last.try(:amount))
+		end
+	end
+	def publish_major_jackpot
+		if self.changes.include?(:amount) && self.jackpot.jackpot_type == "Major"
 			REDIS_CLIENT.SET("major_jackpot", Jackpot.where(jackpot_type: "Major").first.distributable_jackpots.where(active: true).last.try(:amount))
 		end
 	end
