@@ -1,7 +1,7 @@
 class ClientBugsController < ApplicationController
 
 	def index
-		@client_bugs = ClientBug.all
+		@client_bugs = ClientBug.paginate(:page => params[:page], :per_page => 30).order("created_at desc")
 	end
 
 	def destroy

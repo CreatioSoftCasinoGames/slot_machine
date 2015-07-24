@@ -6,6 +6,7 @@
         = text_field_tag "unique_id", "", class: "form-control unique_id"
         br
       = submit_tag "Submit", class: "btn btn-primary"
+= will_paginate @versions if @versions.present?
 .container
   .col-md-12
     table class="table table-striped"

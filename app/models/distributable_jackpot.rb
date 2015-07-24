@@ -63,7 +63,7 @@ class DistributableJackpot < ActiveRecord::Base
 
 	def self.create_and_publish_jackpot(distributable_jackpot)
 		DistributableJackpot.create(jackpot_id: distributable_jackpot.jackpot.id, seed_amount: distributable_jackpot.seed_amount, amount: distributable_jackpot.seed_amount)
-		REDIS_CLIENT.PUBLISH("jackpotWinner", {winner_token: distributable_jackpot.winner_token, winner_name: distributable_jackpot.winner_name, jackpot_type: distributable_jackpot.jackpot.jackpot_type , amount: distributable_jackpot.amount, image_url: distributable_jackpot.image_url}.to_json)
+		REDIS_CLIENT.PUBLISH("jackpotWinner", {publish_type: "jackpot_winner", winner_token: distributable_jackpot.winner_token, winner_name: distributable_jackpot.winner_name, jackpot_type: distributable_jackpot.jackpot.jackpot_type , amount: distributable_jackpot.amount, image_url: distributable_jackpot.image_url}.to_json)
 	end
 
 	def self.find_winner_id(jackpot_distribution_time)

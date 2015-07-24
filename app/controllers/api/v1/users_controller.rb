@@ -133,7 +133,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 
   def find_user
   	# @user = User.where(login_token: params[:id]).first
-  	@user = User.where(login_token: params[:login_token]).first
+  	@user = User.fetch_by_login_token(params[:id])
   	(render json: {message: "User not found", success: false}) if @user.blank?
   end
 

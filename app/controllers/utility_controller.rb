@@ -22,12 +22,23 @@ class UtilityController < ApplicationController
 		end
 
 		PlayersPrize.all.each do |player_prize|
-			REDIS_CLIENT.SET("prize_pool_percent", player_prize.prize_pool_percent)
-			REDIS_CLIENT.SET("next_winner_difference", player_prize.next_winner_difference)
-			REDIS_CLIENT.SET("user_score_percent", player_prize.user_score_percent)
-			REDIS_CLIENT.SET("player_one_percent", player_prize.player_one_percent)
-			REDIS_CLIENT.SET("player_two_percent", player_prize.player_two_percent)
-			REDIS_CLIENT.SET("player_three_percent", player_prize.player_three_percent)
+			REDIS_CLIENT.HMSET("in_game_data", "prize_pool_percent", player_prize.prize_pool_percent, "next_winner_difference", player_prize.next_winner_difference, "user_score_percent", player_prize.user_score_percent, "player_one_percent", player_prize.player_one_percent, "player_two_percent", player_prize.player_two_percent, "player_three_percent", player_prize.player_three_percent)
+		end
+
+		Jackpot.all.each do |jackpot|
+			if(jackpot.jackpot_type == "Min")
+				REDIS_CLIENT.SET("player_precent_min", jackpot.player_percent)
+			else
+				REDIS_CLIENT.SET("player_precent_major", jackpot.player_percent)
+			end
+		end
+
+		DistributableJackpot.where(active: true).each do |jackpot|
+			if(jackpot.jackpot.jackpot_type == "Min")
+				REDIS_CLIENT.SET("min_jackpot", jackpot.amount)
+			else
+				REDIS_CLIENT.SET("major_jackpot", jackpot.amount)
+			end
 		end
 
 		redirect_to root_path, flash: {success: "Complete database has been successfully synced !"}
