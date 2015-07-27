@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150717110137) do
+ActiveRecord::Schema.define(version: 20150727072644) do
 
   create_table "api_keys", force: true do |t|
     t.string   "token"
@@ -226,7 +226,6 @@ ActiveRecord::Schema.define(version: 20150717110137) do
     t.string   "last_name"
     t.string   "country"
     t.decimal  "stars",                                    precision: 10, scale: 0
-    t.decimal  "diamonds",                                 precision: 10, scale: 0
     t.string   "fb_id"
     t.string   "role"
     t.integer  "total_bet",                      limit: 8,                          default: 0
@@ -243,18 +242,11 @@ ActiveRecord::Schema.define(version: 20150717110137) do
     t.integer  "biggest_win",                    limit: 8
     t.integer  "jackpot_win_percent",                                               default: 0
     t.integer  "total_coins",                    limit: 8,                          default: 0
-    t.string   "gifts"
-    t.integer  "iap",                                                               default: 0
-    t.integer  "bonus_coins",                                                       default: 0
     t.boolean  "is_guest",                                                          default: false
     t.string   "login_token"
     t.boolean  "online",                                                            default: false
     t.integer  "parent_id"
     t.boolean  "is_fb_connected",                                                   default: false
-    t.decimal  "client_total_spin",                        precision: 10, scale: 0
-    t.integer  "client_coins_won",               limit: 8
-    t.integer  "client_coins_lost",              limit: 8
-    t.integer  "client_total_bets",              limit: 8
     t.integer  "version"
     t.integer  "total_iap_made",                 limit: 8
     t.datetime "last_logout_time"

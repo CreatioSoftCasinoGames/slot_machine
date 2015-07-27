@@ -18,7 +18,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 	end
 
 	def log_spin
-		if @user.update_attributes(total_bet: params[:total_bet], coins_won: params[:coins_won], coins_lost: params[:coins_lost])
+		if @user.update_attributes(bet_amount: params[:total_bet], won_amount: params[:coins_won])
 			render json: @user
 	  else
 	  	render json: {
@@ -127,7 +127,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
   	params[:user][:celebration_attributes][:id] = celebration_id if params[:user] && params[:user][:celebration_attributes]
   	(params[:user][:celebration_attributes][:celebrations] = params[:user][:celebration_attributes][:celebrations].split(",")[0..4].join(",") + ",") rescue nil
   	(params[:user][:celebration_attributes][:reward] = params[:user][:celebration_attributes][:reward].split(",")[0..4].join(",") + ",") rescue nil
-    params.require(:user).permit(:email, :bet_index, :bet_per_line, :last_logout_time, :password, :password_confirmation, :first_name, :last_name, :country, :fb_id, :stars, :diamonds, :current_level, :machine_unlocked, :percentage_win, :num_of_tournament_participated, :version, :biggest_tournament_win_amount, :best_position_in_tournament, :total_spin, :device_id, :biggest_win, :jackpot_win_percent, :total_coins, :gifts, :iap, :bonus_coins, :is_guest, :mini_jackpot_status, :major_jackpot_status, :total_iap_made,
+    params.require(:user).permit(:email, :bet_index, :bet_per_line, :last_logout_time, :password, :password_confirmation, :first_name, :last_name, :country, :fb_id, :stars, :current_level, :machine_unlocked, :percentage_win, :num_of_tournament_participated, :version, :biggest_tournament_win_amount, :best_position_in_tournament, :total_spin, :device_id, :biggest_win, :jackpot_win_percent, :total_coins, :is_guest, :mini_jackpot_status, :major_jackpot_status, :total_iap_made,
     	celebration_attributes: [:celebrations, :reward, :id])
   end
 

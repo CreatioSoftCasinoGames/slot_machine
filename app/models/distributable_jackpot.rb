@@ -38,15 +38,14 @@ class DistributableJackpot < ActiveRecord::Base
 	def self.mark_as_distributed
 		distributable_jackpots = DistributableJackpot.where(active: true)
 		if distributable_jackpots.present?
-			p distributable_jackpots
 			distributable_jackpots.each do |distributable_jackpot|
 				if distributable_jackpot.jackpot.jackpot_type == "Min"
 					id = find_winner_id(distributable_jackpot.created_at.to_time)
-					if (Time.zone.now - distributable_jackpot.updated_at) > 100.seconds
+					if (Time.zone.now - distributable_jackpot.updated_at) > 14400.seconds
 						distributable_jackpot.update_attributes(winner_id: id, active: false)
 						create_and_publish_jackpot(distributable_jackpot)
 					end
-				elsif distributable_jackpot.created_at.to_date == (Time.now - 1.days).to_date
+				elsif distributable_jackpot.created_at.to_date <= (Time.now - 1.days).to_date
 					id = find_winner_id(distributable_jackpot.created_at.to_time)
 					distributable_jackpot.update_attributes(winner_id: id, active: false)
 					create_and_publish_jackpot(distributable_jackpot)
@@ -67,7 +66,8 @@ class DistributableJackpot < ActiveRecord::Base
 	end
 
 	def self.find_winner_id(jackpot_distribution_time)
-		played_users = User.where("last_logout_time > ? OR current_sign_in_at > last_logout_time", jackpot_distribution_time)
+		# played_users = User.where("last_logout_time > ? OR current_sign_in_at > last_logout_time", jackpot_distribution_time)
+		played_users = User.where("updated_at > ?", jackpot_distribution_time)
 		fb_user_count = played_users.where(is_fb_connected: true).count
 		guest_user_count = played_users.where(is_fb_connected: false).count
 
