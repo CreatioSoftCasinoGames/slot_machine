@@ -5,7 +5,8 @@ class Api::V1::TournamentUsersController < Api::V1::ApplicationController
 		@tournament_user.attributes = {user_id: User.fetch_by_login_token(params[:login_token]).id}
 		if @tournament_user.save
 			render json: {
-				success: true
+				success: true,
+				id: @tournament_user.id
 			}
 		else
 			render json: {
