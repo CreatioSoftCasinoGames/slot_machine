@@ -39,13 +39,13 @@ class DistributableJackpot < ActiveRecord::Base
 		distributable_jackpots = DistributableJackpot.where(active: true)
 		if distributable_jackpots.present?
 			distributable_jackpots.each do |distributable_jackpot|
-				if distributable_jackpot.jackpot.jackpot_type == "Min"
+				if distributable_jackpot.jackpot.jackpot_type == "Min" && distributable_jackpot.created_at <= Time.zone.now - 4.hours
 					id = find_winner_id(distributable_jackpot.created_at.to_time)
-					if (Time.zone.now - distributable_jackpot.updated_at) > 14400.seconds
-						distributable_jackpot.update_attributes(winner_id: id, active: false)
-						create_and_publish_jackpot(distributable_jackpot)
-					end
-				elsif distributable_jackpot.created_at.to_date <= (Time.now - 1.days).to_date
+					# if (Time.zone.now - distributable_jackpot.updated_at) > 14400.seconds
+					distributable_jackpot.update_attributes(winner_id: id, active: false)
+					create_and_publish_jackpot(distributable_jackpot)
+					# end
+				elsif distributable_jackpot.created_at.to_date <= (Time.zone.now - 1.days).to_date
 					id = find_winner_id(distributable_jackpot.created_at.to_time)
 					distributable_jackpot.update_attributes(winner_id: id, active: false)
 					create_and_publish_jackpot(distributable_jackpot)
