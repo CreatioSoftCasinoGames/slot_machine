@@ -12,7 +12,7 @@ set :whenever_environment, defer { 'production' }
 set :application, 'slot_machine'
 set :repository,  'git@github.com:creatiosoft/slot_machine.git'
 set :scm, :git
-set :branch, 'master'
+set :branch, 'deployment'
 
 # Server-side system wide settings
 default_run_options[:pty] = true
