@@ -9,7 +9,7 @@ set :whenever_environment, defer { 'production' }
 
 
 # Application configuration
-set :application, 'dashboard'
+set :application, 'slot-dashboard'
 set :repository,  'git@github.com:creatiosoft/slot_machine.git'
 set :scm, :git
 set :branch, 'admin'
