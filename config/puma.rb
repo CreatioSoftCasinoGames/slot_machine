@@ -10,5 +10,6 @@ environment railsenv
 daemonize true
 pidfile "#{application_path}/tmp/pids/puma-#{railsenv}.pid"
 stdout_redirect "#{application_path}/log/puma-#{railsenv}.stdout.log", "#{application_path}/log/puma-#{railsenv}.stderr.log"
-threads 8, 64
+workers 8
+threads 100, 100
 bind "unix:///tmp/slot-api.sock"
