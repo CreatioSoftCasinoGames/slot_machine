@@ -38,6 +38,6 @@ development:
 
 test:
   <<: *production
-
+ 
 beta:
   <<: *production
