@@ -1,7 +1,7 @@
 # Settings for production server
 set :user, 'application'
-server 'rails01.slotapi.com', :app, :web
-server 'rails02.slotapi.com', :app, :web
+server 'rails01.reindeercasinoslotvegas.com', :app, :web
+server 'rails02.reindeercasinoslotvegas.com', :app, :web
 set :rvm_type, :system
 set :use_sudo, false
 set :deploy_via, :remote_cache
