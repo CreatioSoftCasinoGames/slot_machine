@@ -18,7 +18,7 @@ class DistributableJackpot < ActiveRecord::Base
   def image_url
   	fb_id = User.where(id: winner_id).first.try(:fb_id)
     if fb_id
-      "http://graph.facebook.com/#{fb_id}/picture"
+      "https://graph.facebook.com/#{fb_id}/picture"
     end
   end
 
