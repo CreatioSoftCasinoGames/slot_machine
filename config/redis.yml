@@ -8,7 +8,7 @@ development:
 
 # production environment
 production:
-    host: 'redis.slotapi.com'
+    host: 'redis.reindeercasinoslotvegas.com '
     port: '6379'
 
 # production environment

@@ -12,7 +12,7 @@ set :whenever_environment, defer { 'production' }
 set :application, 'slot-dashboard'
 set :repository,  'git@github.com:creatiosoft/slot_machine.git'
 set :scm, :git
-set :branch, 'admin'
+set :branch, 'vegas-admin'
 
 # Server-side system wide settings
 default_run_options[:pty] = true
