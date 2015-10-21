@@ -9,6 +9,14 @@ GIT
       rails (>= 3.1)
       railties (>= 3.1)
 
+GIT
+  remote: git://github.com/taskrabbit/makara.git
+  revision: b9938313f1ce08a9b30bf43132ea4c746e9f9f58
+  tag: v0.3.3
+  specs:
+    makara (0.3.3)
+      activerecord (>= 3.0.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -248,6 +256,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   less-rails
+  makara!
   mysql2
   paper_trail (~> 4.0.0.rc)
   paperclip

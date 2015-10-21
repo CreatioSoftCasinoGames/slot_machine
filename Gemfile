@@ -5,6 +5,8 @@ gem "rails-erd"
 gem 'active_model_serializers' 
 gem 'geoip'
 gem 'rack-cors', :require => 'rack/cors'
+# gem 'ar-octopus'
+gem 'makara', github: 'taskrabbit/makara', tag: 'v0.3.3'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'
