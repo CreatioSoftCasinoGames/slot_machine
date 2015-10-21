@@ -8,7 +8,7 @@ development:
 
 # production environment
 production:
-    host: 'redis.reindeercasinoslotvegas.com'
+    host: 'redis.slotvasco.com'
     port: '6379'
 
 # production environment
