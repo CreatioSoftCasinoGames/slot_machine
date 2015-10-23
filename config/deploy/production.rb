@@ -1,7 +1,6 @@
 # Settings for production server
 set :user, 'application'
-server 'rails01.slotvasco.com', :app, :web
-server 'rails02.slotvasco.com', :app, :web
+server 'rails01.slits.online', :app, :web
 set :rvm_type, :system
 set :use_sudo, false
 set :deploy_via, :remote_cache
