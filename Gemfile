@@ -5,6 +5,7 @@ gem "rails-erd"
 gem 'active_model_serializers' 
 gem 'geoip'
 gem 'rack-cors', :require => 'rack/cors'
+gem 'newrelic'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.1'
