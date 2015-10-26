@@ -35,6 +35,19 @@ class DistributableJackpot < ActiveRecord::Base
   	User.where(id: winner_id).first.try(:login_token)
   end
 
+  def self.update_jackpot
+  	min_jackpot = Jackpot.where(jackpot_type: "Min").first.distributable_jackpots.where(active: true).last
+  	major_jackpot = Jackpot.where(jackpot_type: "Major").first.distributable_jackpots.where(active: true).last
+  	if min_jackpot.present?
+  		new_min = REDIS_CLIENT.HMGET("jackpot_details", "min_amount")[0].to_i 
+  		min_jackpot.update_attributes(amount: new_min)
+  	end
+  	if major_jackpot.present?
+  		new_major = REDIS_CLIENT.HMGET("jackpot_details", "major_amount")[0].to_i 
+  		major_jackpot.update_attributes(amount: new_major)
+  	end
+  end
+
 	def self.mark_as_distributed
 		distributable_jackpots = DistributableJackpot.where(active: true)
 		if distributable_jackpots.present?
