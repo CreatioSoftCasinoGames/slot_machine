@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150727072644) do
+ActiveRecord::Schema.define(version: 20150908164951) do
 
   create_table "api_keys", force: true do |t|
     t.string   "token"
@@ -210,12 +210,12 @@ ActiveRecord::Schema.define(version: 20150727072644) do
   end
 
   create_table "users", force: true do |t|
-    t.string   "email",                                                             default: "",    null: false
-    t.string   "encrypted_password",                                                default: "",    null: false
+    t.string   "email",                                    default: "",    null: false
+    t.string   "encrypted_password",                       default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                                                     default: 0,     null: false
+    t.integer  "sign_in_count",                            default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -225,37 +225,37 @@ ActiveRecord::Schema.define(version: 20150727072644) do
     t.string   "first_name"
     t.string   "last_name"
     t.string   "country"
-    t.decimal  "stars",                                    precision: 10, scale: 0
+    t.integer  "stars",                          limit: 8
     t.string   "fb_id"
     t.string   "role"
-    t.integer  "total_bet",                      limit: 8,                          default: 0
-    t.integer  "coins_won",                      limit: 8,                          default: 0
-    t.integer  "coins_lost",                     limit: 8,                          default: 0
-    t.integer  "current_level",                                                     default: 0
-    t.integer  "machine_unlocked",                                                  default: 0
-    t.integer  "percentage_win",                                                    default: 0
-    t.integer  "num_of_tournament_participated",                                    default: 0
-    t.integer  "biggest_tournament_win_amount",  limit: 8,                          default: 0
-    t.integer  "best_position_in_tournament",                                       default: 0
-    t.integer  "total_spin",                                                        default: 0
+    t.integer  "total_bet",                      limit: 8, default: 0
+    t.integer  "coins_won",                      limit: 8, default: 0
+    t.integer  "coins_lost",                     limit: 8, default: 0
+    t.integer  "current_level",                            default: 0
+    t.integer  "machine_unlocked",                         default: 0
+    t.integer  "percentage_win",                           default: 0
+    t.integer  "num_of_tournament_participated",           default: 0
+    t.integer  "biggest_tournament_win_amount",  limit: 8, default: 0
+    t.integer  "best_position_in_tournament",              default: 0
+    t.integer  "total_spin",                               default: 0
     t.string   "device_id"
     t.integer  "biggest_win",                    limit: 8
-    t.integer  "jackpot_win_percent",                                               default: 0
-    t.integer  "total_coins",                    limit: 8,                          default: 0
-    t.boolean  "is_guest",                                                          default: false
+    t.integer  "jackpot_win_percent",                      default: 0
+    t.integer  "total_coins",                    limit: 8, default: 0
+    t.boolean  "is_guest",                                 default: false
     t.string   "login_token"
-    t.boolean  "online",                                                            default: false
+    t.boolean  "online",                                   default: false
     t.integer  "parent_id"
-    t.boolean  "is_fb_connected",                                                   default: false
+    t.boolean  "is_fb_connected",                          default: false
     t.integer  "version"
     t.integer  "total_iap_made",                 limit: 8
     t.datetime "last_logout_time"
-    t.string   "device",                                                            default: ""
-    t.boolean  "update_required",                                                   default: false
-    t.string   "game_version",                                                      default: ""
-    t.string   "bet_index",                                                         default: "0"
-    t.string   "bet_per_line",                                                      default: "1"
-    t.string   "unique_id",                                                         default: ""
+    t.string   "device",                                   default: ""
+    t.boolean  "update_required",                          default: false
+    t.string   "game_version",                             default: ""
+    t.string   "bet_index",                                default: "0"
+    t.string   "bet_per_line",                             default: "1"
+    t.string   "unique_id",                                default: ""
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
