@@ -7,6 +7,10 @@
     .form-group
       - if user_signed_in?
         button type="submit" Sync Complete Database
+  = form_tag '/utility/sync_users_profile', :method => 'get' do
+    .form-group
+      - if user_signed_in?
+        button type="submit" Sync User Profiles
   = form_tag '/utility/stop_tournament', :method => 'get' do
     .form-group
       - if user_signed_in?

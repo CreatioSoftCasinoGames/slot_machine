@@ -9,6 +9,18 @@ class UtilityController < ApplicationController
 		redirect_to show_api_key_url, flash: {success: "New keys created successfully !"}
 	end
 
+	def sync_users_profile
+		User.order("id asc").each do |user|
+			REDIS_CLIENT.SADD("user_profiles:1-1000", "user_profile:#{user.id}")
+			REDIS_CLIENT.HMSET("user_profile:#{user.id}", "id", user.id, "total_coins", user.total_coins, "stars", user.stars, 
+																										"total_coins", user.total_coins, "bet_index",  user.bet_index, 
+																										"bet_per_line", user.bet_per_line, "current_level", user.current_level, 
+																										"total_bet", user.total_bet, "coins_won", user.coins_won, "coins_lost", user.coins_lost, 
+																										"total_spin", user.total_spin, "online", false)
+		end
+		redirect_to root_path, flash: {success: "User profile has been synched successfully !"}
+	end
+
 	def sync_data
 		REDIS_CLIENT.SET("tournament_start", true)
 		Machine.includes(:tournaments).all.each do |machine|

@@ -53,6 +53,7 @@ Rails.application.routes.draw do
   resources :utility do
     collection do
       get :sync_data
+      get :sync_users_profile
       get :sync_tournament
       get :stop_tournament
       get :start_tournament
