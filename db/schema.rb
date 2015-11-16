@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150908164951) do
+ActiveRecord::Schema.define(version: 20151116141346) do
 
   create_table "api_keys", force: true do |t|
     t.string   "token"
@@ -79,10 +79,26 @@ ActiveRecord::Schema.define(version: 20150908164951) do
     t.datetime "updated_at"
   end
 
+  create_table "game", force: true do |t|
+    t.integer  "tournament_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "game_versions", force: true do |t|
     t.string   "version"
     t.string   "device_type"
     t.boolean  "require_update"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "game_winners", force: true do |t|
+    t.integer  "game_id"
+    t.integer  "winner_id"
+    t.integer  "rank"
+    t.decimal  "point",      precision: 10, scale: 0
+    t.integer  "prize"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -180,6 +196,16 @@ ActiveRecord::Schema.define(version: 20150908164951) do
     t.float    "player_one_percent"
     t.float    "player_two_percent"
     t.float    "player_three_percent"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "table_spins_logs", force: true do |t|
+    t.integer  "game_id"
+    t.integer  "user_id"
+    t.integer  "bet"
+    t.integer  "win"
+    t.integer  "pot_percent"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
