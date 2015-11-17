@@ -8,7 +8,7 @@ development:
 
 # production environment
 production:
-    host: 'slot-redis.slotapi.com'
+    host: 'redis.slits.online'
     port: '6379'
 
 # production environment

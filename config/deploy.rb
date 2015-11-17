@@ -9,10 +9,10 @@ set :whenever_environment, defer { 'production' }
 
 
 # Application configuration
-set :application, 'slot_machine'
+set :application, 'slot-api'
 set :repository,  'git@github.com:creatiosoft/slot_machine.git'
 set :scm, :git
-set :branch, 'master'
+set :branch, 'vasco-slot-api'
 
 # Server-side system wide settings
 default_run_options[:pty] = true
@@ -28,25 +28,10 @@ after 'deploy', 'deploy:cleanup'
 
 namespace :deploy do
 
-  task :setup_config, roles: :app do
-    sudo "ln -nfs #{current_path}/config/nginx.conf /etc/nginx/sites-enabled/#{application}"
-    run "mkdir -p #{shared_path}/config"
-    put File.read("config/database.example.yml"), "#{shared_path}/config/database.yml"
-    puts "Now edit the config files in #{shared_path}."
-  end
-
-  after "deploy:setup", "deploy:setup_config"
-
-  task :symlink_config, roles: :app do
-    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-  end
-
-  after "deploy:finalize_update", "deploy:symlink_config"
-
   desc "Make sure local git is in sync with remote."
     task :check_revision, roles: :web do
-      unless `git rev-parse HEAD` == `git rev-parse origin/master`
-      puts "WARNING: HEAD is not the same as origin/master"
+      unless `git rev-parse HEAD` == `git rev-parse origin/#{branch}`
+      puts "WARNING: HEAD is not the same as origin/#{branch}"
       puts "Run `git push` to sync changes."
       exit
     end
@@ -72,7 +57,7 @@ namespace :deploy do
 
   desc "Restart the application"
   task :restart, :roles => :app, :except => { :no_release => true } do
-    run "cd #{current_path} && RAILS_ENV=#{stage} bundle exec pumactl -S #{current_path}/tmp/pids/puma-#{stage}.state restart"
+    run "cd #{current_path} ; RAILS_ENV=#{stage} bundle exec pumactl -F config/puma.rb stop ; sleep 5 ; RAILS_ENV=#{stage} bundle exec pumactl -F config/puma.rb start"
   end
 
 end
