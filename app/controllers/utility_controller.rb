@@ -22,6 +22,9 @@ class UtilityController < ApplicationController
 	end
 
 	def sync_data
+		@min_jackpot = Jackpot.where(jackpot_type: "Min").first.distributable_jackpots.where(is_distributed: false).last
+		@major_jackpot = Jackpot.where(jackpot_type: "Major").first.distributable_jackpots.where(is_distributed: false).last
+		REDIS_CLIENT.HMSET("jackpot_details", "min_id", @min_jackpot.id, "min_amount", @min_jackpot.amount, "major_id", @major_jackpot.id, "major_amount", @major_jackpot.amount)
 		REDIS_CLIENT.SET("tournament_start", true)
 		Machine.includes(:tournaments).all.each do |machine|
 			REDIS_CLIENT.SADD("machines", "machine:#{machine.machine_number}")
