@@ -31,6 +31,7 @@ class UtilityController < ApplicationController
 			REDIS_CLIENT.HMSET("machine:#{machine.machine_number}", "id", machine.id,"name", machine.name, "machine_type", machine.machine_type, "min_players", machine.min_players, "max_players", machine.max_players, "machine_number", machine.machine_number)
 			REDIS_CLIENT.SADD("machines_occupancy", "machine_id:#{machine.machine_number}")
 			machine.tournaments.each do |tournament|
+				REDIS_CLIENT.SADD("channels", "channel:#{tournament.id}")
 				REDIS_CLIENT.ZADD("tournament_sorted_set:#{machine.machine_number}", tournament.min_entry_level, "players_tournament:#{tournament.id}")
 				REDIS_CLIENT.HMSET("players_tournament:#{tournament.id}", "machine_name", machine.name, "machine_id", machine.machine_number, "machine_number", machine.id, "min_entry_level", tournament.min_entry_level, "max_entry_level", tournament.max_entry_level, "seed_money", tournament.seed_money, "timeout", tournament.time_out, "interval", tournament.interval, "points_required", tournament.points_required)
 			end
