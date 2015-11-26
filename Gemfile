@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 ruby '2.1.0'
 
+gem "newrelic_rpm"
 gem "rails-erd"
 gem 'active_model_serializers' 
 gem 'geoip'
