@@ -14,7 +14,11 @@ Rails.application.routes.draw do
 
   resources :jackpots
 
-  resources :tournaments
+  resources :tournaments do
+    member do
+      get :kill
+    end
+  end
 
   resources :user_progresses
 

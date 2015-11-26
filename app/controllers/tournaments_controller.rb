@@ -1,5 +1,5 @@
 class TournamentsController < ApplicationController
-  before_action :set_tournament, only: [:show, :edit, :update, :destroy]
+  before_action :set_tournament, only: [:show, :edit, :update, :destroy, :kill]
 
   # GET /tournaments
   # GET /tournaments.json
@@ -68,6 +68,11 @@ class TournamentsController < ApplicationController
       format.html { redirect_to tournaments_url }
       format.json { head :no_content }
     end
+  end
+
+  def kill
+    REDIS_CLIENT.PUBLISH("refresh_tournament", {publish_type: "refresh_tournament", tournament_id: @tournament.id}.to_json)
+    redirect_to :back, flash: {success: "Tournament killed"} 
   end
 
   private
