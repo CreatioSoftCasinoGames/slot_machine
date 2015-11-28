@@ -44,8 +44,8 @@ gem "less-rails" #Sprockets (what Rails 3.1 uses for its asset pipeline) support
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git', :branch => 'master'
 gem "font-awesome-rails"
 
-gem 'paperclip'
-gem 'aws-sdk'
+gem 'paperclip', '3.5.3'
+gem 'aws-sdk-v1'
 
 gem 'paper_trail', '~> 4.0.0.rc'
 gem 'exception_notification'
