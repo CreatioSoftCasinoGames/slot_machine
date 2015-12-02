@@ -30,7 +30,8 @@ class UserSerializer < ActiveModel::Serializer
              :update_required,
              :bet_index,
              :bet_per_line,
-             :unique_id
+             :unique_id,
+             :parent_id
       has_one :celebration
   
 end
