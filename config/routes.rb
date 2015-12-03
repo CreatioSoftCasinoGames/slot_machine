@@ -62,6 +62,7 @@ Rails.application.routes.draw do
       get :stop_tournament
       get :start_tournament
       get :delete_data
+      get :save_user_in_db
     end
   end
 
