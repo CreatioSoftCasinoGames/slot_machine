@@ -52,8 +52,11 @@ class UtilityController < ApplicationController
 				else
 					Celebration.create(celebrations: celebrations , reward: reward, user_id: id)
 				end
-
-
+				REDIS_CLIENT.SREM("user_profiles:1-1000", user)
+				REDIS_CLIENT.DEL(user)
+			else
+				REDIS_CLIENT.SREM("user_profiles:1-1000", user)
+				REDIS_CLIENT.DEL(user)
 			end
 		end
 		redirect_to root_path, flash: {success: "User profile has been synched successfully !"}
