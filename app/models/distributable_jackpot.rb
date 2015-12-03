@@ -69,12 +69,23 @@ class DistributableJackpot < ActiveRecord::Base
 			major_jackpot = Jackpot.where(jackpot_type: "Major").first
 
 			DistributableJackpot.create(jackpot_id: mini_jackpot.id, amount: mini_jackpot.seed_amount, seed_amount: mini_jackpot.seed_amount)
+			min_value = DistributableJackpot.where(jackpot_id: mini_jackpot.id, active: true).last
+			REDIS_CLIENT.HMSET("jackpot_details", "min_amount", min_value.amount.to_i, "min_id", min_value.id)
+
 			DistributableJackpot.create(jackpot_id: major_jackpot.id, amount: major_jackpot.seed_amount, seed_amount: major_jackpot.seed_amount)
+			major_value = DistributableJackpot.where(jackpot_id: major_jackpot.id, active: true).last
+			REDIS_CLIENT.HMSET("jackpot_details", "major_amount", major_value.amount.to_i, "major_id", major_value.id)
 		end
 	end
 
 	def self.create_and_publish_jackpot(distributable_jackpot)
 		DistributableJackpot.create(jackpot_id: distributable_jackpot.jackpot.id, seed_amount: distributable_jackpot.seed_amount, amount: distributable_jackpot.seed_amount)
+		new_jackpot = DistributableJackpot.last
+		if distributable_jackpot.jackpot.jackpot_type == "Min"
+			REDIS_CLIENT.HMSET("jackpot_details", "min_amount", new_jackpot.amount.to_i, "min_id", new_jackpot.id)
+		else
+			REDIS_CLIENT.HMSET("jackpot_details", "major_amount", new_jackpot.amount.to_i, "major_id", new_jackpot.id)
+		end
 		REDIS_CLIENT.PUBLISH("jackpotWinner", {publish_type: "jackpot_winner", winner_token: distributable_jackpot.winner_token, winner_name: distributable_jackpot.winner_name, jackpot_type: distributable_jackpot.jackpot.jackpot_type , amount: distributable_jackpot.amount, image_url: distributable_jackpot.image_url}.to_json)
 	end
 
