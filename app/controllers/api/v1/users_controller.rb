@@ -63,6 +63,7 @@ class Api::V1::UsersController < Api::V1::ApplicationController
 		gift_requests_sent_witnin_24_hours = @user.gift_requests_sent_witnin_24_hours
 		friends = @user.friends.collect do |friend|
 			{
+				id: friend.id,
 				login_token: friend.login_token,
 				online: friend.online,
 				current_level: friend.current_level,
