@@ -3,9 +3,9 @@ default: &default
   encoding: utf8
   pool: 20
   reaping_frequency: 3
-  username: 'slotvasco'
+  username: 'slot_admin'
   password: 'pass123654' 
-  host: 'slotvasco.cmo4dpfbrlkj.us-west-2.rds.amazonaws.com'
+  host: 'slotdb.ckj1qd3obxai.ap-southeast-1.rds.amazonaws.com'
   port: '3306'
 
 

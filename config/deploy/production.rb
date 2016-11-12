@@ -1,7 +1,7 @@
 # Settings for production server
 set :user, 'application'
-server 'rails01.slits.online', :app, :web
-set :rvm_type, :system
+server '10.0.3.68', :app, :web
+set :rvm_type, :user
 set :use_sudo, false
 set :deploy_via, :remote_cache
 set :copy_exclude, [ '.git' ]

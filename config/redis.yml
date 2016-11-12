@@ -8,7 +8,7 @@ development:
 
 # production environment
 production:
-    host: 'redis.slits.online'
+    host: 'slot.n8k84n.0001.apse1.cache.amazonaws.com'
     port: '6379'
 
 # production environment
