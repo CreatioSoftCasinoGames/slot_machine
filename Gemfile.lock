@@ -131,7 +131,7 @@ GEM
     mimemagic (0.3.0)
     minitest (5.9.1)
     multi_json (1.12.1)
-    mysql2 (0.4.5)
+    mysql2 (0.3.21)
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-sftp (2.1.2)
@@ -261,7 +261,7 @@ DEPENDENCIES
   jquery-rails
   less-rails
   makara!
-  mysql2
+  mysql2 (~> 0.3.16)
   newrelic_rpm
   paper_trail (~> 4.0.0.rc)
   paperclip
